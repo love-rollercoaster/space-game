@@ -7,28 +7,28 @@
 
 struct Triplet
 {
-	int a, b, c;
-	
-	Triplet() {}
-	Triplet( int u, int v, int w ) : a(u), b(v), c(w) {}
-	Triplet( const Triplet& orig ) : a(orig.a), b(orig.b), c(orig.c) {}
-	
-	Triplet& operator=( const Triplet& orig )
-		{ a = orig.a;  b = orig.b;  c = orig.c;  return *this; }
+    int a, b, c;
+    
+    Triplet() {}
+    Triplet( int u, int v, int w ) : a(u), b(v), c(w) {}
+    Triplet( const Triplet& orig ) : a(orig.a), b(orig.b), c(orig.c) {}
+    
+    Triplet& operator=( const Triplet& orig )
+        { a = orig.a;  b = orig.b;  c = orig.c;  return *this; }
 };
 
 
 std::ostream& operator<<( std::ostream& os, const Triplet& t )
 {
-	// Save a triplet to os
-	os << t.a << " " << t.b << " " << t.c;
-	return os;
+    // Save a triplet to os
+    os << t.a << " " << t.b << " " << t.c;
+    return os;
 }
 
 
 std::istream& operator>>( std::istream& is, Triplet& t )
 {
-	// Load a triplet from is
-	is >> t.a >> t.b >> t.c;
-	return is;
+    // Load a triplet from is
+    is >> t.a >> t.b >> t.c;
+    return is;
 }

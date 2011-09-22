@@ -6,11 +6,11 @@
 class GameEngine
 {
 public:
-	GameEngine(void);
-	~GameEngine(void);
+    GameEngine(void);
+    ~GameEngine(void);
 
 private:
-	// DisplaySystem displaySystem;
-	GraphicsEngine graphicsEngine;
-	// InputHandler inputHandler;
+    // DisplaySystem displaySystem;
+    GraphicsEngine graphicsEngine;
+    // InputHandler inputHandler;
 };

@@ -9,24 +9,24 @@ using std::string;
 class Window
 {
 public:
-	Window(string title, HINSTANCE currentInstance, DWORD style, int width, int height);
-	~Window(void);
+    Window(string title, HINSTANCE currentInstance, DWORD style, int width, int height);
+    ~Window(void);
 
-	static LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
+    static LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 
-	void show();
-	WPARAM runMessageLoop();
+    void show();
+    WPARAM runMessageLoop();
 
 private:
-	string className;
+    string className;
 
-	HWND windowHandle;
-	HDC hdc;
-	WNDCLASSEX windowClass;
+    HWND windowHandle;
+    HDC hdc;
+    WNDCLASSEX windowClass;
 
-	// Construction helpers
-	void initializeWindowClass(HINSTANCE currentInstance, DWORD style);
-	void registerWindowClass();
-	void createWindow(HINSTANCE currentInstance, string title, int width, int height);
+    // Construction helpers
+    void initializeWindowClass(HINSTANCE currentInstance, DWORD style);
+    void registerWindowClass();
+    void createWindow(HINSTANCE currentInstance, string title, int width, int height);
 };
 

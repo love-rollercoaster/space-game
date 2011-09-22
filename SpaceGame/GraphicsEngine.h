@@ -3,7 +3,6 @@
 #include <atlbase.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "display.h"
 
 class GraphicsEngine
 {
@@ -13,9 +12,7 @@ public:
 
 	CComPtr<IDirect3DDevice9> getDirect3DDevice() const;
 
-	void initializeD3D(Display display);
 	void initializeD3D(HWND window, int windowWidth, int windowHeight, bool isFullscreen);
-
 	void resetD3DDevice();
 
 private:

@@ -1,16 +1,24 @@
 #pragma once
 
-#include "graphicsengine.h"
-// #include "inputservice.h"
+#include "GraphicsEngine.h"
+#include "GameApp.h"
 
+#define TARGET_FRAMERATE 60 // Maybe extract this to a parameter
 class GameEngine
 {
 public:
-    GameEngine(void);
+    // Does not take ownership of sub-components
+    GameEngine(GameApp &gameApp, GraphicsEngine &graphicsEngine);
     ~GameEngine(void);
 
+    WPARAM startGameLoop();
+
 private:
-    // DisplaySystem displaySystem;
-    GraphicsEngine graphicsEngine;
-    // InputHandler inputHandler;
+    const time_t TIME_PER_FRAME;
+
+    MSG getMessage();
+    void updateGameState(time_t time);
+
+    GraphicsEngine &graphicsEngine;
+    GameApp &gameApp;
 };

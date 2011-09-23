@@ -49,6 +49,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Ws2_32.lib;d3d9.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -66,17 +67,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConfigFile.cpp" />
-    <ClCompile Include="Display.cpp" />
+    <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
+    <ClCompile Include="SpaceGameApp.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConfigFile.h" />
-    <ClInclude Include="Display.h" />
+    <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="GraphicsEngine.h" />
+    <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="SpaceGameApp.h" />
     <ClInclude Include="Triplet.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

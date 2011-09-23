@@ -13,15 +13,15 @@ public:
     ~Window(void);
 
     static LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
-
     void show();
-    WPARAM runMessageLoop();
+
+    HWND getWindowHandle();
 
 private:
     string className;
 
-    HWND windowHandle;
     HDC hdc;
+    HWND windowHandle;
     WNDCLASSEX windowClass;
 
     // Construction helpers

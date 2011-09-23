@@ -1,9 +1,9 @@
 #pragma once
 
 #include <string>
-#include <windows.h>
-#include "graphicsengine.h"
-// #include "inputhandler.h"
+#include <Windows.h>
+
+#include "GraphicsEngine.h"
 
 using std::string;
 
@@ -11,10 +11,13 @@ class GameApp
 {
 public:
 	GameApp(string title);
-	virtual ~GameApp(void) = 0;
+
+    virtual void update(time_t time) = 0;
+    virtual void draw(GraphicsEngine &graphicsEngine) = 0;
+    // virtual void handleInput() = 0;
 
 private:
-	// DisplaySystem displaySystem;
-	GraphicsEngine *graphicsEngine;
-	// InputHandler inputHandler;
+    // MSG getMessage();
+    string title;
+
 };

@@ -1,6 +1,5 @@
 #include "GraphicsEngine.h"
 
-
 GraphicsEngine::GraphicsEngine(void)
 {
 }
@@ -30,6 +29,7 @@ void GraphicsEngine::initializeD3D(HWND window, int windowWidth, int windowHeigh
     //     d3ddev->SetTransform (D3DTS_VIEW, &matIdentity);
 
     initRenderStates();
+    initVertices();
 }
 
 void GraphicsEngine::initDirect3DInterface()
@@ -45,13 +45,13 @@ void GraphicsEngine::initDirect3DInterface()
 void GraphicsEngine::initPresentationParameters(HWND window, int windowWidth, int windowHeight, bool isFullscreen)
 {
     ZeroMemory(&d3dPresentationParameters, sizeof(d3dPresentationParameters));
-    d3dPresentationParameters.Windowed            = !isFullscreen;             // program is fullscreen or windowed
+    d3dPresentationParameters.Windowed          = !isFullscreen;             // program is fullscreen or windowed
     d3dPresentationParameters.SwapEffect        = D3DSWAPEFFECT_DISCARD;     // discard old frames
-    d3dPresentationParameters.hDeviceWindow        = window;                     // set the window to be used by Direct3D
-    d3dPresentationParameters.BackBufferFormat    = D3DFMT_X8R8G8B8;             // set the back buffer format to 32-bit
-    d3dPresentationParameters.BackBufferWidth    = windowWidth;               // set the width of the buffer
-    d3dPresentationParameters.BackBufferHeight    = windowHeight;              // set the height of the buffer
-    d3dPresentationParameters.MultiSampleType    = D3DMULTISAMPLE_4_SAMPLES;  // anti-aliasing
+    d3dPresentationParameters.hDeviceWindow     = window;                    // set the window to be used by Direct3D
+    d3dPresentationParameters.BackBufferFormat  = D3DFMT_X8R8G8B8;           // set the back buffer format to 32-bit
+    d3dPresentationParameters.BackBufferWidth   = windowWidth;               // set the width of the buffer
+    d3dPresentationParameters.BackBufferHeight  = windowHeight;              // set the height of the buffer
+    d3dPresentationParameters.MultiSampleType   = D3DMULTISAMPLE_4_SAMPLES;  // anti-aliasing
 }
 
 void GraphicsEngine::initDirect3DDevice(HWND window)
@@ -78,6 +78,63 @@ void GraphicsEngine::initRenderStates()
     direct3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); 
 }
 
+void GraphicsEngine::initVertices()
+{
+    CustomVertex triangle[] =
+    {
+        { 400.0f, 62.5f,  0.5f, 1.0f, D3DCOLOR_XRGB(0,   0,   255) },
+        { 650.0f, 500.0f, 0.5f, 1.0f, D3DCOLOR_XRGB(0,   255, 0  ) },
+        { 150.0f, 500.0f, 0.5f, 1.0f, D3DCOLOR_XRGB(255, 0,   0  ) },
+    };
+
+    LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
+
+    direct3DDevice->CreateVertexBuffer(3*sizeof(CustomVertex),
+                                       0,
+                                       CUSTOM_FLEXIBLE_VECTOR_FORMAT,
+                                       D3DPOOL_MANAGED,
+                                       &vertexBuffer,
+                                       NULL);
+    vertexBuffers.push_front(vertexBuffer);
+
+    VOID* vertices;
+    vertexBuffer->Lock(0, 0, static_cast<void**>(&vertices), 0);
+    memcpy(vertices, triangle, sizeof(triangle));
+    vertexBuffer->Unlock();
+}
+
+void GraphicsEngine::beginDraw()
+{
+    direct3DDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0,0,0), 1.0f, 0);
+    direct3DDevice->BeginScene();
+}
+
+void GraphicsEngine::endDraw()
+{
+    direct3DDevice->EndScene();
+    direct3DDevice->Present(NULL, NULL, NULL, NULL);
+}
+
+void GraphicsEngine::drawTestVertices()
+{
+    for each (LPDIRECT3DVERTEXBUFFER9 vertexBuffer in vertexBuffers) {
+        direct3DDevice->SetFVF(CUSTOM_FLEXIBLE_VECTOR_FORMAT);
+        direct3DDevice->SetStreamSource(0, vertexBuffer, 0, sizeof(CustomVertex));
+        direct3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+    }
+}
+
+void GraphicsEngine::cleanDirect3D()
+{
+    cleanVertices();
+}
+
+void GraphicsEngine::cleanVertices()
+{
+    for each (LPDIRECT3DVERTEXBUFFER9 vertexBuffer in vertexBuffers) {
+        vertexBuffer->Release();
+    }
+}
 
 void GraphicsEngine::resetD3DDevice()
 {
@@ -98,14 +155,9 @@ void GraphicsEngine::resetD3DDevice()
         break;
     default:
         // ERR("Unhandled error when resetting d3d device");
-		break;
+        break;
     }
 
     // d3dspt->OnResetDevice();
     initRenderStates();
 }
-
-
-
-
-

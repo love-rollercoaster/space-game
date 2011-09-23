@@ -1,6 +1,6 @@
 #include "Window.h"
 
-Window::Window(string title,  HINSTANCE currentInstance, DWORD style, int width, int height)
+Window::Window(string title, HINSTANCE currentInstance, DWORD style, int width, int height)
     : className("win32app")
 {
     initializeWindowClass(currentInstance, style);
@@ -54,42 +54,22 @@ void Window::createWindow(HINSTANCE currentInstance, string title, int width, in
 
 LRESULT CALLBACK Window::WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    HDC hdc;
-    PAINTSTRUCT ps;
-    TCHAR greeting[] = _T("Hello, World!");
-
     switch (message)
     {
-    case WM_PAINT:
-        hdc = BeginPaint(hWnd, &ps);
-        TextOut(hdc, 5, 5, greeting, _tcslen(greeting));
-        EndPaint(hWnd, &ps);
-        break;
-
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        break;
-
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
-        break;
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            break;
     }
 
-    return 0;
-}
-
-WPARAM Window::runMessageLoop()
-{
-    MSG msg;
-    while(GetMessage(&msg, NULL, 0, 0) > 0)
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
-    return msg.wParam;
+    return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
 void Window::show()
 {
     ShowWindow(windowHandle, SW_SHOW);
+}
+
+HWND Window::getWindowHandle()
+{
+    return windowHandle;
 }

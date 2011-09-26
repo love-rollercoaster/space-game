@@ -91,8 +91,15 @@ void GraphicsEngine::endDraw()
 
 void GraphicsEngine::cleanDirect3D()
 {
+    cleanVertexBuffers();
 }
 
+void GraphicsEngine::cleanVertexBuffers()
+{
+    for each (LPDIRECT3DVERTEXBUFFER9 vertexBuffer in vertexBuffers) {
+        vertexBuffer->Release();
+    }
+}
 
 void GraphicsEngine::resetD3DDevice()
 {
@@ -120,8 +127,9 @@ void GraphicsEngine::resetD3DDevice()
     initRenderStates();
 }
 
-void GraphicsEngine::createVertexBuffer( LPDIRECT3DVERTEXBUFFER9 &vertexBuffer, CustomVertex vertices[], int numberOfVertices )
+LPDIRECT3DVERTEXBUFFER9 GraphicsEngine::createVertexBuffer( CustomVertex vertices[], int numberOfVertices )
 {
+    LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
     direct3DDevice->CreateVertexBuffer(numberOfVertices * sizeof(CustomVertex),
                                        0,
                                        CUSTOM_FLEXIBLE_VECTOR_FORMAT,
@@ -129,8 +137,19 @@ void GraphicsEngine::createVertexBuffer( LPDIRECT3DVERTEXBUFFER9 &vertexBuffer, 
                                        &vertexBuffer,
                                        NULL);
 
+    vertexBuffers.push_front(vertexBuffer);
+
     VOID* pVoid;
     vertexBuffer->Lock(0, 0, static_cast<void**>(&pVoid), 0);
-    memcpy(pVoid, vertices, sizeof(vertices));
+    memcpy(pVoid, vertices, numberOfVertices * sizeof(CustomVertex));
     vertexBuffer->Unlock();
+
+    return vertexBuffer;
+}
+
+void GraphicsEngine::drawVertexBuffer( LPDIRECT3DVERTEXBUFFER9 &vertexBuffer)
+{
+    direct3DDevice->SetFVF(CUSTOM_FLEXIBLE_VECTOR_FORMAT);
+    direct3DDevice->SetStreamSource(0, vertexBuffer, 0, sizeof(CustomVertex));
+    direct3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
 }

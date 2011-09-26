@@ -10,7 +10,7 @@
 #include <windows.h>
 
 #include "GameEngine.h"
-#include "SpaceGameApp.h"
+#include "TestGameApp.h"
 #include "Window.h"
 
 // #define _CRTDBG_MAP_ALLOC
@@ -32,10 +32,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     Window window("SpaceGame", hInstance, CS_HREDRAW | CS_VREDRAW, WINDOW_WIDTH, WINDOW_HEIGHT);
     HWND windowHandle = window.getWindowHandle();
 
-    SpaceGameApp gameApp;
+    TestGameApp testGameApp;
+
     GraphicsEngine graphicsEngine;
     graphicsEngine.initializeD3D(windowHandle, WINDOW_WIDTH, WINDOW_HEIGHT, false);
-    GameEngine gameEngine(gameApp, graphicsEngine);
+
+    GameEngine gameEngine(testGameApp, graphicsEngine);
+
+    testGameApp.init(gameEngine);
 
     window.show();
     gameEngine.startGameLoop();

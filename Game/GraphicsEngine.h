@@ -31,12 +31,16 @@ public:
     void beginDraw();
     void endDraw();
 
-    void createVertexBuffer( LPDIRECT3DVERTEXBUFFER9 &vertexBuffer, CustomVertex vertices[], int numberOfVertices );
+    // This will take care of releasing the vertex buffer.
+    LPDIRECT3DVERTEXBUFFER9 createVertexBuffer(CustomVertex vertices[], int numberOfVertices );
+
+    void drawVertexBuffer(LPDIRECT3DVERTEXBUFFER9 &vertexBuffer);
 
 private:
     CComPtr<IDirect3D9> direct3DInterface;
     CComPtr<IDirect3DDevice9> direct3DDevice;
     D3DPRESENT_PARAMETERS d3dPresentationParameters;
+    list<LPDIRECT3DVERTEXBUFFER9> vertexBuffers;
 
     void initDirect3DInterface();
     void initPresentationParameters(HWND window, int windowWidth, int windowHeight, bool isFullscreen);
@@ -44,6 +48,7 @@ private:
     void initRenderStates();
 
     void cleanDirect3D();
+    void cleanVertexBuffers();
 };
 
 

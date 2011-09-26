@@ -13,8 +13,8 @@ public:
     ~Window(void);
 
     static LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
-    void show();
 
+    void show();
     HWND getWindowHandle();
 
 private:
@@ -24,9 +24,7 @@ private:
     HWND windowHandle;
     WNDCLASSEX windowClass;
 
-    // Construction helpers
     void initializeWindowClass(HINSTANCE currentInstance, DWORD style);
     void registerWindowClass();
     void createWindow(HINSTANCE currentInstance, string title, int width, int height);
 };
-

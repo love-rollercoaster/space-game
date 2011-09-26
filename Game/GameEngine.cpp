@@ -1,5 +1,8 @@
 #include "GameEngine.h"
 
+#include "GameObject.h"
+#include "TestGraphicsComponent.h"
+
 GameEngine::GameEngine(GameApp &gameApp, GraphicsEngine &graphicsEngine)
     : TIME_PER_FRAME(1000 / TARGET_FRAMERATE)
     , gameApp(gameApp)
@@ -17,6 +20,11 @@ WPARAM GameEngine::startGameLoop()
     time_t elapsedTime, lastUpdateTime, lastRenderTime;
     lastUpdateTime = lastRenderTime = GetTickCount();
 
+    TestGraphicsComponent testGraphicsComponent;
+    testGraphicsComponent.init(graphicsEngine);
+
+    GameObject testObject(NULL, NULL, &testGraphicsComponent);
+
     do {
         msg = getMessage();
 
@@ -25,7 +33,7 @@ WPARAM GameEngine::startGameLoop()
 
         graphicsEngine.beginDraw();
         // gameApp.draw(graphicsEngine);
-        graphicsEngine.drawTestVertices();
+        testObject.draw(graphicsEngine);
         graphicsEngine.endDraw();
 
         elapsedTime = GetTickCount() - lastRenderTime;

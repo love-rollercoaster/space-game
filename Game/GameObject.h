@@ -7,28 +7,32 @@
 
 class GraphicsEngine;
 
+// This class should not take ownership of its components.
 class GameObject
 {
 public:
     GameObject(InputComponent* inputComponent,
                PhysicsComponent* physicsComponent,
                GraphicsComponent* graphicsComponent)
-    : inputComponent(inputComponent)
-    , physicsComponent(physicsComponent)
-    , graphicsComponent(graphicsComponent)
+        : inputComponent(inputComponent)
+        , physicsComponent(physicsComponent)
+        , graphicsComponent(graphicsComponent)
     {
-
     }
 
     virtual void update(time_t time)
     {
-        inputComponent->update(*this, time);
-        physicsComponent->update(*this, time);
+        if (inputComponent != NULL)
+            inputComponent->update(*this, time);
+
+        if (physicsComponent != NULL)
+            physicsComponent->update(*this, time);
     };
 
     virtual void draw(GraphicsEngine &graphicsEngine)
     {
-        graphicsComponent->draw(*this, graphicsEngine);
+        if (graphicsComponent != NULL)
+            graphicsComponent->draw(*this, graphicsEngine);
     };
 
 private:

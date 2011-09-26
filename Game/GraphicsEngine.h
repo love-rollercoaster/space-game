@@ -11,6 +11,12 @@
 
 using std::list;
 
+struct CustomVertex
+{
+    FLOAT x, y, z, rhw; // D3DFVF_XYZRHW
+    DWORD color;        // D3DFVF_DIFFUSE
+};
+
 class GraphicsEngine
 {
 public:
@@ -25,30 +31,19 @@ public:
     void beginDraw();
     void endDraw();
 
-    void drawTestVertices();
+    void createVertexBuffer( LPDIRECT3DVERTEXBUFFER9 &vertexBuffer, CustomVertex vertices[], int numberOfVertices );
 
 private:
     CComPtr<IDirect3D9> direct3DInterface;
     CComPtr<IDirect3DDevice9> direct3DDevice;
     D3DPRESENT_PARAMETERS d3dPresentationParameters;
-    list<LPDIRECT3DVERTEXBUFFER9> vertexBuffers;
 
     void initDirect3DInterface();
     void initPresentationParameters(HWND window, int windowWidth, int windowHeight, bool isFullscreen);
     void initDirect3DDevice(HWND window);
     void initRenderStates();
-    void initVertices();
-
-    
 
     void cleanDirect3D();
-    void cleanVertices();
-
-    struct CustomVertex
-    {
-        FLOAT x, y, z, rhw; // D3DFVF_XYZRHW
-        DWORD color;        // D3DFVF_DIFFUSE
-    };
 };
 
 

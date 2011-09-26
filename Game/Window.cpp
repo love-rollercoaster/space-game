@@ -59,6 +59,8 @@ LRESULT CALLBACK Window::WindowProcedure(HWND hWnd, UINT message, WPARAM wParam,
         case WM_DESTROY:
             PostQuitMessage(0);
             break;
+        case WM_SIZE:
+            break;
     }
 
     return DefWindowProc(hWnd, message, wParam, lParam);

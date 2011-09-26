@@ -7,10 +7,8 @@ SpaceGameApp::SpaceGameApp(void)
 
 void SpaceGameApp::update( time_t time )
 {
-    // do stuff
 }
 
 void SpaceGameApp::draw(GraphicsEngine &graphicsEngine)
 {
 }
-

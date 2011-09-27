@@ -7,17 +7,24 @@
 
 class GraphicsEngine;
 
-// This class should not take ownership of its components.
+// Does not take ownership of components.
 class GameObject
 {
 public:
-    GameObject(InputComponent* inputComponent,
-               PhysicsComponent* physicsComponent,
-               GraphicsComponent* graphicsComponent)
-        : inputComponent(inputComponent)
-        , physicsComponent(physicsComponent)
-        , graphicsComponent(graphicsComponent)
+    GameObject(void)
+        : inputComponent(NULL)
+        , physicsComponent(NULL)
+        , graphicsComponent(NULL)
     {
+    }
+
+    virtual void init(InputComponent* inputComponent,
+                      PhysicsComponent* physicsComponent,
+                      GraphicsComponent* graphicsComponent)
+    {
+        this->inputComponent = inputComponent;
+        this->graphicsComponent = graphicsComponent;
+        this->physicsComponent = physicsComponent;
     }
 
     virtual void update(time_t time)

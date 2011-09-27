@@ -11,7 +11,7 @@ Window::~Window(void)
 {
 }
 
-void Window::Initialize(HINSTANCE hInstance, string title, int width, int height)
+void Window::Init(HINSTANCE hInstance, string title, int width, int height)
 {
     this->width = width;
     this->height = height;

@@ -38,12 +38,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     TestGameApp testGameApp;
 
     Window window;
-    window.Initialize(hInstance, testGameApp.getTitle(), WINDOW_WIDTH, WINDOW_HEIGHT);
+    window.Init(hInstance, testGameApp.getTitle(), WINDOW_WIDTH, WINDOW_HEIGHT);
     window.RegisterMessageHandler(WM_DESTROY, WindowDestroyHandler);
     window.ShowWindow(nCmdShow);
 
     GraphicsEngine graphicsEngine;
     graphicsEngine.initializeD3D(window, false);
+
     GameEngine gameEngine(testGameApp, graphicsEngine);
 
     testGameApp.init(gameEngine);

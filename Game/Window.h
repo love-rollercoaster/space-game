@@ -40,7 +40,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 class Window
 {
 public:
-    typedef long (* MessageHandler)(Window&, HWND, long, long);
+    typedef long (*MessageHandler)(Window&, HWND, long, long);
 
     Window(void);
     ~Window(void);
@@ -50,7 +50,7 @@ public:
     static void ShowWindow(int nCmdShow);
     static MessageHandler RegisterMessageHandler(long message, MessageHandler handler);
 
-    void Initialize(HINSTANCE hInstance, string title, int width, int height);
+    void Init(HINSTANCE hInstance, string title, int width, int height);
     int getWidth();
     int getHeight();
 

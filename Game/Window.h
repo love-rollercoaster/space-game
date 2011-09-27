@@ -1,5 +1,3 @@
-// This class is based on
-// http://www.gamedev.net/page/resources/_/reference/programming/creating-a-win32-window-wrapper-class-r1810
 
 #pragma once
 
@@ -11,10 +9,37 @@
 using std::map;
 using std::string;
 
+/*
+Based on
+http://www.gamedev.net/page/resources/_/reference/programming/creating-a-win32-window-wrapper-class-r1810
+
+= HOW TO USE THIS CLASS =================================================================================
+1. Instantiate an object.
+2. Call the static Initialize method.
+   This creates the win32 window.
+
+To handle a message, you need to register a message handler. 
+This allows the addition of message handlers at runtime.
+
+Ex.
+long DestroyHandler(Window &window, HWND hwnd, long wparam, long lparam) 
+{
+    ::PostQuitMessage(0);
+    return 0;
+}
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+    Window window;
+    window.Initialize(hInstance, "Hello World", 800, 600);
+    window.RegisterMessageHandler(WM_DESTROY, DestroyHandler);
+    window.ShowWindow(nCmdShow);
+}
+*/
+
+
 class Window
 {
 public:
-    
     typedef long (* MessageHandler)(Window&, HWND, long, long);
 
     Window(void);
@@ -33,6 +58,7 @@ private:
     typedef map<long, MessageHandler> MessageMap;
     typedef MessageMap::iterator MessageIterator;
 
+    // Maybe we should do GetClientRect instead
     int width;
     int height;
 

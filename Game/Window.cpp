@@ -44,7 +44,7 @@ void Window::Initialize(HINSTANCE hInstance, string title, int width, int height
                              NULL,
                              NULL,
                              hInstance,
-                             this);
+                             this); // retrieved by calling RetrieveWindowInstanceFromWindowCreationData
 
     if (!hwnd) {
         // throw here
@@ -58,7 +58,6 @@ LRESULT CALLBACK Window::MessageRouter(HWND hwnd, UINT message, WPARAM wparam, L
     switch(message)
     {
     case WM_NCCREATE:
-        // retrieve Window instance from window creation data and associate
         wnd = Window::RetrieveWindowInstanceFromWindowCreationData(hwnd, lparam);
         Window::AssociateWindowInstanceFromWindowCreationData(hwnd, wnd);
         break;

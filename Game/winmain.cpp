@@ -23,7 +23,7 @@ void seedRandom();
 #define WINDOW_WIDTH 800   // these will change
 #define WINDOW_HEIGHT 600
 
-long WindowDestroyHandler(Window& window, HWND hwnd, long wparam, long lparam) 
+long WindowDestroyHandler(Window &window, HWND hwnd, long wparam, long lparam) 
 {
     ::PostQuitMessage(0);
     return 0;
@@ -35,12 +35,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     #endif
     seedRandom();
 
+    TestGameApp testGameApp;
+
     Window window;
-    window.Initialize(hInstance, "Test Window", WINDOW_WIDTH, WINDOW_HEIGHT);
+    window.Initialize(hInstance, testGameApp.getTitle(), WINDOW_WIDTH, WINDOW_HEIGHT);
     window.RegisterMessageHandler(WM_DESTROY, WindowDestroyHandler);
     window.ShowWindow(nCmdShow);
 
-    TestGameApp testGameApp;
     GraphicsEngine graphicsEngine;
     graphicsEngine.initializeD3D(window, false);
     GameEngine gameEngine(testGameApp, graphicsEngine);

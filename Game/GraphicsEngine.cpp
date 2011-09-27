@@ -72,6 +72,7 @@ void GraphicsEngine::initDirect3DDevice(HWND window)
 
 void GraphicsEngine::initRenderStates()
 {
+    direct3DDevice->SetRenderState(D3DRS_CULLMODE,D3DCULL_NONE);
     direct3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
     direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE , true);
     direct3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);

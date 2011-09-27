@@ -13,14 +13,15 @@ void TestGameApp::init( GameEngine &gameEngine )
 {
     initComponents(gameEngine);
 
-    GameObject* triangle1 = new GameObject();
+    GameObject* testGameObject = new GameObject();
     // GameObject* triangle2 = new GameObject();
     // GameObject* triangle3 = new GameObject();
 
-    triangle1->init(NULL, NULL, &testGraphicsComponent);
+    testGameObject->init(NULL, NULL, &testGraphicsComponent);
+    testGameObject->setPosition(300.0f, 200.0f, 0.0f);
 
     testGameWorld.init(gameEngine);
-    testGameWorld.addGameObject(triangle1);
+    testGameWorld.addGameObject(testGameObject);
 }
 
 void TestGameApp::update( time_t time )

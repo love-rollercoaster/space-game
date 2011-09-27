@@ -10,13 +10,14 @@
 
 #pragma comment (lib, "d3d9.lib")
 
-#define CUSTOM_FLEXIBLE_VECTOR_FORMAT (D3DFVF_XYZ | D3DFVF_DIFFUSE)
+#define CUSTOM_FLEXIBLE_VECTOR_FORMAT (D3DFVF_XYZRHW | D3DFVF_DIFFUSE)
 
 using std::list;
 
 struct CustomVertex
 {
-    FLOAT x, y, z;
+    D3DXVECTOR3 position;
+    FLOAT rhw;
     DWORD color;
 };
 

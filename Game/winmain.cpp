@@ -23,27 +23,34 @@ void seedRandom();
 #define WINDOW_WIDTH 800   // these will change
 #define WINDOW_HEIGHT 600
 
+long WindowDestroyHandler(Window& window, HWND hwnd, long wparam, long lparam) 
+{
+    ::PostQuitMessage(0);
+    return 0;
+}
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     #ifdef _DEBUG
         RedirectIOToConsole();
     #endif
     seedRandom();
 
-    Window window("SpaceGame", hInstance, CS_HREDRAW | CS_VREDRAW, WINDOW_WIDTH, WINDOW_HEIGHT);
-    HWND windowHandle = window.getWindowHandle();
+    Window window;
+    window.Initialize(hInstance, "Test Window", WINDOW_WIDTH, WINDOW_HEIGHT);
+    window.RegisterMessageHandler(WM_DESTROY, WindowDestroyHandler);
+    window.ShowWindow(nCmdShow);
 
     TestGameApp testGameApp;
-
     GraphicsEngine graphicsEngine;
-    graphicsEngine.initializeD3D(windowHandle, WINDOW_WIDTH, WINDOW_HEIGHT, false);
-
+    graphicsEngine.initializeD3D(window, false);
     GameEngine gameEngine(testGameApp, graphicsEngine);
 
     testGameApp.init(gameEngine);
 
-    window.show();
     gameEngine.startGameLoop();
 }
+
+
 
 void RedirectIOToConsole(){
     CONSOLE_SCREEN_BUFFER_INFO coninfo;

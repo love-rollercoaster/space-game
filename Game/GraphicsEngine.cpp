@@ -13,11 +13,12 @@ CComPtr<IDirect3DDevice9> GraphicsEngine::getDirect3DDevice() const
     return direct3DDevice;
 }
 
-void GraphicsEngine::initializeD3D(HWND window, int windowWidth, int windowHeight, bool isFullscreen)
+void GraphicsEngine::initializeD3D(Window window, bool isFullscreen)
 {
     initDirect3DInterface();
-    initPresentationParameters(window, windowWidth, windowHeight, isFullscreen);
-    initDirect3DDevice(window);
+    HWND hwnd = window.GetHWND();
+    initPresentationParameters(hwnd, window.getWidth(), window.getHeight(), isFullscreen);
+    initDirect3DDevice(hwnd);
 
     //     this fun stuff is for setting up the view
     //     D3DXMATRIX matOrtho;

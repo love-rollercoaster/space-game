@@ -4,6 +4,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <list>
+#include "Window.h"
 
 #pragma comment (lib, "d3d9.lib")
 
@@ -25,7 +26,7 @@ public:
 
     CComPtr<IDirect3DDevice9> getDirect3DDevice() const;
 
-    void initializeD3D(HWND window, int windowWidth, int windowHeight, bool isFullscreen);
+    void initializeD3D(Window window, bool isFullscreen);
     void resetD3DDevice();
 
     void beginDraw();

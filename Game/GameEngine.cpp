@@ -16,7 +16,7 @@ GameEngine::~GameEngine(void)
 
 WPARAM GameEngine::startGameLoop()
 {
-    MSG    msg;
+    MSG msg;
     time_t elapsedTime, lastUpdateTime, lastRenderTime;
     lastUpdateTime = lastRenderTime = GetTickCount();
 

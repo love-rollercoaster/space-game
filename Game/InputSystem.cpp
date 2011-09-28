@@ -24,11 +24,12 @@ void InputSystem::init(/* Window &window */)
     InputComponent::SetInputSystem(this);
 }
 
-void InputSystem::registerInputHandler( InputComponent &inputComponent, unsigned char key, InputComponent::KeyboardInputHandler inputHandler )
+void InputSystem::registerInputHandler( unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler )
 {
-    InputSystem::keyboardMappings.insert(
-        KeyboardMapping(key, KeyboardInputHandlerPair(&inputComponent, inputHandler)));
+    InputSystem::AddToKeyboardMappings(key, inputComponent, inputHandler);
 }
+
+
 
 void InputSystem::registerInputHandler( InputComponent &inputComponent, InputComponent::MouseInputHandler inputHandler )
 {
@@ -45,20 +46,41 @@ long InputSystem::HandleKeyboardInput( Window &window, HWND hwnd, long wparam, l
 {
     printf("[InputSystem]: Received input!\n");
 
-    KeyboardMappings::iterator keyboardMappingsIterator;
-
-    keyboardMappingsIterator = keyboardMappings.find(wparam);
-
+    KeyboardMappings::iterator keyboardMappingsIterator  = keyboardMappings.find(wparam);
     if (keyboardMappingsIterator != keyboardMappings.end()) {
-        KeyboardInputHandlerPair &inputHandlerPair = keyboardMappingsIterator->second;
-        InputComponent *inputComponent = inputHandlerPair.first;
-        InputComponent::KeyboardInputHandler &inputHandler = inputHandlerPair.second;
 
-        return (inputComponent->*inputHandler)(window, static_cast<unsigned int>(wparam));
+        list<KeyboardInputHandlerPair> &keyboardInputHandlerPairs = keyboardMappingsIterator->second;
+        DispatchMessageToRegisteredHandlers(static_cast<unsigned char>(wparam), window, keyboardInputHandlerPairs);
+
+        return 0; // what do I return here??
     }
 }
 
 long InputSystem::HandleMouseInput( Window &window, HWND hwnd, long wparam, long lparam )
 {
     return 0;
+}
+
+void InputSystem::DispatchMessageToRegisteredHandlers(unsigned char key, Window &window, list<KeyboardInputHandlerPair> &inputHandlers )
+{
+    for each (KeyboardInputHandlerPair keyboardInputHandlerPair in inputHandlers)
+    {
+        InputComponent *inputComponent = keyboardInputHandlerPair.first;
+        InputComponent::KeyboardInputHandler &inputHandler = keyboardInputHandlerPair.second;
+        (inputComponent->*inputHandler)(window, key);
+    }
+}
+
+void InputSystem::AddToKeyboardMappings(unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler)
+{
+    KeyboardMappings::iterator keyboardMappingsIterator = InputSystem::keyboardMappings.find(key);
+
+    if (keyboardMappingsIterator != keyboardMappings.end()) {
+        list<KeyboardInputHandlerPair> &keyboardInputHandlerPairs = keyboardMappingsIterator->second;
+        keyboardInputHandlerPairs.push_back(KeyboardInputHandlerPair(&inputComponent, inputHandler));
+    } 
+    else {
+        InputSystem::keyboardMappings.insert(KeyboardMapping(key, list<KeyboardInputHandlerPair>()));
+        AddToKeyboardMappings(key, inputComponent, inputHandler);
+    }
 }

@@ -17,5 +17,5 @@ long TestInputComponent::leftArrowHandler( Window &window, unsigned char key )
 
 void TestInputComponent::registerInputHandlers()
 {
-    registerInputHandler(VK_LEFT, KEYBOARD_INPUT_HANDLER(TestInputComponent, leftArrowHandler));
+    registerInputHandler(VK_LEFT, MAKE_KEYBOARD_INPUT_HANDLER(TestInputComponent::leftArrowHandler));
 }

@@ -14,8 +14,6 @@ void TestGameApp::init( GameEngine &gameEngine )
     initComponents(gameEngine);
 
     GameObject* testGameObject = new GameObject();
-    // GameObject* triangle2 = new GameObject();
-    // GameObject* triangle3 = new GameObject();
 
     testGameObject->init(NULL, NULL, &testGraphicsComponent);
     testGameObject->setPosition(300.0f, 200.0f, 0.0f);

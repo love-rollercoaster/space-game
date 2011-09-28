@@ -7,8 +7,14 @@ class InputSystem;
 class Window;
 class Point;
 
-#define KEYBOARD_INPUT_HANDLER(derivedClassName, methodName) \
-    reinterpret_cast<KeyboardInputHandler>(&derivedClassName::methodName)
+#define MAKE_KEYBOARD_INPUT_HANDLER(function) \
+    reinterpret_cast<KeyboardInputHandler>(&function)
+
+#define MAKE_MOUSE_INPUT_HANDLER(function) \
+    reinterpret_cast<MouseInputHandler>(&function)
+
+// 100x points if you can get Keyboard and mouse input handlers
+// the same type.
 
 class InputComponent
 {
@@ -22,25 +28,12 @@ public:
     typedef long (InputComponent::*KeyboardInputHandler)(Window&, unsigned char key);
     typedef long (InputComponent::*MouseInputHandler)(Window&, Point point);
 
-    // int getId();
-
 protected:
     GameObject *gameObject;
 
-    // Maybe input handlers should be their own class. Because now, since they can't be
-    // identified, you can only remove all of them.
     void registerInputHandler(unsigned char key, KeyboardInputHandler inputHandler);
     void registerInputHandler(MouseInputHandler inputHandler);
 
-    // void deregisterAllInputHandlers();
-
 private:
     static InputSystem *inputSystem;
-
-    // THIS WOULD BE NEEDED (I THINK) FOR DEREGISTERING ALL INPUT HANDLERS
-    // static int idSeed;      // Used for registered input handler identification.
-    // static int getNextId(); // See InputSystem.
-                            // Maybe we could move this to a Component base class
-                            // if ids are needed for other components.
-    // const int id;
 };

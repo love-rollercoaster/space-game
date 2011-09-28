@@ -35,22 +35,24 @@ public:
     static long HandleMouseInput(Window &window, HWND hwnd, long wparam, long lparam);
 
     void init(/* Window &window */);
-    void registerInputHandler(InputComponent &inputComponent, unsigned char key, InputComponent::KeyboardInputHandler inputHandler);
+    void registerInputHandler( unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler);
     void registerInputHandler(InputComponent &inputComponent, InputComponent::MouseInputHandler inputHandler);
 
 private:
     static void InitMessageHandlers();
 
     // Window *window; // May need this later to convert coordinates
-
-    typedef pair<InputComponent*, InputComponent::KeyboardInputHandler>         KeyboardInputHandlerPair;
-    typedef pair<InputComponent*, InputComponent::MouseInputHandler>            MouseInputHandlerPair;
-    typedef pair<unsigned char, KeyboardInputHandlerPair>       KeyboardMapping;
-    typedef multimap<unsigned char, KeyboardInputHandlerPair>   KeyboardMappings;
-    typedef list<MouseInputHandlerPair>                         MouseMappings;
-
+    typedef pair<InputComponent*, InputComponent::KeyboardInputHandler> KeyboardInputHandlerPair;
+    typedef pair<InputComponent*, InputComponent::MouseInputHandler>    MouseInputHandlerPair;
+    typedef pair<unsigned char, list<KeyboardInputHandlerPair> >        KeyboardMapping;
+    typedef map<unsigned char, list<KeyboardInputHandlerPair> >         KeyboardMappings;
+    typedef list<MouseInputHandlerPair>                                 MouseMappings;
 
     static KeyboardMappings keyboardMappings;
     static MouseMappings    mouseMappings;
+
+    static void DispatchMessageToRegisteredHandlers(unsigned char key,  Window &window, list<KeyboardInputHandlerPair> &inputHandlers);
+
+    static void AddToKeyboardMappings(unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler);
 
 };

@@ -31,8 +31,8 @@ public:
 
     virtual void update(time_t time)
     {
-        if (inputComponent != NULL)
-            inputComponent->update(*this, time);
+        // if (inputComponent != NULL)
+        //     inputComponent->update(*this, time);
 
         if (physicsComponent != NULL)
             physicsComponent->update(*this, time);

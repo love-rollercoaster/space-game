@@ -17,4 +17,3 @@ public:
     void update(time_t time);
     void draw(GraphicsEngine &graphicsEngine);
 };
-

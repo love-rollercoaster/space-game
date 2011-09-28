@@ -63,9 +63,12 @@
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GraphicsComponentSystem.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
+    <ClCompile Include="InputComponent.cpp" />
+    <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="TestGameApp.cpp" />
     <ClCompile Include="TestGameWorld.cpp" />
     <ClCompile Include="TestGraphicsComponent.cpp" />
+    <ClCompile Include="TestInputComponent.cpp" />
     <ClCompile Include="TestPhysicsComponent.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="winmain.cpp" />
@@ -79,10 +82,12 @@
     <ClInclude Include="GraphicsComponentSystem.h" />
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="InputSystem.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="TestGameApp.h" />
     <ClInclude Include="TestGameWorld.h" />
     <ClInclude Include="TestGraphicsComponent.h" />
+    <ClInclude Include="TestInputComponent.h" />
     <ClInclude Include="TestPhysicsComponent.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

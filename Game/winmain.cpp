@@ -9,6 +9,8 @@
 #include <time.h>
 #include <windows.h>
 
+#include "InputSystem.h"
+#include "InputComponent.h"
 #include "GameEngine.h"
 #include "TestGameApp.h"
 #include "Window.h"
@@ -41,6 +43,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     window.Init(hInstance, testGameApp.getTitle(), WINDOW_WIDTH, WINDOW_HEIGHT);
     window.RegisterMessageHandler(WM_DESTROY, WindowDestroyHandler);
     window.ShowWindow(nCmdShow);
+
+    InputSystem::StaticInit();
+    InputSystem inputSystem;
+    inputSystem.init();
 
     GraphicsEngine graphicsEngine;
     graphicsEngine.initializeD3D(window, false);

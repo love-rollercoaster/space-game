@@ -1,7 +1,7 @@
 #pragma once
 #include "InputComponent.h"
+#include "Window.h"
 
-class Window;
 
 class TestInputComponent :
     public InputComponent
@@ -10,7 +10,6 @@ public:
     TestInputComponent(void);
     ~TestInputComponent(void);
 
-    void keyboardHandler(unsigned char key);
-
+    long leftArrowHandler(Window &window, unsigned char key);
+    void registerInputHandlers();
 };
-

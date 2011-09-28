@@ -1,4 +1,5 @@
 #include "InputComponent.h"
+#include "InputSystem.h"
 
 //int InputComponent::idSeed = 0;
 InputSystem* InputComponent::inputSystem = NULL;
@@ -20,7 +21,6 @@ InputComponent::InputComponent()
 }
 
 InputComponent::~InputComponent()
-    // : id(InputComponent::getNextId())
 {
 
 }
@@ -31,12 +31,12 @@ void InputComponent::init( GameObject *gameObject )
     this->gameObject = gameObject;
 }
 
-void InputComponent::registerInputHandler( unsigned char key, InputSystem::KeyboardInputHandler inputHandler )
+void InputComponent::registerInputHandler( unsigned char key, KeyboardInputHandler inputHandler )
 {
     InputComponent::inputSystem->registerInputHandler(*this, key, inputHandler);
 }
 
-void InputComponent::registerInputHandler( InputSystem::MouseInputHandler inputHandler )
+void InputComponent::registerInputHandler( MouseInputHandler inputHandler )
 {
     InputComponent::inputSystem->registerInputHandler(*this, inputHandler);
 }

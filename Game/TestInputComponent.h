@@ -1,7 +1,8 @@
 #pragma once
-#include "InputComponent.h"
-#include "Window.h"
 
+#include <d3dx9.h>
+#include "InputComponent.h"
+#include "GameObject.h"
 
 class TestInputComponent :
     public InputComponent
@@ -10,6 +11,7 @@ public:
     TestInputComponent(void);
     ~TestInputComponent(void);
 
-    long leftArrowHandler(Window &window, unsigned char key);
+    void arrowKeyHandler(Window &window, unsigned char key);
+
     void registerInputHandlers();
 };

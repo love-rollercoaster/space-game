@@ -1,10 +1,10 @@
 #pragma once
 
 #include <time.h>
+#include "Window.h"
 
 class GameObject;
 class InputSystem;
-class Window;
 class Point;
 
 #define MAKE_KEYBOARD_INPUT_HANDLER(function) \
@@ -23,14 +23,17 @@ public:
     virtual ~InputComponent() = 0;
 
     static void SetInputSystem(InputSystem *inputSystem);
+
+    typedef void (InputComponent::*KeyboardInputHandler)(Window&, unsigned char key);
+    typedef void (InputComponent::*MouseInputHandler)(Window&, Point point);
+
     void init(GameObject *gameObject);
 
-    typedef long (InputComponent::*KeyboardInputHandler)(Window&, unsigned char key);
-    typedef long (InputComponent::*MouseInputHandler)(Window&, Point point);
-
 protected:
-    GameObject *gameObject;
+    // This is where you do all your registerInputHandler calls.
+    virtual void registerInputHandlers() = 0;
 
+    GameObject *gameObject;
     void registerInputHandler(unsigned char key, KeyboardInputHandler inputHandler);
     void registerInputHandler(MouseInputHandler inputHandler);
 

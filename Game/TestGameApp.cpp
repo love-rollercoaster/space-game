@@ -11,11 +11,13 @@ TestGameApp::~TestGameApp( void )
 
 void TestGameApp::init( GameEngine &gameEngine )
 {
-    initComponents(gameEngine);
-
+    // Who kills game objects?
     GameObject* testGameObject = new GameObject();
 
-    testGameObject->init(NULL, NULL, &testGraphicsComponent);
+    testInputComponent.init(testGameObject);
+    testGraphicsComponent.init(gameEngine.getGraphicsEngine());
+
+    testGameObject->init(&testInputComponent, NULL, &testGraphicsComponent);
     testGameObject->setPosition(300.0f, 200.0f, 0.0f);
 
     testGameWorld.init(gameEngine);
@@ -31,15 +33,3 @@ void TestGameApp::draw(GraphicsEngine &graphicsEngine)
 {
     testGameWorld.draw(graphicsEngine);
 }
-
-void TestGameApp::initComponents( GameEngine &gameEngine )
-{
-    initGraphicsComponents(gameEngine.getGraphicsEngine());
-}
-
-void TestGameApp::initGraphicsComponents( GraphicsEngine &graphicsEngine )
-{
-    testGraphicsComponent.init(graphicsEngine);
-}
-
-

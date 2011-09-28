@@ -9,10 +9,7 @@
 
 using std::list;
 using std::map;
-using std::multimap;
 using std::pair;
-
-class InputComponent;
 
 // For mouse input here, since we have a ref to Window, we could
 // do the conversion from screen to world!

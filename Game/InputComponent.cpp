@@ -23,6 +23,7 @@ InputComponent::~InputComponent()
 void InputComponent::init( GameObject *gameObject )
 {
     this->gameObject = gameObject;
+    registerInputHandlers();
 }
 
 void InputComponent::registerInputHandler( unsigned char key, KeyboardInputHandler inputHandler )

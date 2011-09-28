@@ -48,12 +48,11 @@ long InputSystem::HandleKeyboardInput( Window &window, HWND hwnd, long wparam, l
 
     KeyboardMappings::iterator keyboardMappingsIterator  = keyboardMappings.find(wparam);
     if (keyboardMappingsIterator != keyboardMappings.end()) {
-
         list<KeyboardInputHandlerPair> &keyboardInputHandlerPairs = keyboardMappingsIterator->second;
         DispatchMessageToRegisteredHandlers(static_cast<unsigned char>(wparam), window, keyboardInputHandlerPairs);
-
-        return 0; // what do I return here??
     }
+
+    return 0; // what do I return here??
 }
 
 long InputSystem::HandleMouseInput( Window &window, HWND hwnd, long wparam, long lparam )

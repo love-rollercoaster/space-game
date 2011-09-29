@@ -52,6 +52,7 @@ private:
     void initPresentationParameters(HWND window, int windowWidth, int windowHeight, bool isFullscreen);
     void initDirect3DDevice(HWND window);
     void initRenderStates();
+    void initSamplerStates();
 
     void cleanDirect3D();
     void cleanVertexBuffers();

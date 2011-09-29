@@ -60,6 +60,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="BlockGraphicsComponent.cpp" />
+    <ClCompile Include="BlockGroup.cpp" />
+    <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GraphicsComponentSystem.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
@@ -74,7 +78,11 @@
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="BlockGraphicsComponent.h" />
+    <ClInclude Include="BlockGroup.h" />
     <ClInclude Include="GameApp.h" />
+    <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
@@ -83,7 +91,11 @@
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="pathutil.h" />
     <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="BasePropertyHolder.h" />
+    <ClInclude Include="Property.h" />
+    <ClInclude Include="PropertyDataHolder.h" />
     <ClInclude Include="TestGameApp.h" />
     <ClInclude Include="TestGameWorld.h" />
     <ClInclude Include="TestGraphicsComponent.h" />

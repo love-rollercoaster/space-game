@@ -12,6 +12,7 @@ public:
     ~TestInputComponent(void);
 
     void arrowKeyHandler(Window &window, unsigned char key);
+    void spaceKeyHandler(Window &window, unsigned char key);
 
     void registerInputHandlers();
 };

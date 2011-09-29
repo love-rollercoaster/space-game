@@ -30,7 +30,7 @@ void TestGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &graphi
     D3DXMATRIX matScale;
     D3DXMATRIX matTranslate;
     D3DXMATRIX matTransform;
-    D3DXMatrixTranslation(&matTranslate, gameObject.getPosition().x, gameObject.getPosition().y, 0.0f);
+    // D3DXMatrixTranslation(&matTranslate, gameObject.getPosition().x, gameObject.getPosition().y, 0.0f);
     D3DXMatrixScaling(&matScale, 100.0f, 100.0f, 0.0f);
     matTransform = matScale * matTranslate;
 

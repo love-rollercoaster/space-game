@@ -16,6 +16,7 @@ CComPtr<IDirect3DDevice9> GraphicsEngine::getDirect3DDevice() const
 void GraphicsEngine::initializeD3D(Window window, bool isFullscreen)
 {
     initDirect3DInterface();
+
     HWND hwnd = window.GetHWND();
     initPresentationParameters(hwnd, window.getWidth(), window.getHeight(), isFullscreen);
     initDirect3DDevice(hwnd);
@@ -30,6 +31,7 @@ void GraphicsEngine::initializeD3D(Window window, bool isFullscreen)
     //     d3ddev->SetTransform (D3DTS_VIEW, &matIdentity);
 
     initRenderStates();
+    initSamplerStates();
 }
 
 void GraphicsEngine::initDirect3DInterface()
@@ -77,7 +79,14 @@ void GraphicsEngine::initRenderStates()
     direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE , true);
     direct3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
     direct3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-    direct3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); 
+    direct3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+}
+
+void GraphicsEngine::initSamplerStates()
+{
+    direct3DDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_ANISOTROPIC);
+    direct3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_ANISOTROPIC);
+    direct3DDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_ANISOTROPIC);
 }
 
 void GraphicsEngine::beginDraw()
@@ -156,3 +165,5 @@ void GraphicsEngine::drawVertexBuffer( LPDIRECT3DVERTEXBUFFER9 &vertexBuffer)
     direct3DDevice->SetStreamSource(0, vertexBuffer, 0, sizeof(CustomVertex));
     direct3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
 }
+
+

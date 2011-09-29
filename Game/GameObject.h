@@ -44,24 +44,8 @@ public:
             graphicsComponent->draw(*this, graphicsEngine);
     }
 
-    D3DVECTOR getPosition() {
-        return position;
-    }
-
-    void setPosition(D3DVECTOR position) {
-        this->position = position;
-    }
-
-    void setPosition(float x, float y, float z) {
-        this->position.x = x;
-        this->position.y = y;
-        this->position.z = z;
-    }
-
 private:
     InputComponent* inputComponent;
     PhysicsComponent* physicsComponent;
     GraphicsComponent* graphicsComponent;
-
-    D3DVECTOR position;
 };

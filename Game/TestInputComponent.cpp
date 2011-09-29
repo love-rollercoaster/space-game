@@ -1,4 +1,5 @@
 #include "TestInputComponent.h"
+#include "BlockGroup.h"
 
 TestInputComponent::TestInputComponent(void)
 {
@@ -10,33 +11,43 @@ TestInputComponent::~TestInputComponent(void)
 
 void TestInputComponent::registerInputHandlers()
 {
-    InputComponent::KeyboardInputHandler inputHandler = MAKE_KEYBOARD_INPUT_HANDLER(TestInputComponent::arrowKeyHandler);
+    InputComponent::KeyboardInputHandler arrowKeyHandler = MAKE_KEYBOARD_INPUT_HANDLER(TestInputComponent::arrowKeyHandler);
+    InputComponent::KeyboardInputHandler spaceKeyHandler = MAKE_KEYBOARD_INPUT_HANDLER(TestInputComponent::spaceKeyHandler);
 
-    registerInputHandler(VK_LEFT,  inputHandler);
-    registerInputHandler(VK_RIGHT, inputHandler);
-    registerInputHandler(VK_UP,    inputHandler);
-    registerInputHandler(VK_DOWN,  inputHandler);
+    registerInputHandler(VK_LEFT,  arrowKeyHandler);
+    registerInputHandler(VK_RIGHT, arrowKeyHandler);
+    registerInputHandler(VK_UP,    arrowKeyHandler);
+    registerInputHandler(VK_DOWN,  arrowKeyHandler);
+
+    registerInputHandler(VK_SPACE, spaceKeyHandler);
 }
 
 void TestInputComponent::arrowKeyHandler( Window &window, unsigned char key )
 {
-    D3DVECTOR position = gameObject->getPosition();
+    BlockGroup *blockGroup = dynamic_cast<BlockGroup*>(gameObject);
+    Block::Position newPosition = blockGroup->getPosition();
 
     switch(key)
     {
     case VK_LEFT:
-        position.x -= 20;
+        newPosition.x -= 1;
         break;
     case VK_RIGHT:
-        position.x += 20;
+        newPosition.x += 1;
         break;
     case VK_UP:
-        position.y -= 20;
+        newPosition.y -= 1;
         break;
     case VK_DOWN:
-        position.y += 20;
+        newPosition.y += 1;
         break;
     }
 
-    gameObject->setPosition(position);
+    blockGroup->setPosition(newPosition);
+}
+
+void TestInputComponent::spaceKeyHandler( Window &window, unsigned char key )
+{
+    BlockGroup *blockGroup = dynamic_cast<BlockGroup*>(gameObject);
+    blockGroup->cycleOrientation();
 }

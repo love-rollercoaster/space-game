@@ -22,8 +22,11 @@
 void RedirectIOToConsole();
 void seedRandom();
 
-#define WINDOW_WIDTH 800   // these will change
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 512   // these will change
+#define WINDOW_HEIGHT 768
+
+using std::cout;
+using std::endl;
 
 long WindowDestroyHandler(Window &window, HWND hwnd, long wparam, long lparam) 
 {
@@ -36,6 +39,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         RedirectIOToConsole();
     #endif
     seedRandom();
+
+    /*
+    char buffer[MAX_PATH];
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+
+    string currentDirectory(buffer);
+    currentDirectory = currentDirectory.substr(0, currentDirectory.find_last_of("\\"));
+    cout << "CWD: " << currentDirectory << endl;
+    */
+
 
     TestGameApp testGameApp;
 

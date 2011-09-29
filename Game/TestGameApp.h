@@ -3,8 +3,9 @@
 #include "GameApp.h"
 #include "GameObject.h"
 #include "TestGameWorld.h"
-#include "TestGraphicsComponent.h"
+#include "BlockGraphicsComponent.h"
 #include "TestInputComponent.h"
+#include "BlockGroup.h"
 
 class TestGameApp : public GameApp
 {
@@ -18,7 +19,7 @@ public:
 
 private:
     TestGameWorld testGameWorld;
-    TestGraphicsComponent testGraphicsComponent; // TODO: replace when graphics component system is done.
+    BlockGraphicsComponent testGraphicsComponent; // TODO: replace when graphics component system is done.
     TestInputComponent testInputComponent;
 
     void initComponents(GameEngine &gameEngine);

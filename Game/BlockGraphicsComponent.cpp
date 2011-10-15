@@ -1,4 +1,5 @@
 #include "BlockGraphicsComponent.h"
+#include <sstream>
 
 CComPtr<ID3DXSprite> BlockGraphicsComponent::sprite = NULL;
 CComPtr<IDirect3DTexture9> BlockGraphicsComponent::texture = NULL;
@@ -6,19 +7,22 @@ CComPtr<IDirect3DTexture9> BlockGraphicsComponent::texture = NULL;
 // FIXME
 LPCSTR BlockGraphicsComponent::textureLocation = "..\\block.png";
 
+using std::stringstream;
+
 void BlockGraphicsComponent::InitTexture(GraphicsEngine &graphicsEngine)
 {
     // WTF Fix this OMG noob
     char buffer[MAX_PATH];
     GetModuleFileName(NULL, buffer, MAX_PATH);
 
-    string currentDirectory(buffer);
-    currentDirectory = currentDirectory.substr(0, currentDirectory.find_last_of("\\"));
-    currentDirectory = currentDirectory + "\\" + textureLocation;
+	string cwd(buffer);
+	stringstream filepath(stringstream::out);
+
+    filepath << cwd.substr(0, cwd.find_last_of("\\")) << "\\" << textureLocation;
 
     if (FAILED(D3DXCreateTextureFromFileEx(
         graphicsEngine.getDirect3DDevice(), // the device pointer
-        currentDirectory.c_str(),				      // the new file name
+        filepath.str().c_str(),       // the new file name
         D3DX_DEFAULT_NONPOW2,		  // exact width
         D3DX_DEFAULT_NONPOW2,		  // exact height
         D3DX_DEFAULT,				  // full mip-map chains
@@ -27,10 +31,10 @@ void BlockGraphicsComponent::InitTexture(GraphicsEngine &graphicsEngine)
         D3DPOOL_MANAGED,		      // typical memory handling
         D3DX_DEFAULT,			      // no filtering
         D3DX_DEFAULT,				  // no mip filtering
-        0,   // the color key that will be transparent. 0 for none
+        0,                            // the color key that will be transparent. 0 for none
         NULL,                         // no image info struct
         NULL,                         // not using 256 colors
-        &texture						  // load to sprite
+        &texture				      // load to sprite
         )))
    {
        throw std::runtime_error("Could not initialize texture.");
@@ -98,6 +102,8 @@ D3DCOLOR BlockGraphicsComponent::transformBlockColor( BlockColors::Color color )
         return D3DCOLOR_XRGB(0, 240, 0);
     case BlockColors::WHITE:
         return D3DCOLOR_XRGB(255, 255, 255);
+	case BlockColors::BACKGROUND_GREY:
+		return D3DCOLOR_XRGB(32,32,32);
     default:
         return NULL;
     }

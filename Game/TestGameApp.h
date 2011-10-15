@@ -1,11 +1,8 @@
 #pragma once
 
 #include "GameApp.h"
-#include "GameObject.h"
-#include "TestGameWorld.h"
-#include "BlockGraphicsComponent.h"
-#include "TestInputComponent.h"
-#include "BlockGroup.h"
+#include "GameBoard.h"
+#include "GameBoardInputComponent.h"
 
 class TestGameApp : public GameApp
 {
@@ -18,9 +15,8 @@ public:
     void draw(GraphicsEngine &graphicsEngine);
 
 private:
-    TestGameWorld testGameWorld;
-    BlockGraphicsComponent testGraphicsComponent; // TODO: replace when graphics component system is done.
-    TestInputComponent testInputComponent;
+	GameBoard gameBoard;
+    GameBoardInputComponent gameBoardInputComponent;
 
     void initComponents(GameEngine &gameEngine);
     void initGraphicsComponents(GraphicsEngine &graphicsEngine);

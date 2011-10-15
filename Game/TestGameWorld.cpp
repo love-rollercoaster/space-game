@@ -21,4 +21,5 @@ void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
     for each (GameObject* gameObject in gameObjects) {
         gameObject->draw(graphicsEngine);
     }
+
 }

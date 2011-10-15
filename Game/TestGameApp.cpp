@@ -1,8 +1,18 @@
 #include "TestGameApp.h"
 #include "Block.h"
+#include "GameBoard.h"
+#include "FontSystem.h"
+#include <sstream>
+
+using std::stringstream;
+
+#define UPDATE_INTERVAL 80
+#define BOARD_WIDTH 8
+#define BOARD_HEIGHT 12
 
 TestGameApp::TestGameApp(void)
-    : GameApp("Space Game")
+    : GameApp("Nicolas Porter COMP3501 AS01 - Tetris")
+	, gameBoard(BOARD_WIDTH,BOARD_HEIGHT)
 {
 }
 
@@ -12,33 +22,26 @@ TestGameApp::~TestGameApp( void )
 
 void TestGameApp::init( GameEngine &gameEngine )
 {
-    // Who kills game objects?
-    Block* block1 = new Block(BlockColors::Color::RED);
-    Block* block2 = new Block(BlockColors::Color::BLUE);
-    Block* block3 = new Block(BlockColors::Color::GREEN);
-
-    testGraphicsComponent.init(gameEngine.getGraphicsEngine());
-
-    // block1->init(&testInputComponent, NULL, &testGraphicsComponent);
-    block1->init(NULL, NULL, &testGraphicsComponent);
-    block2->init(NULL, NULL, &testGraphicsComponent);
-    block3->init(NULL, NULL, &testGraphicsComponent);
-
-    BlockGroup *blockGroup = new BlockGroup(*block1, *block2, *block3);
-    testInputComponent.init(blockGroup);
-
-    testGameWorld.init(gameEngine);
-    testGameWorld.addGameObject(block1);
-    testGameWorld.addGameObject(block2);
-    testGameWorld.addGameObject(block3);
+	gameBoard.init(gameEngine);
+	gameBoardInputComponent.init(&gameBoard);
 }
 
 void TestGameApp::update( time_t time )
-{
-    testGameWorld.update(time);
+{	
+	static int counter = 0;
+	if ((counter++) == UPDATE_INTERVAL) {
+		counter = 0;
+		gameBoard.update(time);
+	}
 }
 
 void TestGameApp::draw(GraphicsEngine &graphicsEngine)
 {
-    testGameWorld.draw(graphicsEngine);
+    gameBoard.draw(graphicsEngine);
+	
+	stringstream scoreText;
+
+	scoreText << "Score: " << gameBoard.getScore();
+
+	FontSystem::DrawText(scoreText.str().c_str(), 10, 10, D3DCOLOR_XRGB(255,255,255));
 }

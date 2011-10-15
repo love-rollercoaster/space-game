@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Block.h"
+#include "GraphicsEngine.h"
 
 /*  =Orientations
  *
@@ -14,7 +15,6 @@
  */
 
 class BlockGroup
-    : public GameObject
 {
 public:
     BlockGroup(Block& blockTop, 
@@ -23,7 +23,7 @@ public:
 
     ~BlockGroup(void);
 
-    enum Orientation 
+    enum Orientation
     {
           VERTICAL
         , HORIZONTAL
@@ -31,13 +31,19 @@ public:
         , REVERSE_HORIZONTAL
     };
 
-    Orientation getOrientation();
+	void draw(GraphicsEngine &graphicsEngine);
+
     void cycleOrientation();
+	Orientation getOrientation();
     Orientation getNextOrientation();
 
     Block::Position getPosition(); 
     void setPosition(Block::Position position);
-    void setPosition(unsigned int x, unsigned int y);
+    void setPosition(int x, int y);
+
+	Block* getTopBlock();
+	Block* getMiddleBlock();
+	Block* getBottomBlock();
 
 private:
     Orientation orientation;

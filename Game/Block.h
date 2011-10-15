@@ -1,14 +1,15 @@
 #pragma once
 #include "gameobject.h"
 #include <d3dx9.h>
-
+#include <stdlib.h>
 
 namespace BlockColors {
     enum Color {
         RED,
         WHITE,
         GREEN,
-        BLUE
+        BLUE,
+		BACKGROUND_GREY
     };
 }
 
@@ -31,8 +32,8 @@ public:
     BlockColors::Color getColor();
 
     void setPosition(Position position);
-    void setPosition(unsigned int x);
-    void setPosition(unsigned int x, unsigned int y);
+    void setPosition(int x);
+    void setPosition(int x, int y);
 
 private:
     Position position;

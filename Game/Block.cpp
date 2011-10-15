@@ -5,7 +5,7 @@ void Block::setPosition( Position position )
     setPosition(position.x, position.y);
 }
 
-void Block::setPosition( unsigned int x, unsigned int y )
+void Block::setPosition( int x, int y )
 {
     this->position.x = x;
     this->position.y = y;

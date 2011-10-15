@@ -9,6 +9,7 @@
 #include <time.h>
 #include <windows.h>
 
+#include "FontSystem.h"
 #include "InputSystem.h"
 #include "InputComponent.h"
 #include "GameEngine.h"
@@ -22,7 +23,7 @@
 void RedirectIOToConsole();
 void seedRandom();
 
-#define WINDOW_WIDTH 512   // these will change
+#define WINDOW_WIDTH 512
 #define WINDOW_HEIGHT 768
 
 using std::cout;
@@ -40,16 +41,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     #endif
     seedRandom();
 
-    /*
-    char buffer[MAX_PATH];
-    GetModuleFileName(NULL, buffer, MAX_PATH);
-
-    string currentDirectory(buffer);
-    currentDirectory = currentDirectory.substr(0, currentDirectory.find_last_of("\\"));
-    cout << "CWD: " << currentDirectory << endl;
-    */
-
-
     TestGameApp testGameApp;
 
     Window window;
@@ -61,14 +52,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     InputSystem inputSystem;
     inputSystem.init();
 
+
+
     GraphicsEngine graphicsEngine;
     graphicsEngine.initializeD3D(window, false);
+
+	FontSystem::Init(graphicsEngine);
 
     GameEngine gameEngine(testGameApp, graphicsEngine);
 
     testGameApp.init(gameEngine);
 
     gameEngine.startGameLoop();
+
+	FontSystem::Cleanup();
 }
 
 

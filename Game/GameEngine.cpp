@@ -46,7 +46,7 @@ WPARAM GameEngine::startGameLoop()
 
 void GameEngine::updateGameState(time_t time)
 {
-
+	gameApp.update(time);
 }
 
 MSG GameEngine::getMessage()

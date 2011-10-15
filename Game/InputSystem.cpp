@@ -44,8 +44,6 @@ void InputSystem::InitMessageHandlers()
 
 long InputSystem::HandleKeyboardInput( Window &window, HWND hwnd, long wparam, long lparam )
 {
-    printf("[InputSystem]: Received input!\n");
-
     KeyboardMappings::iterator keyboardMappingsIterator  = keyboardMappings.find(wparam);
     if (keyboardMappingsIterator != keyboardMappings.end()) {
         list<KeyboardInputHandlerPair> &keyboardInputHandlerPairs = keyboardMappingsIterator->second;

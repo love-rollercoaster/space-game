@@ -25,10 +25,6 @@ private:
     static void InitTexture(GraphicsEngine &graphicsEngine);
     static void InitSprite(GraphicsEngine &graphicsEngine);
 
-    static const int NUMBER_OF_VERTICES = 3;
-    LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
-    CustomVertex vertices[BlockGraphicsComponent::NUMBER_OF_VERTICES];
-
     D3DXVECTOR3 transformBlockPosition(Block::Position &position);
     D3DCOLOR transformBlockColor(BlockColors::Color color);
 };

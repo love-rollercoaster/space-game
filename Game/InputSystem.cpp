@@ -42,16 +42,17 @@ void InputSystem::InitMessageHandlers()
 
 long InputSystem::HandleKeyboardInput( Window &window, HWND hwnd, long wparam, long lparam )
 {
-    KeyboardHandlerPairs &keyboardHandlerPairs = GetRegisteredHandlersFromKeyboardInput(wparam);      
-    DispatchMessageToRegisteredHandlers(static_cast<unsigned char>(wparam), window, keyboardHandlerPairs);
+    unsigned char input = static_cast<unsigned char>(wparam);
+    KeyboardHandlerPairs &keyboardHandlerPairs = GetRegisteredHandlersFromKeyboardInput(input);      
+    DispatchMessageToRegisteredHandlers(input, window, keyboardHandlerPairs);
 
     return 0;
 }
 
-InputSystem::KeyboardHandlerPairs InputSystem::GetRegisteredHandlersFromKeyboardInput(long wparam) {
+InputSystem::KeyboardHandlerPairs InputSystem::GetRegisteredHandlersFromKeyboardInput(unsigned char input) {
     static KeyboardHandlerPairs emptyList;
 
-    KeyboardMappings::iterator keyboardMappingsIterator = keyboardMappings.find(wparam);
+    KeyboardMappings::iterator keyboardMappingsIterator = keyboardMappings.find(input);
 
     if (keyboardMappingsIterator != keyboardMappings.end()) {
         return keyboardMappingsIterator->second;

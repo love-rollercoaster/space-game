@@ -32,7 +32,7 @@ public:
     static long HandleMouseInput(Window &window, HWND hwnd, long wparam, long lparam);
 
     void init(/* Window &window */);
-    void registerInputHandler( unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler);
+    void registerInputHandler(unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler);
     void registerInputHandler(InputComponent &inputComponent, InputComponent::MouseInputHandler inputHandler);
 
 private:
@@ -50,6 +50,6 @@ private:
     static MouseHandlerPairs mouseHandlerPairs;
 
     static void DispatchMessageToRegisteredHandlers(unsigned char key,  Window &window, KeyboardHandlerPairs &keyboardHandlerPairs);
-    static KeyboardHandlerPairs GetRegisteredHandlersFromKeyboardInput(long wparam);
+    static KeyboardHandlerPairs GetRegisteredHandlersFromKeyboardInput(unsigned char input);
     static void AddToKeyboardMappings(unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler);
 };

@@ -6,7 +6,6 @@
 #include <list>
 
 #include "Window.h"
-// #include "GraphicsComponentSystem.h"
 
 #pragma comment (lib, "d3d9.lib")
 
@@ -35,9 +34,7 @@ public:
     void beginDraw();
     void endDraw();
 
-    // This will take care of releasing the vertex buffer.
     LPDIRECT3DVERTEXBUFFER9 createVertexBuffer(CustomVertex vertices[], int numberOfVertices );
-
     void drawVertexBuffer(LPDIRECT3DVERTEXBUFFER9 &vertexBuffer);
 
 private:
@@ -45,8 +42,6 @@ private:
     CComPtr<IDirect3DDevice9> direct3DDevice;
     D3DPRESENT_PARAMETERS d3dPresentationParameters;
     list<LPDIRECT3DVERTEXBUFFER9> vertexBuffers;
-
-    // GraphicsComponentSystem graphicsComponentSystem;
 
     void initDirect3DInterface();
     void initPresentationParameters(HWND window, int windowWidth, int windowHeight, bool isFullscreen);

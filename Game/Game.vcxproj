@@ -73,53 +73,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Block.cpp" />
-    <ClCompile Include="BlockFactory.cpp" />
-    <ClCompile Include="BlockGraphicsComponent.cpp" />
-    <ClCompile Include="BlockGroup.cpp" />
     <ClCompile Include="FontSystem.cpp" />
-    <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="GameEngine.cpp" />
-    <ClCompile Include="GraphicsComponentSystem.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="InputSystem.cpp" />
-    <ClCompile Include="ScorePanel.cpp" />
     <ClCompile Include="TestGameApp.cpp" />
     <ClCompile Include="TestGameWorld.cpp" />
     <ClCompile Include="TestGraphicsComponent.cpp" />
-    <ClCompile Include="GameBoardInputComponent.cpp" />
     <ClCompile Include="TestPhysicsComponent.cpp" />
+    <ClCompile Include="Win32Console.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Block.h" />
-    <ClInclude Include="BlockFactory.h" />
-    <ClInclude Include="BlockGraphicsComponent.h" />
-    <ClInclude Include="BlockGroup.h" />
     <ClInclude Include="FontSystem.h" />
     <ClInclude Include="GameApp.h" />
-    <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="GraphicsComponent.h" />
-    <ClInclude Include="GraphicsComponentSystem.h" />
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="InputSystem.h" />
-    <ClInclude Include="pathutil.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="BasePropertyHolder.h" />
     <ClInclude Include="Property.h" />
     <ClInclude Include="PropertyDataHolder.h" />
-    <ClInclude Include="ScorePanel.h" />
     <ClInclude Include="TestGameApp.h" />
     <ClInclude Include="TestGameWorld.h" />
     <ClInclude Include="TestGraphicsComponent.h" />
-    <ClInclude Include="GameBoardInputComponent.h" />
     <ClInclude Include="TestPhysicsComponent.h" />
+    <ClInclude Include="Win32Console.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

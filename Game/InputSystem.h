@@ -38,18 +38,18 @@ public:
 private:
     static void InitMessageHandlers();
 
-    // Window *window; // May need this later to convert coordinates
     typedef pair<InputComponent*, InputComponent::KeyboardInputHandler> KeyboardInputHandlerPair;
+    typedef list<KeyboardInputHandlerPair>                              KeyboardHandlerPairs;
+    typedef pair<unsigned char, KeyboardHandlerPairs>                   KeyboardMapping;
+    typedef  map<unsigned char, KeyboardHandlerPairs>                   KeyboardMappings;
+
     typedef pair<InputComponent*, InputComponent::MouseInputHandler>    MouseInputHandlerPair;
-    typedef pair<unsigned char, list<KeyboardInputHandlerPair> >        KeyboardMapping;
-    typedef map<unsigned char, list<KeyboardInputHandlerPair> >         KeyboardMappings;
-    typedef list<MouseInputHandlerPair>                                 MouseMappings;
+    typedef list<MouseInputHandlerPair>                                 MouseHandlerPairs;
 
-    static KeyboardMappings keyboardMappings;
-    static MouseMappings    mouseMappings;
+    static KeyboardMappings  keyboardMappings;
+    static MouseHandlerPairs mouseHandlerPairs;
 
-    static void DispatchMessageToRegisteredHandlers(unsigned char key,  Window &window, list<KeyboardInputHandlerPair> &inputHandlers);
-
+    static void DispatchMessageToRegisteredHandlers(unsigned char key,  Window &window, KeyboardHandlerPairs &keyboardHandlerPairs);
+    static KeyboardHandlerPairs GetRegisteredHandlersFromKeyboardInput(long wparam);
     static void AddToKeyboardMappings(unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler);
-
 };

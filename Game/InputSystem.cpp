@@ -1,7 +1,7 @@
 #include "InputSystem.h"
 
 InputSystem::KeyboardMappings InputSystem::keyboardMappings;
-InputSystem::MouseMappings    InputSystem::mouseMappings;
+InputSystem::MouseHandlerPairs    InputSystem::mouseHandlerPairs;
 
 void InputSystem::StaticInit()
 {
@@ -29,11 +29,9 @@ void InputSystem::registerInputHandler( unsigned char key, InputComponent &input
     InputSystem::AddToKeyboardMappings(key, inputComponent, inputHandler);
 }
 
-
-
 void InputSystem::registerInputHandler( InputComponent &inputComponent, InputComponent::MouseInputHandler inputHandler )
 {
-    mouseMappings.push_back(MouseInputHandlerPair(&inputComponent, inputHandler));
+    mouseHandlerPairs.push_back(MouseInputHandlerPair(&inputComponent, inputHandler));
 }
 
 void InputSystem::InitMessageHandlers()
@@ -44,13 +42,22 @@ void InputSystem::InitMessageHandlers()
 
 long InputSystem::HandleKeyboardInput( Window &window, HWND hwnd, long wparam, long lparam )
 {
-    KeyboardMappings::iterator keyboardMappingsIterator  = keyboardMappings.find(wparam);
-    if (keyboardMappingsIterator != keyboardMappings.end()) {
-        list<KeyboardInputHandlerPair> &keyboardInputHandlerPairs = keyboardMappingsIterator->second;
-        DispatchMessageToRegisteredHandlers(static_cast<unsigned char>(wparam), window, keyboardInputHandlerPairs);
-    }
+    KeyboardHandlerPairs &keyboardHandlerPairs = GetRegisteredHandlersFromKeyboardInput(wparam);      
+    DispatchMessageToRegisteredHandlers(static_cast<unsigned char>(wparam), window, keyboardHandlerPairs);
 
-    return 0; // what do I return here??
+    return 0;
+}
+
+InputSystem::KeyboardHandlerPairs InputSystem::GetRegisteredHandlersFromKeyboardInput(long wparam) {
+    static KeyboardHandlerPairs emptyList;
+
+    KeyboardMappings::iterator keyboardMappingsIterator = keyboardMappings.find(wparam);
+
+    if (keyboardMappingsIterator != keyboardMappings.end()) {
+        return keyboardMappingsIterator->second;
+    } else {
+        return emptyList;
+    }
 }
 
 long InputSystem::HandleMouseInput( Window &window, HWND hwnd, long wparam, long lparam )
@@ -58,9 +65,9 @@ long InputSystem::HandleMouseInput( Window &window, HWND hwnd, long wparam, long
     return 0;
 }
 
-void InputSystem::DispatchMessageToRegisteredHandlers(unsigned char key, Window &window, list<KeyboardInputHandlerPair> &inputHandlers )
+void InputSystem::DispatchMessageToRegisteredHandlers(unsigned char key, Window &window, KeyboardHandlerPairs &keyboardHandlerPairs )
 {
-    for each (KeyboardInputHandlerPair keyboardInputHandlerPair in inputHandlers)
+    for each (KeyboardInputHandlerPair keyboardInputHandlerPair in keyboardHandlerPairs)
     {
         InputComponent *inputComponent = keyboardInputHandlerPair.first;
         InputComponent::KeyboardInputHandler &inputHandler = keyboardInputHandlerPair.second;
@@ -68,6 +75,7 @@ void InputSystem::DispatchMessageToRegisteredHandlers(unsigned char key, Window 
     }
 }
 
+                                                                                           /* fix this, should not be a member of InputComponent */
 void InputSystem::AddToKeyboardMappings(unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler)
 {
     KeyboardMappings::iterator keyboardMappingsIterator = InputSystem::keyboardMappings.find(key);

@@ -1,8 +1,6 @@
 #pragma once
 
 #include "GameApp.h"
-#include "GameBoard.h"
-#include "GameBoardInputComponent.h"
 
 class TestGameApp : public GameApp
 {
@@ -15,9 +13,6 @@ public:
     void draw(GraphicsEngine &graphicsEngine);
 
 private:
-	GameBoard gameBoard;
-    GameBoardInputComponent gameBoardInputComponent;
-
     void initComponents(GameEngine &gameEngine);
     void initGraphicsComponents(GraphicsEngine &graphicsEngine);
 };

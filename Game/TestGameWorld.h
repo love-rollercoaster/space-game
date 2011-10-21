@@ -1,11 +1,11 @@
 #pragma once
 
 #include "GameWorld.h"
-#include "GameEngine.h"
-#include "GraphicsEngine.h"
 #include "GameObject.h"
 #include "Camera.h"
-
+#include "MeshSurfaceGraphicsComponent.h"
+#include "Plane.h"
+#include "PlaneInputComponent.h"
 
 class TestGameWorld :
     public GameWorld
@@ -20,4 +20,12 @@ public:
 
 private:
     Camera camera;
+    GameObject mesh;
+    Plane plane;
+    MeshSurfaceGraphicsComponent meshSurfaceGraphicsComponent;
+    PlaneInputComponent planeInputComponent;
+
+    void initCamera(GameEngine &gameEngine);
+    void initPlane(GameEngine &gameEngine);
+    void initMesh(GameEngine &gameEngine);
 };

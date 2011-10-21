@@ -1,7 +1,6 @@
 #include "InputComponent.h"
 #include "InputSystem.h"
 
-
 InputSystem* InputComponent::inputSystem = NULL;
 
 void InputComponent::SetInputSystem( InputSystem *inputSystem )
@@ -9,7 +8,12 @@ void InputComponent::SetInputSystem( InputSystem *inputSystem )
     InputComponent::inputSystem = inputSystem;
 }
 
-// input system should be passed in here yo
+// TODO: input system should be passed in here
+void InputComponent::init()
+{
+    this->init(NULL);
+}
+
 void InputComponent::init( GameObject *gameObject )
 {
     this->gameObject = gameObject;

@@ -9,9 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Header Files\Components">
-      <UniqueIdentifier>{fe15d937-388c-45a0-9dc1-b0c701243471}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Game">
       <UniqueIdentifier>{64f25954-6a02-45d0-ad74-1db5a6d1a932}</UniqueIdentifier>
     </Filter>
@@ -20,12 +17,6 @@
     </Filter>
     <Filter Include="Header Files\Game\Interfaces">
       <UniqueIdentifier>{a65233a7-4eb5-4c46-a9e9-d6e13419eebb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Components\Interfaces">
-      <UniqueIdentifier>{0521dd6d-8174-4b81-95c5-589d74aa17e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Components">
-      <UniqueIdentifier>{b85656f5-f08a-42c6-b7f7-82708acb4c17}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{860948a9-6f65-4524-9d2a-97781effa6ed}</UniqueIdentifier>
@@ -39,12 +30,6 @@
     <Filter Include="Source Files\Systems">
       <UniqueIdentifier>{e600f1f6-9209-4e6a-b247-e7db6922a16f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Components\Test">
-      <UniqueIdentifier>{28a6b260-7eb4-4321-8728-7a6eda248b56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Components\Interface">
-      <UniqueIdentifier>{a1bd3ca5-3fc4-423b-a5b9-1582b1915bae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Property">
       <UniqueIdentifier>{1fec92d9-7663-4175-bd86-9d3c01d83b8c}</UniqueIdentifier>
     </Filter>
@@ -53,6 +38,21 @@
     </Filter>
     <Filter Include="Source Files\Win32">
       <UniqueIdentifier>{37de7dff-8390-4d38-812e-9cde5e0a32cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Components">
+      <UniqueIdentifier>{fe15d937-388c-45a0-9dc1-b0c701243471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Components\Interfaces">
+      <UniqueIdentifier>{0521dd6d-8174-4b81-95c5-589d74aa17e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Components">
+      <UniqueIdentifier>{b85656f5-f08a-42c6-b7f7-82708acb4c17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Components\Test">
+      <UniqueIdentifier>{28a6b260-7eb4-4321-8728-7a6eda248b56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Components\Interface">
+      <UniqueIdentifier>{a1bd3ca5-3fc4-423b-a5b9-1582b1915bae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,13 +75,13 @@
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="TestGraphicsComponent.cpp">
-      <Filter>Source Files\Components\Test</Filter>
+      <Filter>Source Files\Game\Components\Test</Filter>
     </ClCompile>
     <ClCompile Include="TestPhysicsComponent.cpp">
-      <Filter>Source Files\Components\Test</Filter>
+      <Filter>Source Files\Game\Components\Test</Filter>
     </ClCompile>
     <ClCompile Include="InputComponent.cpp">
-      <Filter>Source Files\Components\Interface</Filter>
+      <Filter>Source Files\Game\Components\Interface</Filter>
     </ClCompile>
     <ClCompile Include="FontSystem.cpp">
       <Filter>Source Files\Systems</Filter>
@@ -103,6 +103,12 @@
     </ClCompile>
     <ClCompile Include="FlightSimulatorGameApp.cpp">
       <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaneInputComponent.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,10 +134,10 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="TestPhysicsComponent.h">
-      <Filter>Header Files\Components</Filter>
+      <Filter>Header Files\Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="TestGraphicsComponent.h">
-      <Filter>Header Files\Components</Filter>
+      <Filter>Header Files\Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="InputSystem.h">
       <Filter>Header Files\Systems</Filter>
@@ -164,19 +170,25 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameComponent.h">
-      <Filter>Header Files\Components\Interfaces</Filter>
+      <Filter>Header Files\Game\Components\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsComponent.h">
-      <Filter>Header Files\Components\Interfaces</Filter>
+      <Filter>Header Files\Game\Components\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsComponent.h">
-      <Filter>Header Files\Components\Interfaces</Filter>
+      <Filter>Header Files\Game\Components\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="InputComponent.h">
-      <Filter>Header Files\Components\Interfaces</Filter>
+      <Filter>Header Files\Game\Components\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="FlightSimulatorGameApp.h">
       <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaneInputComponent.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

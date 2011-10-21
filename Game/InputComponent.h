@@ -16,6 +16,10 @@ class Point;
 // 100x points if you can get Keyboard and mouse input handlers
 // the same type.
 
+// You must call init on the object instance because it is the
+// function which registers all input handlers with the input
+// system.
+
 class InputComponent
 {
 public:
@@ -26,6 +30,7 @@ public:
     typedef void (InputComponent::*KeyboardInputHandler)(Window&, unsigned char key);
     typedef void (InputComponent::*MouseInputHandler)(Window&, Point point);
 
+    void init();
     void init(GameObject *gameObject);
 
 protected:

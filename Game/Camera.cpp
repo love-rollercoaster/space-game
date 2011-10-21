@@ -6,11 +6,12 @@
 Camera::Camera()
     : maxPitchAngle(D3DXToRadian( 89.0f ))
     , maxVelocity(1.0f)
-    , yInverted(true)
+    , yInverted(false)
     , yMovementEnabled(true)
     , position(0.0f, 0.0f, 0.0f)
     , velocity(0.0f, 0.0f, 0.0f)
     , lookDirection(0.0f, 0.0f, 1.0f)
+    , ignoreMaxPitchAngle(false)
 {
     createProjectionMatrix(1.3f, D3DXToRadian(45), 1.0f, 5000.0f );
     update();
@@ -70,11 +71,14 @@ void Camera::pitch( float radians )
 
     radians = (yInverted) ? -radians : radians;
     pitchAngle -= radians;
-    if ( pitchAngle > maxPitchAngle )
+
+    // Getting pitch angle difference if it the max pitch angle is not ignored
+    // and if using the radians parameter would exceed the max pitch angle.
+    if ( !ignoreMaxPitchAngle && pitchAngle > maxPitchAngle )
     {
         radians += pitchAngle - maxPitchAngle;
     }
-    else if ( pitchAngle < -maxPitchAngle )
+    else if ( !ignoreMaxPitchAngle && pitchAngle < -maxPitchAngle )
     {
         radians += pitchAngle + maxPitchAngle;
     }
@@ -113,8 +117,8 @@ void Camera::update()
     lookAtPoint = position + lookDirection;
 
     // Calculate the new view matrix
-    D3DXVECTOR3 up = D3DXVECTOR3( 0.0f, 1.0f, 0.0f );
-    D3DXMatrixLookAtLH( &view, &position, &lookAtPoint, &up );
+    D3DXVECTOR3 yNormal = D3DXVECTOR3( 0.0f, 1.0f, 0.0f );
+    D3DXMatrixLookAtLH( &view, &position, &lookAtPoint, &yNormal );
 
     // Set the camera axes from the view matrix
     right.x = view._11;

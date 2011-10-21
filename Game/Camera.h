@@ -4,6 +4,7 @@
 #pragma once
 
 #include <d3dx9.h>
+#include "GameObject.h"
 
 class Camera
 {
@@ -29,11 +30,13 @@ public:
     void setMaxVelocity( float maxVelocity ) { maxVelocity = maxVelocity; }
     void setInvertY( bool invert )           { yInverted = invert; }
     void setMaxPitch( float maxPitch )       { maxPitch = maxPitch; }
+    void setIgnoreMaxPitchAngle( bool ignore ) { ignoreMaxPitchAngle = ignore;}
 
     D3DXMATRIX* getViewMatrix()        { return &view; }
     D3DXMATRIX* getProjectionMatrix()  { return &projection; }
     D3DXVECTOR3* getPosition()         { return &position; }
-    D3DXVECTOR3* getLookAt()           { return &lookAtPoint; }
+    D3DXVECTOR3* getLookAtPoint()      { return &lookAtPoint; }
+    D3DXVECTOR3* getLookDirection()    { return &lookDirection; }
     float getFOV()                     { return fov; }
     float getAspectRatio()             { return aspect; }
     float getNearPlane()               { return nearPlane; }
@@ -63,4 +66,5 @@ private:
     float       farPlane;
     bool        yInverted;
     bool        yMovementEnabled;
+    bool        ignoreMaxPitchAngle;
 };

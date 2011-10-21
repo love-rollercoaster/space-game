@@ -86,8 +86,7 @@ void InputSystem::AddToKeyboardMappings(unsigned char key, InputComponent &input
         keyboardInputHandlerPairs.push_back(KeyboardInputHandlerPair(&inputComponent, inputHandler));
     } 
     else {
-        KeyboardMapping newMapping(key, list<KeyboardInputHandlerPair>());
-        InputSystem::keyboardMappings.insert(newMapping);
+        InputSystem::keyboardMappings.insert(KeyboardMapping(key, list<KeyboardInputHandlerPair>()));
         AddToKeyboardMappings(key, inputComponent, inputHandler);
     }
 }

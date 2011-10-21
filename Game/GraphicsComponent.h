@@ -11,7 +11,7 @@ class GraphicsComponent
 {
 public:
     virtual ~GraphicsComponent() {}
-    virtual void init(GameEngine &gameEngine) {
+    void init(GameEngine &gameEngine) {
         return init(gameEngine.getGraphicsEngine());
     }
 

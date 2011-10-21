@@ -72,7 +72,16 @@ void MeshSurfaceGraphicsComponent::initVertices( int rows, int columns, float xO
         for(int j = 0; j < columns; j++) {
             vertices[currentVertex].position = columnPosition;
             vertices[currentVertex].position.y = (float)((double)rand() / (RAND_MAX+1) * (yMax - yMin) + yMin); // FIXME casting
-            vertices[currentVertex].color = D3DCOLOR_XRGB(128, 128, 128);
+            
+            if (vertices[currentVertex].position.y < yMax / 6.0f) {
+                vertices[currentVertex].color = D3DCOLOR_XRGB(10, 50, 10);
+            }
+            else if (vertices[currentVertex].position.y < 4.0f * yMax / 6.0f) {
+                vertices[currentVertex].color = D3DCOLOR_XRGB(50, 128, 50);
+            }
+            else {
+                vertices[currentVertex].color = D3DCOLOR_XRGB(240, 255, 240);
+            }
 
             columnPosition.x += xOffset;
             currentVertex++;
@@ -135,9 +144,9 @@ void MeshSurfaceGraphicsComponent::initIndexBuffer( GraphicsEngine &graphicsEngi
     );
 
     VOID* pVoid;
-    vertexBuffer->Lock(0, 0, static_cast<void**>(&pVoid), 0);
+    indexBuffer->Lock(0, 0, static_cast<void**>(&pVoid), 0);
     memcpy(pVoid, &indices[0], indexBufferSize);
-    vertexBuffer->Unlock();
+    indexBuffer->Unlock();
 }
 
 void MeshSurfaceGraphicsComponent::initVertexDeclaration(GraphicsEngine &graphicsEngine)

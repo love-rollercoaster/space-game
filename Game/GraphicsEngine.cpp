@@ -1,5 +1,7 @@
 #include "GraphicsEngine.h"
 
+#include "Camera.h"
+
 GraphicsEngine::GraphicsEngine(void)
     : backgroundColor(D3DCOLOR_XRGB(0,0,0))
     , camera(NULL)
@@ -56,7 +58,7 @@ void GraphicsEngine::initDirect3DDevice(HWND window)
         D3DADAPTER_DEFAULT,
         D3DDEVTYPE_HAL,
         window,
-        D3DCREATE_MIXED_VERTEXPROCESSING,
+        D3DCREATE_HARDWARE_VERTEXPROCESSING,
         &d3dPresentationParameters,
         &direct3DDevice
     );
@@ -70,11 +72,11 @@ void GraphicsEngine::initRenderStates()
 {
     direct3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
     direct3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
-    direct3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+    direct3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
     direct3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
     direct3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
     direct3DDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
-    // direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE , true);
+    // direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE , TRUE);
 }
 
 void GraphicsEngine::initSamplerStates()

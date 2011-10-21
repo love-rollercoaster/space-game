@@ -2,7 +2,6 @@
 
 #include "GameApp.h"
 #include "TestGameWorld.h"
-#include "MeshSurfaceGraphicsComponent.h"
 
 class FlightSimulatorGameApp : public GameApp
 {
@@ -15,11 +14,6 @@ public:
     void draw(GraphicsEngine &graphicsEngine);
 
 private:
-    void initComponents(GameEngine &gameEngine);
-    void initGraphicsComponents(GraphicsEngine &graphicsEngine);
-
     TestGameWorld gameWorld;
     GameObject gameObject;
-
-    MeshSurfaceGraphicsComponent graphicsComponent;
 };

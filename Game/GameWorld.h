@@ -13,7 +13,6 @@ class GameWorld
 {
 public:
     virtual void init(GameEngine &gameEngine) = 0;
-    // virtual void init(GameEngine &gameEngine, list<GameObject*> gameObjects) = 0;
     virtual void update(time_t time) = 0;
     virtual void draw(GraphicsEngine &graphicsEngine) = 0;
 

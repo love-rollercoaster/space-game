@@ -5,7 +5,6 @@
 #include <d3dx9.h>
 #include <list>
 
-#include "Camera.h"
 #include "Window.h"
 
 #pragma comment (lib, "d3d9.lib")
@@ -19,6 +18,8 @@ struct CustomVertex
     FLOAT x, y, z, rhw;
     DWORD color;
 };
+
+class Camera;
 
 class GraphicsEngine
 {

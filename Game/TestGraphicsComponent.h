@@ -1,13 +1,11 @@
 #pragma once
 
-#include <vector>
-#include <string>
 #include "GraphicsComponent.h"
 #include "GraphicsEngine.h"
 #include "GameObject.h"
 
-using std::string;
-using std::vector;
+// Reference:
+// http://www.directxtutorial.com/tutorial9/b-direct3dbasics/dx9B4.aspx
 
 class TestGraphicsComponent :
     public GraphicsComponent

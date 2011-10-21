@@ -2,13 +2,13 @@
 
 #include "GameApp.h"
 #include "TestGameWorld.h"
-#include "TestGraphicsComponent.h"
+#include "MeshSurfaceGraphicsComponent.h"
 
-class TestGameApp : public GameApp
+class FlightSimulatorGameApp : public GameApp
 {
 public:
-    TestGameApp(void);
-    ~TestGameApp(void);
+    FlightSimulatorGameApp(void);
+    ~FlightSimulatorGameApp(void);
 
     void init(GameEngine &gameEngine);
     void update(time_t time);
@@ -21,6 +21,5 @@ private:
     TestGameWorld gameWorld;
     GameObject gameObject;
 
-    TestGraphicsComponent graphicsComponent;
+    MeshSurfaceGraphicsComponent graphicsComponent;
 };
-

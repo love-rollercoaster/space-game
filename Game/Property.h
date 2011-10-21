@@ -1,5 +1,8 @@
 #pragma once
 
+// Reference:
+// http://learningcppisfun.blogspot.com/2007/09/boostany.html
+
 #include "BasePropertyHolder.h"
 #include "PropertyDataHolder.h"
 

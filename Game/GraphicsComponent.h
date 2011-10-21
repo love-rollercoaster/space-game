@@ -1,27 +1,20 @@
 #pragma once
 
-#include <string>
+#include "GameComponent.h"
+#include "GameEngine.h"
 
 class GraphicsEngine;
 class GameObject;
 
-using std::string;
-
 class GraphicsComponent
+    : public GameComponent
 {
 public:
-    GraphicsComponent(string type)
-        : TYPE(type)
-    {
+    virtual ~GraphicsComponent() {}
+    virtual void init(GameEngine &gameEngine) {
+        return init(gameEngine.getGraphicsEngine());
     }
 
     virtual void init(GraphicsEngine &graphicsEngine) = 0;
     virtual void draw(GameObject &gameObject, GraphicsEngine &graphicsEngine) = 0;
-
-    virtual string getType() {
-        return this->TYPE;
-    }
-
-private:
-    const string TYPE;
 };

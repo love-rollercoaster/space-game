@@ -4,6 +4,7 @@
 #include "GameEngine.h"
 #include "GraphicsEngine.h"
 #include "GameObject.h"
+#include "Camera.h"
 
 
 class TestGameWorld :
@@ -14,9 +15,9 @@ public:
     ~TestGameWorld(void);
 
     void init(GameEngine &gameEngine);
-    // void init(GameEngine &gameEngine, list<GameObject*> gameObjects );
     void update(time_t time);
     void draw(GraphicsEngine &graphicsEngine);
 
-
+private:
+    Camera camera;
 };

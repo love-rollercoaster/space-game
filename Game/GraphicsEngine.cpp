@@ -1,6 +1,8 @@
 #include "GraphicsEngine.h"
 
 GraphicsEngine::GraphicsEngine(void)
+    : backgroundColor(D3DCOLOR_XRGB(0,0,0))
+    , camera(NULL)
 {
 }
 
@@ -15,7 +17,7 @@ CComPtr<IDirect3DDevice9> GraphicsEngine::getDirect3DDevice() const
 
 void GraphicsEngine::initializeD3D(Window window, bool isFullscreen)
 {
-    HWND hwnd = window.GetHWND();
+    HWND hwnd = window.GetHandle();
     initDirect3DInterface();
     initPresentationParameters(hwnd, window.getWidth(), window.getHeight(), isFullscreen);
     initDirect3DDevice(hwnd);
@@ -42,7 +44,10 @@ void GraphicsEngine::initPresentationParameters(HWND window, int windowWidth, in
     d3dPresentationParameters.BackBufferFormat  = D3DFMT_X8R8G8B8;
     d3dPresentationParameters.BackBufferWidth   = windowWidth;
     d3dPresentationParameters.BackBufferHeight  = windowHeight;
+    d3dPresentationParameters.EnableAutoDepthStencil = TRUE;
+    d3dPresentationParameters.AutoDepthStencilFormat = D3DFMT_D24S8;
     // d3dPresentationParameters.MultiSampleType   = D3DMULTISAMPLE_4_SAMPLES;
+
 }
 
 void GraphicsEngine::initDirect3DDevice(HWND window)
@@ -63,12 +68,13 @@ void GraphicsEngine::initDirect3DDevice(HWND window)
 
 void GraphicsEngine::initRenderStates()
 {
-    direct3DDevice->SetRenderState(D3DRS_CULLMODE,D3DCULL_NONE);
+    direct3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
     direct3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
-    // direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE , true);
     direct3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
     direct3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
     direct3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+    direct3DDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+    // direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE , true);
 }
 
 void GraphicsEngine::initSamplerStates()
@@ -100,7 +106,11 @@ LPDIRECT3DVERTEXBUFFER9 GraphicsEngine::createVertexBuffer( CustomVertex vertice
 
 void GraphicsEngine::beginDraw()
 {
-    direct3DDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0,0,0), 1.0f, 0);
+    setupViewMatrix();
+    setupProjectionMatrix();
+
+    direct3DDevice->Clear(0, NULL, D3DCLEAR_TARGET,  this->backgroundColor, 1.0f, 0);
+    direct3DDevice->Clear(0, NULL, D3DCLEAR_ZBUFFER, this->backgroundColor, 1.0f, 0);
     direct3DDevice->BeginScene();
 }
 
@@ -117,6 +127,7 @@ void GraphicsEngine::endDraw()
     direct3DDevice->Present(NULL, NULL, NULL, NULL);
 }
 
+// TODO: Fix this method, it was not ported correctly.
 void GraphicsEngine::resetD3DDevice()
 {
     if (direct3DDevice == NULL) {
@@ -143,9 +154,30 @@ void GraphicsEngine::resetD3DDevice()
     initRenderStates();
 }
 
-void GraphicsEngine::cleanDirect3D()
+void GraphicsEngine::setCamera( Camera &camera )
 {
-    cleanVertexBuffers();
+    this->camera = &camera;
+}
+
+void GraphicsEngine::setBackgroundColor( DWORD backgroundColor )
+{
+    this->backgroundColor = backgroundColor;
+}
+
+
+void GraphicsEngine::setupViewMatrix()
+{
+    if (camera != NULL) {
+        direct3DDevice->SetTransform(D3DTS_VIEW, camera->getViewMatrix());
+    }
+}
+
+
+void GraphicsEngine::setupProjectionMatrix()
+{
+    if (camera != NULL) {
+        direct3DDevice->SetTransform(D3DTS_PROJECTION, camera->getProjectionMatrix()); 
+    }
 }
 
 void GraphicsEngine::cleanVertexBuffers()
@@ -153,4 +185,9 @@ void GraphicsEngine::cleanVertexBuffers()
     for each (LPDIRECT3DVERTEXBUFFER9 vertexBuffer in vertexBuffers) {
         vertexBuffer->Release();
     }
+}
+
+void GraphicsEngine::cleanDirect3D()
+{
+    cleanVertexBuffers();
 }

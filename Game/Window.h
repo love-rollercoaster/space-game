@@ -46,11 +46,11 @@ public:
     ~Window(void);
 
     static LRESULT CALLBACK MessageRouter(HWND, UINT, WPARAM, LPARAM);
-    static HWND GetHWND();
+    static HWND GetHandle();
     static void ShowWindow(int nCmdShow);
     static MessageHandler RegisterMessageHandler(long message, MessageHandler handler);
 
-    void Init(HINSTANCE hInstance, string title, int width, int height);
+    void init(HINSTANCE hInstance, string title, int width, int height);
     int getWidth();
     int getHeight();
 

@@ -11,7 +11,7 @@ Window::~Window(void)
 {
 }
 
-void Window::Init(HINSTANCE hInstance, string title, int width, int height)
+void Window::init(HINSTANCE hInstance, string title, int width, int height)
 {
     this->width = width;
     this->height = height;
@@ -92,7 +92,7 @@ Window::MessageHandler Window::RegisterMessageHandler(long message, MessageHandl
     return messageHandler;
 }
 
-HWND Window::GetHWND()
+HWND Window::GetHandle()
 {
     return Window::hwnd;
 }

@@ -5,6 +5,7 @@
 #include <d3dx9.h>
 #include <list>
 
+#include "Camera.h"
 #include "Window.h"
 
 #pragma comment (lib, "d3d9.lib")
@@ -15,8 +16,7 @@ using std::list;
 
 struct CustomVertex
 {
-    D3DXVECTOR3 position;
-    FLOAT rhw;
+    FLOAT x, y, z, rhw;
     DWORD color;
 };
 
@@ -37,17 +37,25 @@ public:
     LPDIRECT3DVERTEXBUFFER9 createVertexBuffer(CustomVertex vertices[], int numberOfVertices );
     void drawVertexBuffer(LPDIRECT3DVERTEXBUFFER9 &vertexBuffer);
 
+    void setCamera(Camera &camera);
+    void setBackgroundColor(DWORD backgroundColor);
+
 private:
     CComPtr<IDirect3D9> direct3DInterface;
     CComPtr<IDirect3DDevice9> direct3DDevice;
     D3DPRESENT_PARAMETERS d3dPresentationParameters;
     list<LPDIRECT3DVERTEXBUFFER9> vertexBuffers;
+    Camera *camera;
+    DWORD backgroundColor;
 
     void initDirect3DInterface();
     void initPresentationParameters(HWND window, int windowWidth, int windowHeight, bool isFullscreen);
     void initDirect3DDevice(HWND window);
     void initRenderStates();
     void initSamplerStates();
+
+    void setupViewMatrix();
+    void setupProjectionMatrix();
 
     void cleanDirect3D();
     void cleanVertexBuffers();

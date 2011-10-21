@@ -9,16 +9,6 @@ void InputComponent::SetInputSystem( InputSystem *inputSystem )
     InputComponent::inputSystem = inputSystem;
 }
 
-InputComponent::InputComponent()
-{
-
-}
-
-InputComponent::~InputComponent()
-{
-
-}
-
 // input system should be passed in here yo
 void InputComponent::init( GameObject *gameObject )
 {

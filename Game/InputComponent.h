@@ -19,10 +19,9 @@ class Point;
 class InputComponent
 {
 public:
-    InputComponent();
-    virtual ~InputComponent() = 0;
-
     static void SetInputSystem(InputSystem *inputSystem);
+
+    virtual ~InputComponent() {}
 
     typedef void (InputComponent::*KeyboardInputHandler)(Window&, unsigned char key);
     typedef void (InputComponent::*MouseInputHandler)(Window&, Point point);

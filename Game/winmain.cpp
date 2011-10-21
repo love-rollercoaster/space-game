@@ -8,7 +8,7 @@
 #include "InputSystem.h"
 #include "InputComponent.h"
 #include "GameEngine.h"
-#include "TestGameApp.h"
+#include "FlightSimulatorGameApp.h"
 #include "Window.h"
 
 // #define _CRTDBG_MAP_ALLOC
@@ -33,12 +33,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     SeedRandom();
 
-    TestGameApp testGameApp;
+    FlightSimulatorGameApp testGameApp;
 
     Window window;
-    window.Init(hInstance, testGameApp.getTitle(), WINDOW_WIDTH, WINDOW_HEIGHT);
-    window.RegisterMessageHandler(WM_DESTROY, WindowDestroyHandler);
-    window.ShowWindow(nCmdShow);
+    window.init(hInstance, testGameApp.getTitle(), WINDOW_WIDTH, WINDOW_HEIGHT);
+    Window::RegisterMessageHandler(WM_DESTROY, WindowDestroyHandler);
+    Window::ShowWindow(nCmdShow);
 
     InputSystem::StaticInit();
     InputSystem inputSystem;

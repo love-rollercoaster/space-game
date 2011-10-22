@@ -1,6 +1,5 @@
 #pragma once
 
-#include "GameApp.h"
 #include "GraphicsEngine.h"
 
 class GameApp;

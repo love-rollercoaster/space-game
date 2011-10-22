@@ -15,5 +15,4 @@ public:
 
 private:
     TestGameWorld gameWorld;
-    GameObject gameObject;
 };

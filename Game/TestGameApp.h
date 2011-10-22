@@ -23,4 +23,3 @@ private:
 
     TestGraphicsComponent graphicsComponent;
 };
-

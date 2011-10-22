@@ -9,50 +9,59 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Header Files\Game">
-      <UniqueIdentifier>{64f25954-6a02-45d0-ad74-1db5a6d1a932}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine">
       <UniqueIdentifier>{be440ca3-9616-4647-84ee-74d5892076d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Game\Interfaces">
-      <UniqueIdentifier>{a65233a7-4eb5-4c46-a9e9-d6e13419eebb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game">
-      <UniqueIdentifier>{860948a9-6f65-4524-9d2a-97781effa6ed}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{5193fa48-bca9-4637-9098-1cb5ca0a86f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Systems">
-      <UniqueIdentifier>{ecb92c1d-eece-418d-a419-f995df42fd3d}</UniqueIdentifier>
+    <Filter Include="Header Files\Example">
+      <UniqueIdentifier>{7ecb5fb6-1b0c-4a1d-b891-a3830bafe167}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Systems">
-      <UniqueIdentifier>{e600f1f6-9209-4e6a-b247-e7db6922a16f}</UniqueIdentifier>
+    <Filter Include="Header Files\Engine\Game">
+      <UniqueIdentifier>{64f25954-6a02-45d0-ad74-1db5a6d1a932}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Property">
-      <UniqueIdentifier>{1fec92d9-7663-4175-bd86-9d3c01d83b8c}</UniqueIdentifier>
+    <Filter Include="Header Files\Engine\Game\Interfaces">
+      <UniqueIdentifier>{a65233a7-4eb5-4c46-a9e9-d6e13419eebb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Win32">
-      <UniqueIdentifier>{d108e6e0-038f-4a7d-b86f-fe4b498a1b63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Win32">
-      <UniqueIdentifier>{37de7dff-8390-4d38-812e-9cde5e0a32cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Game\Components">
+    <Filter Include="Header Files\Engine\Game\Components">
       <UniqueIdentifier>{fe15d937-388c-45a0-9dc1-b0c701243471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Game\Components\Interfaces">
+    <Filter Include="Header Files\Engine\Game\Components\Interfaces">
       <UniqueIdentifier>{0521dd6d-8174-4b81-95c5-589d74aa17e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Game\Components">
+    <Filter Include="Header Files\Engine\Win32">
+      <UniqueIdentifier>{d108e6e0-038f-4a7d-b86f-fe4b498a1b63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Systems">
+      <UniqueIdentifier>{ecb92c1d-eece-418d-a419-f995df42fd3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Camera">
+      <UniqueIdentifier>{450ed085-7c29-4e7a-bb03-eb98026d4df5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Game">
+      <UniqueIdentifier>{860948a9-6f65-4524-9d2a-97781effa6ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Game\Components">
       <UniqueIdentifier>{b85656f5-f08a-42c6-b7f7-82708acb4c17}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Game\Components\Test">
+    <Filter Include="Source Files\Engine\Game\Components\Test">
       <UniqueIdentifier>{28a6b260-7eb4-4321-8728-7a6eda248b56}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Game\Components\Interface">
+    <Filter Include="Source Files\Engine\Game\Components\Interface">
       <UniqueIdentifier>{a1bd3ca5-3fc4-423b-a5b9-1582b1915bae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Systems">
+      <UniqueIdentifier>{e600f1f6-9209-4e6a-b247-e7db6922a16f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Win32">
+      <UniqueIdentifier>{37de7dff-8390-4d38-812e-9cde5e0a32cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Camera">
+      <UniqueIdentifier>{52599527-575f-4924-9742-aa98f511dfd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Example">
+      <UniqueIdentifier>{cc411a0d-d813-4597-9ebc-a44250a8fba9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,130 +74,118 @@
     <ClCompile Include="GraphicsEngine.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="TestGameApp.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="TestGameWorld.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
     <ClCompile Include="InputSystem.cpp">
-      <Filter>Source Files\Systems</Filter>
+      <Filter>Source Files\Engine\Systems</Filter>
     </ClCompile>
     <ClCompile Include="TestGraphicsComponent.cpp">
-      <Filter>Source Files\Game\Components\Test</Filter>
+      <Filter>Source Files\Engine\Game\Components\Test</Filter>
     </ClCompile>
     <ClCompile Include="TestPhysicsComponent.cpp">
-      <Filter>Source Files\Game\Components\Test</Filter>
+      <Filter>Source Files\Engine\Game\Components\Test</Filter>
     </ClCompile>
     <ClCompile Include="InputComponent.cpp">
-      <Filter>Source Files\Game\Components\Interface</Filter>
+      <Filter>Source Files\Engine\Game\Components\Interface</Filter>
     </ClCompile>
     <ClCompile Include="FontSystem.cpp">
-      <Filter>Source Files\Systems</Filter>
+      <Filter>Source Files\Engine\Systems</Filter>
     </ClCompile>
     <ClCompile Include="Win32Console.cpp">
-      <Filter>Source Files\Win32</Filter>
+      <Filter>Source Files\Engine\Win32</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
-      <Filter>Source Files\Win32</Filter>
+      <Filter>Source Files\Engine\Win32</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshSurfaceGraphicsComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FlightSimulatorGameApp.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Plane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlaneInputComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\Camera</Filter>
     </ClCompile>
     <ClCompile Include="QuatCamera.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaneInputComponent.cpp">
+      <Filter>Source Files\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Source Files\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshSurfaceGraphicsComponent.cpp">
+      <Filter>Source Files\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="TestGameWorld.cpp">
+      <Filter>Source Files\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="FlightSimulatorGameApp.cpp">
+      <Filter>Source Files\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp.cpp">
+      <Filter>Source Files\Engine\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TestGameApp.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="TestGameWorld.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngine.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="GameApp.h">
-      <Filter>Header Files\Game\Interfaces</Filter>
+      <Filter>Header Files\Engine\Game\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Header Files\Game\Interfaces</Filter>
+      <Filter>Header Files\Engine\Game\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="GameWorld.h">
-      <Filter>Header Files\Game\Interfaces</Filter>
+      <Filter>Header Files\Engine\Game\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsEngine.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="TestPhysicsComponent.h">
-      <Filter>Header Files\Game\Components</Filter>
+      <Filter>Header Files\Engine\Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="TestGraphicsComponent.h">
-      <Filter>Header Files\Game\Components</Filter>
+      <Filter>Header Files\Engine\Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="InputSystem.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="BasePropertyHolder.h">
-      <Filter>Header Files\Property</Filter>
-    </ClInclude>
-    <ClInclude Include="PropertyDataHolder.h">
-      <Filter>Header Files\Property</Filter>
-    </ClInclude>
-    <ClInclude Include="Property.h">
-      <Filter>Header Files\Property</Filter>
+      <Filter>Header Files\Engine\Systems</Filter>
     </ClInclude>
     <ClInclude Include="FontSystem.h">
-      <Filter>Header Files\Systems</Filter>
+      <Filter>Header Files\Engine\Systems</Filter>
     </ClInclude>
     <ClInclude Include="Win32Console.h">
-      <Filter>Header Files\Win32</Filter>
+      <Filter>Header Files\Engine\Win32</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
-      <Filter>Header Files\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshSurfaceGraphicsComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine\Win32</Filter>
     </ClInclude>
     <ClInclude Include="GameComponent.h">
-      <Filter>Header Files\Game\Components\Interfaces</Filter>
+      <Filter>Header Files\Engine\Game\Components\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsComponent.h">
-      <Filter>Header Files\Game\Components\Interfaces</Filter>
+      <Filter>Header Files\Engine\Game\Components\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsComponent.h">
-      <Filter>Header Files\Game\Components\Interfaces</Filter>
+      <Filter>Header Files\Engine\Game\Components\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="InputComponent.h">
-      <Filter>Header Files\Game\Components\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="FlightSimulatorGameApp.h">
-      <Filter>Header Files\Game</Filter>
+      <Filter>Header Files\Engine\Game\Components\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Plane.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Example</Filter>
     </ClInclude>
     <ClInclude Include="PlaneInputComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Example</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshSurfaceGraphicsComponent.h">
+      <Filter>Header Files\Example</Filter>
     </ClInclude>
     <ClInclude Include="QuatCamera.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="FlightSimulatorGameApp.h">
+      <Filter>Header Files\Example</Filter>
+    </ClInclude>
+    <ClInclude Include="TestGameWorld.h">
+      <Filter>Header Files\Example</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

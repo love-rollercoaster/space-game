@@ -78,6 +78,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="FlightSimulatorGameApp.cpp" />
     <ClCompile Include="FontSystem.cpp" />
+    <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="InputComponent.cpp" />
@@ -86,7 +87,6 @@
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PlaneInputComponent.cpp" />
     <ClCompile Include="QuatCamera.cpp" />
-    <ClCompile Include="TestGameApp.cpp" />
     <ClCompile Include="TestGameWorld.cpp" />
     <ClCompile Include="TestGraphicsComponent.cpp" />
     <ClCompile Include="TestPhysicsComponent.cpp" />
@@ -109,13 +109,9 @@
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="MeshSurfaceGraphicsComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
-    <ClInclude Include="BasePropertyHolder.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PlaneInputComponent.h" />
-    <ClInclude Include="Property.h" />
-    <ClInclude Include="PropertyDataHolder.h" />
     <ClInclude Include="QuatCamera.h" />
-    <ClInclude Include="TestGameApp.h" />
     <ClInclude Include="TestGameWorld.h" />
     <ClInclude Include="TestGraphicsComponent.h" />
     <ClInclude Include="TestPhysicsComponent.h" />

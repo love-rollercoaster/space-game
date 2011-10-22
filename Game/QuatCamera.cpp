@@ -23,6 +23,7 @@ void QuatCamera::yaw( float radians )
 
 void QuatCamera::pitch( float radians )
 {
+    radians = yInverted? -radians : radians;
 	updateOrientation(right, radians);
 }
 
@@ -31,10 +32,9 @@ void QuatCamera::roll( float radians )
     updateOrientation(lookDirection, radians);
 }
 
-void QuatCamera::update(int time)
+void QuatCamera::update(time_t time)
 {
-    float fTime = (float) time / 1000.0f;
-    position += lookDirection * fTime;
+    position += lookDirection * speed * static_cast<float>(time);
 
     updateViewMatrix();
 }

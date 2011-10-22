@@ -29,7 +29,7 @@ void TestGameWorld::init( GameEngine &gameEngine )
 
 void TestGameWorld::update( time_t time )
 {
-    camera.update(1);
+    camera.update(time);
 }
 
 void TestGameWorld::draw( GraphicsEngine &graphicsEngine )

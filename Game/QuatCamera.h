@@ -13,7 +13,7 @@ public:
     virtual void yaw( float radians );
     virtual void pitch( float radians );
     virtual void roll( float radians );
-    virtual void update(int time);
+    virtual void update(time_t time);
 
     virtual float getPitchAngle() const;
     virtual float getYawAngle() const;

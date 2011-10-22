@@ -1,6 +1,6 @@
 #include "GraphicsEngine.h"
 
-#include "Camera.h"
+#include "QuatCamera.h"
 
 GraphicsEngine::GraphicsEngine(void)
     : backgroundColor(D3DCOLOR_XRGB(0,0,0))
@@ -170,7 +170,7 @@ void GraphicsEngine::setBackgroundColor( DWORD backgroundColor )
 void GraphicsEngine::setupViewMatrix()
 {
     if (camera != NULL) {
-        direct3DDevice->SetTransform(D3DTS_VIEW, camera->getViewMatrix());
+        direct3DDevice->SetTransform(D3DTS_VIEW, &camera->getViewMatrix());
     }
 }
 
@@ -178,7 +178,7 @@ void GraphicsEngine::setupViewMatrix()
 void GraphicsEngine::setupProjectionMatrix()
 {
     if (camera != NULL) {
-        direct3DDevice->SetTransform(D3DTS_PROJECTION, camera->getProjectionMatrix()); 
+        direct3DDevice->SetTransform(D3DTS_PROJECTION, &camera->getProjectionMatrix()); 
     }
 }
 

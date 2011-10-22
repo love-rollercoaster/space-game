@@ -2,7 +2,7 @@
 
 #include "GameWorld.h"
 #include "GameObject.h"
-#include "Camera.h"
+#include "QuatCamera.h"
 #include "MeshSurfaceGraphicsComponent.h"
 #include "Plane.h"
 #include "PlaneInputComponent.h"
@@ -19,7 +19,7 @@ public:
     void draw(GraphicsEngine &graphicsEngine);
 
 private:
-    Camera camera;
+    QuatCamera camera;
     GameObject mesh;
     Plane plane;
     MeshSurfaceGraphicsComponent meshSurfaceGraphicsComponent;

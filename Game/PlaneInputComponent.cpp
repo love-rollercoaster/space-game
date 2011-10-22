@@ -10,6 +10,8 @@ void PlaneInputComponent::registerInputHandlers()
     registerInputHandler(VK_RIGHT, arrowKeyHandler);
     registerInputHandler(VK_DOWN,  arrowKeyHandler);
     registerInputHandler(VK_UP,  arrowKeyHandler);
+    registerInputHandler('A',  arrowKeyHandler);
+    registerInputHandler('D',  arrowKeyHandler);
 }
 
 void PlaneInputComponent::arrowKeyHandler( Window &window, unsigned char key )
@@ -31,7 +33,13 @@ void PlaneInputComponent::arrowKeyHandler( Window &window, unsigned char key )
     case VK_UP:
         camera->pitch(D3DXToRadian(-5.0f));
         break;
+    case 'A':
+        camera->roll(D3DXToRadian(-5.0f));
+        break;
+    case 'D':
+        camera->roll(D3DXToRadian(5.0f));
+        break;
     }
 
-    camera->update();
+    camera->update(1);
 }

@@ -110,6 +110,9 @@
     <ClCompile Include="PlaneInputComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QuatCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestGameApp.h">
@@ -188,6 +191,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlaneInputComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QuatCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

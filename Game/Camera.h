@@ -1,65 +1,57 @@
-// Reference:
-// http://www.chadvernon.com/blog/resources/directx9/moving-around-a-3d-world/
-
 #pragma once
-
 #include <d3dx9.h>
-#include "GameObject.h"
 
 class Camera
 {
 public:
     Camera();
 
-    void createProjectionMatrix( float fov, float aspect, float nearPlane, float farPlane );
-    void moveForward( float units );
-    void strafe( float units );
-    void moveUp( float units );    
+    virtual void createProjectionMatrix( float fov, float aspect, float nearPlane, float farPlane );
 
-    void yaw( float radians );
-    void pitch( float radians );
-    void roll( float radians );
-    void update();
+    virtual void yaw( float radians ) = 0;
+    virtual void pitch( float radians ) = 0;
+    virtual void roll( float radians ) = 0;
+    virtual void update(int time) = 0;
 
-    void setPosition( D3DXVECTOR3 &position );
-    void setLookAtPoint( D3DXVECTOR3 &lookAtPoint );
-    void setFOV( float fov )            { createProjectionMatrix( fov, aspect, nearPlane, farPlane ); }
-    void setAspectRatio( float aspect ) { createProjectionMatrix( fov, aspect, nearPlane, farPlane ); }
-    void setNearPlane( float plane )    { createProjectionMatrix( fov, aspect, plane, farPlane ); }
-    void setFarPlane( float plane )     { createProjectionMatrix( fov, aspect, nearPlane, plane ); }
-    void setMaxVelocity( float maxVelocity ) { maxVelocity = maxVelocity; }
-    void setInvertY( bool invert )           { yInverted = invert; }
-    void setMaxPitch( float maxPitch )       { maxPitch = maxPitch; }
-    void setIgnoreMaxPitchAngle( bool ignore ) { ignoreMaxPitchAngle = ignore;}
+    virtual void setPosition( D3DXVECTOR3 &position ) {this->position = D3DXVECTOR3(position);}
+    virtual void setFOV( float fov )            { createProjectionMatrix( fov, aspect, nearPlane, farPlane ); }
+    virtual void setAspectRatio( float aspect ) { createProjectionMatrix( fov, aspect, nearPlane, farPlane ); }
+    virtual void setNearPlane( float plane )    { createProjectionMatrix( fov, aspect, plane, farPlane ); }
+    virtual void setFarPlane( float plane )     { createProjectionMatrix( fov, aspect, nearPlane, plane ); }
+    virtual void setMaxSpeed( float maxSpeed )  { this->maxSpeed = maxSpeed; }
+    virtual void setInvertY( bool invert )      { this->yInverted = invert; }
+    virtual void setMaxPitch( float maxPitch )  { this->maxPitchAngle = maxPitch; }
+    virtual void setIgnoreMaxPitchAngle( bool ignore ) { this->ignoreMaxPitchAngle = ignore;}
+    virtual void setSpeed(float speed);
+    virtual void changeSpeedBy(float dSpeed);
 
-    D3DXMATRIX* getViewMatrix()        { return &view; }
-    D3DXMATRIX* getProjectionMatrix()  { return &projection; }
-    D3DXVECTOR3* getPosition()         { return &position; }
-    D3DXVECTOR3* getLookAtPoint()      { return &lookAtPoint; }
-    D3DXVECTOR3* getLookDirection()    { return &lookDirection; }
-    float getFOV()                     { return fov; }
-    float getAspectRatio()             { return aspect; }
-    float getNearPlane()               { return nearPlane; }
-    float getFarPlane()                { return farPlane; }
-    float getMaxVelocity()             { return maxVelocity; }
-    bool  getInvertY()                 { return yInverted; }
-    float getPitchAngle()              { return pitchAngle; }
-    float getYawAngle()                { return yawAngle; }
-    float getMaxPitchAngle()           { return maxPitchAngle; }
+    virtual D3DXMATRIX getViewMatrix() const        { return view; }
+    virtual D3DXMATRIX getProjectionMatrix() const  { return projection; }
+    virtual D3DXVECTOR3 getUpVector() const         { return up; }
+    virtual D3DXVECTOR3 getPosition() const         { return position; }
+    virtual D3DXVECTOR3 getLookAtPoint() const      { return position + lookDirection; }
+    virtual D3DXVECTOR3 getLookDirection() const    { return lookDirection; }
+    virtual float getFOV() const              { return fov; }
+    virtual float getAspectRatio() const      { return aspect; }
+    virtual float getNearPlane() const        { return nearPlane; }
+    virtual float getFarPlane() const         { return farPlane; }
+    virtual float getSpeed() const            { return speed; }
+    virtual float getMaxSpeed() const         { return maxSpeed; }
+    virtual bool  getInvertY() const          { return yInverted; }
+    virtual float getMaxPitchAngle() const    { return maxPitchAngle; }
+    virtual float getPitchAngle() const = 0;
+    virtual float getYawAngle() const = 0;
 
-private:
+protected:
     D3DXMATRIX  view;
     D3DXMATRIX  projection;
     D3DXVECTOR3 right;
     D3DXVECTOR3 up;
     D3DXVECTOR3 lookDirection;
     D3DXVECTOR3 position;
-    D3DXVECTOR3 lookAtPoint;
-    D3DXVECTOR3 velocity;
-    float       yawAngle;
-    float       pitchAngle;
+    float       speed;
     float       maxPitchAngle;
-    float       maxVelocity;
+    float       maxSpeed;
     float       fov;
     float       aspect;
     float       nearPlane;
@@ -67,4 +59,7 @@ private:
     bool        yInverted;
     bool        yMovementEnabled;
     bool        ignoreMaxPitchAngle;
+
+private:
+    void keepSpeedBounds();
 };

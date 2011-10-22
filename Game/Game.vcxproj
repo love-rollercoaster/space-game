@@ -86,6 +86,7 @@
     <ClCompile Include="MeshSurfaceGraphicsComponent.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PlaneInputComponent.cpp" />
+    <ClCompile Include="QuatCamera.cpp" />
     <ClCompile Include="TestGameApp.cpp" />
     <ClCompile Include="TestGameWorld.cpp" />
     <ClCompile Include="TestGraphicsComponent.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="PlaneInputComponent.h" />
     <ClInclude Include="Property.h" />
     <ClInclude Include="PropertyDataHolder.h" />
+    <ClInclude Include="QuatCamera.h" />
     <ClInclude Include="TestGameApp.h" />
     <ClInclude Include="TestGameWorld.h" />
     <ClInclude Include="TestGraphicsComponent.h" />

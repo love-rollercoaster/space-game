@@ -21,14 +21,8 @@
     <Filter Include="Header Files\Engine\Game">
       <UniqueIdentifier>{64f25954-6a02-45d0-ad74-1db5a6d1a932}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Engine\Game\Interfaces">
-      <UniqueIdentifier>{a65233a7-4eb5-4c46-a9e9-d6e13419eebb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine\Game\Components">
       <UniqueIdentifier>{fe15d937-388c-45a0-9dc1-b0c701243471}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Engine\Game\Components\Interfaces">
-      <UniqueIdentifier>{0521dd6d-8174-4b81-95c5-589d74aa17e1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Engine\Win32">
       <UniqueIdentifier>{d108e6e0-038f-4a7d-b86f-fe4b498a1b63}</UniqueIdentifier>
@@ -44,12 +38,6 @@
     </Filter>
     <Filter Include="Source Files\Engine\Game\Components">
       <UniqueIdentifier>{b85656f5-f08a-42c6-b7f7-82708acb4c17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\Game\Components\Test">
-      <UniqueIdentifier>{28a6b260-7eb4-4321-8728-7a6eda248b56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\Game\Components\Interface">
-      <UniqueIdentifier>{a1bd3ca5-3fc4-423b-a5b9-1582b1915bae}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine\Systems">
       <UniqueIdentifier>{e600f1f6-9209-4e6a-b247-e7db6922a16f}</UniqueIdentifier>
@@ -76,15 +64,6 @@
     </ClCompile>
     <ClCompile Include="InputSystem.cpp">
       <Filter>Source Files\Engine\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="TestGraphicsComponent.cpp">
-      <Filter>Source Files\Engine\Game\Components\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="TestPhysicsComponent.cpp">
-      <Filter>Source Files\Engine\Game\Components\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="InputComponent.cpp">
-      <Filter>Source Files\Engine\Game\Components\Interface</Filter>
     </ClCompile>
     <ClCompile Include="FontSystem.cpp">
       <Filter>Source Files\Engine\Systems</Filter>
@@ -119,28 +98,25 @@
     <ClCompile Include="GameApp.cpp">
       <Filter>Source Files\Engine\Game</Filter>
     </ClCompile>
+    <ClCompile Include="BuildingGraphicsComponent.cpp">
+      <Filter>Source Files\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Source Files\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeGraphicsComponent.cpp">
+      <Filter>Source Files\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Source Files\Engine\Game\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="GameApp.h">
-      <Filter>Header Files\Engine\Game\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files\Engine\Game\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="GameWorld.h">
-      <Filter>Header Files\Engine\Game\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="GraphicsEngine.h">
       <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="TestPhysicsComponent.h">
-      <Filter>Header Files\Engine\Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TestGraphicsComponent.h">
-      <Filter>Header Files\Engine\Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="InputSystem.h">
       <Filter>Header Files\Engine\Systems</Filter>
@@ -153,18 +129,6 @@
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Header Files\Engine\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="GameComponent.h">
-      <Filter>Header Files\Engine\Game\Components\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsComponent.h">
-      <Filter>Header Files\Engine\Game\Components\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsComponent.h">
-      <Filter>Header Files\Engine\Game\Components\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="InputComponent.h">
-      <Filter>Header Files\Engine\Game\Components\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Plane.h">
       <Filter>Header Files\Example</Filter>
@@ -186,6 +150,36 @@
     </ClInclude>
     <ClInclude Include="TestGameWorld.h">
       <Filter>Header Files\Example</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponent.h">
+      <Filter>Header Files\Engine\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Header Files\Engine\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsComponent.h">
+      <Filter>Header Files\Engine\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>Header Files\Engine\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp.h">
+      <Filter>Header Files\Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWorld.h">
+      <Filter>Header Files\Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeGraphicsComponent.h">
+      <Filter>Source Files\Example</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingGraphicsComponent.h">
+      <Filter>Source Files\Example</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Source Files\Example</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

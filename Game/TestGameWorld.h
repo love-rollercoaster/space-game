@@ -1,11 +1,16 @@
 #pragma once
 
+#include <vector>
 #include "GameWorld.h"
 #include "GameObject.h"
 #include "QuatCamera.h"
 #include "MeshSurfaceGraphicsComponent.h"
 #include "Plane.h"
 #include "PlaneInputComponent.h"
+#include "Cube.h"
+#include "BuildingGraphicsComponent.h"
+
+using std::vector;
 
 class TestGameWorld :
     public GameWorld
@@ -28,4 +33,9 @@ private:
     void initCamera(GameEngine &gameEngine);
     void initPlane(GameEngine &gameEngine);
     void initMesh(GameEngine &gameEngine);
+    void initObstacles(GameEngine &gameEngine);
+
+    BuildingGraphicsComponent buildingGraphicsComponent;
+    CubeGraphicsComponent bulletGraphicsComponent;
+    vector<Cube> obstacles;
 };

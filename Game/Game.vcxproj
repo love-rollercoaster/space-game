@@ -75,7 +75,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BuildingGraphicsComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="CubeGraphicsComponent.cpp" />
     <ClCompile Include="FlightSimulatorGameApp.cpp" />
     <ClCompile Include="FontSystem.cpp" />
     <ClCompile Include="GameApp.cpp" />
@@ -88,14 +91,15 @@
     <ClCompile Include="PlaneInputComponent.cpp" />
     <ClCompile Include="QuatCamera.cpp" />
     <ClCompile Include="TestGameWorld.cpp" />
-    <ClCompile Include="TestGraphicsComponent.cpp" />
-    <ClCompile Include="TestPhysicsComponent.cpp" />
     <ClCompile Include="Win32Console.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BuildingGraphicsComponent.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="CubeGraphicsComponent.h" />
     <ClInclude Include="FlightSimulatorGameApp.h" />
     <ClInclude Include="FontSystem.h" />
     <ClInclude Include="GameApp.h" />
@@ -113,8 +117,6 @@
     <ClInclude Include="PlaneInputComponent.h" />
     <ClInclude Include="QuatCamera.h" />
     <ClInclude Include="TestGameWorld.h" />
-    <ClInclude Include="TestGraphicsComponent.h" />
-    <ClInclude Include="TestPhysicsComponent.h" />
     <ClInclude Include="Win32Console.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

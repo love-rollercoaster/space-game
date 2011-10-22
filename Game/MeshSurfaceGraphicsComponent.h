@@ -28,20 +28,14 @@ using std::vector;
 class MeshSurfaceGraphicsComponent
     : public GraphicsComponent
 {
-    struct MeshVertex {
-        D3DXVECTOR3 position;
-        DWORD color;
-    };
-
 public:
     ~MeshSurfaceGraphicsComponent();
 
     void init(GraphicsEngine &graphicsEngine);
+    void initSurface(int numRows, int numCols, float dx, float dz);
     void draw(GameObject &gameObject, GraphicsEngine &graphicsEngine);
 
 private:
-    void createSurface(int numRows, int numCols, float dx, float dz);
-
     void initVertices(int rows, int columns, float xOffset, float zOffset, float yMin, float yMax);
     void initIndices(int rows, int columns);
 
@@ -49,7 +43,7 @@ private:
     void initIndexBuffer(GraphicsEngine &graphicsEngine);
     void initVertexDeclaration(GraphicsEngine &graphicsEngine);
 
-    vector<MeshVertex> vertices;
+    vector<CustomVertex> vertices;
     vector<long> indices;
 
     LPDIRECT3DVERTEXBUFFER9 vertexBuffer;

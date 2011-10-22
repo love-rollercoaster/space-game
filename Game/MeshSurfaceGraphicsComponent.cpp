@@ -8,8 +8,6 @@ MeshSurfaceGraphicsComponent::~MeshSurfaceGraphicsComponent()
 
 void MeshSurfaceGraphicsComponent::init( GraphicsEngine &graphicsEngine )
 {
-    createSurface(100,100,10,10); // FIXME hardcoded
-
     initVertexDeclaration(graphicsEngine);
     initVertexBuffer(graphicsEngine);
     initIndexBuffer(graphicsEngine);
@@ -33,7 +31,7 @@ void MeshSurfaceGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine 
 
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
 
-    graphicsEngine.getDirect3DDevice()->SetStreamSource( 0, this->vertexBuffer, 0, sizeof(MeshVertex) );
+    graphicsEngine.getDirect3DDevice()->SetStreamSource( 0, this->vertexBuffer, 0, sizeof(CustomVertex) );
     graphicsEngine.getDirect3DDevice()->SetVertexDeclaration(this->vertexDeclaration);
     graphicsEngine.getDirect3DDevice()->SetIndices(this->indexBuffer);
 
@@ -44,7 +42,7 @@ void MeshSurfaceGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine 
     graphicsEngine.getDirect3DDevice()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, this->vertices.size(), 0, this->triangleCount);
 }
 
-void MeshSurfaceGraphicsComponent::createSurface( int numRows, int numCols, float dx, float dz )
+void MeshSurfaceGraphicsComponent::initSurface( int numRows, int numCols, float dx, float dz )
 {
     // FIXME hardcoded
     float rangeMax = 10;
@@ -114,7 +112,7 @@ void MeshSurfaceGraphicsComponent::initIndices( int rows, int columns )
 
 void MeshSurfaceGraphicsComponent::initVertexBuffer( GraphicsEngine &graphicsEngine )
 {
-    int vertexBufferSize = this->vertices.size() * sizeof(MeshVertex);
+    int vertexBufferSize = this->vertices.size() * sizeof(CustomVertex);
 
     graphicsEngine.getDirect3DDevice()->CreateVertexBuffer(
         vertexBufferSize,
@@ -151,7 +149,7 @@ void MeshSurfaceGraphicsComponent::initIndexBuffer( GraphicsEngine &graphicsEngi
 
 void MeshSurfaceGraphicsComponent::initVertexDeclaration(GraphicsEngine &graphicsEngine)
 {
-    MeshVertex meshVertex;
+    CustomVertex meshVertex;
     D3DVERTEXELEMENT9 vertexElement[] = {
         {0, 0, D3DDECLTYPE_FLOAT3,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
         {0, 0, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR,    0},

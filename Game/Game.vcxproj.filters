@@ -51,6 +51,18 @@
     <Filter Include="Source Files\Example">
       <UniqueIdentifier>{cc411a0d-d813-4597-9ebc-a44250a8fba9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Example\Objects">
+      <UniqueIdentifier>{6a65e1c3-80d5-48bd-a8d3-c083fc47ffac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Example\Objects\Components">
+      <UniqueIdentifier>{03687b6e-538b-4611-94d2-fa1af0680d6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Example\Objects">
+      <UniqueIdentifier>{0342b2a2-3f51-4ae3-babe-23706b7ca7da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Example\Objects\Components">
+      <UniqueIdentifier>{c8dc9d23-c1b9-4746-bc81-286bd60bfac1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winmain.cpp">
@@ -80,15 +92,6 @@
     <ClCompile Include="QuatCamera.cpp">
       <Filter>Source Files\Engine\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="PlaneInputComponent.cpp">
-      <Filter>Source Files\Example</Filter>
-    </ClCompile>
-    <ClCompile Include="Plane.cpp">
-      <Filter>Source Files\Example</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshSurfaceGraphicsComponent.cpp">
-      <Filter>Source Files\Example</Filter>
-    </ClCompile>
     <ClCompile Include="TestGameWorld.cpp">
       <Filter>Source Files\Example</Filter>
     </ClCompile>
@@ -98,17 +101,26 @@
     <ClCompile Include="GameApp.cpp">
       <Filter>Source Files\Engine\Game</Filter>
     </ClCompile>
-    <ClCompile Include="BuildingGraphicsComponent.cpp">
-      <Filter>Source Files\Example</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Source Files\Example</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeGraphicsComponent.cpp">
-      <Filter>Source Files\Example</Filter>
-    </ClCompile>
     <ClCompile Include="InputComponent.cpp">
       <Filter>Source Files\Engine\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Source Files\Example\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildingGraphicsComponent.cpp">
+      <Filter>Source Files\Example\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Source Files\Example\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshSurfaceGraphicsComponent.cpp">
+      <Filter>Source Files\Example\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaneInputComponent.cpp">
+      <Filter>Source Files\Example\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeGraphicsComponent.cpp">
+      <Filter>Source Files\Example\Objects\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,15 +141,6 @@
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Header Files\Engine\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="Plane.h">
-      <Filter>Header Files\Example</Filter>
-    </ClInclude>
-    <ClInclude Include="PlaneInputComponent.h">
-      <Filter>Header Files\Example</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshSurfaceGraphicsComponent.h">
-      <Filter>Header Files\Example</Filter>
     </ClInclude>
     <ClInclude Include="QuatCamera.h">
       <Filter>Header Files\Engine\Camera</Filter>
@@ -172,14 +175,23 @@
     <ClInclude Include="GameWorld.h">
       <Filter>Header Files\Engine\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Header Files\Example\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="CubeGraphicsComponent.h">
-      <Filter>Source Files\Example</Filter>
+      <Filter>Header Files\Example\Objects\Components</Filter>
     </ClInclude>
     <ClInclude Include="BuildingGraphicsComponent.h">
-      <Filter>Source Files\Example</Filter>
+      <Filter>Header Files\Example\Objects\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Source Files\Example</Filter>
+    <ClInclude Include="MeshSurfaceGraphicsComponent.h">
+      <Filter>Header Files\Example\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaneInputComponent.h">
+      <Filter>Header Files\Example\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Header Files\Example\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -41,8 +41,6 @@ void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
     for each (Cube obstacle in obstacles) {
         obstacle.draw(graphicsEngine);
     }
-
-    plane.draw(graphicsEngine);
 }
 
 void TestGameWorld::initMesh( GameEngine &gameEngine )
@@ -55,10 +53,8 @@ void TestGameWorld::initMesh( GameEngine &gameEngine )
 
 void TestGameWorld::initPlane( GameEngine &gameEngine )
 {
-    bulletGraphicsComponent.init(gameEngine.getGraphicsEngine());
     planeInputComponent.init(&plane);
     plane.init(&planeInputComponent, NULL, NULL);
-    plane.setBulletGraphicsComponent(bulletGraphicsComponent);
 }
 
 void TestGameWorld::initCamera( GameEngine &gameEngine )
@@ -66,9 +62,6 @@ void TestGameWorld::initCamera( GameEngine &gameEngine )
     D3DXVECTOR3 position(5000, 100, 5000);
 
     camera.setPosition(position);
-    position.x += 10;
-    position.z += 10;
-    // camera.setLookAtPoint(position);
     camera.setIgnoreMaxPitchAngle(true);
     camera.setInvertY(true);
 

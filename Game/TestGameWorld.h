@@ -36,6 +36,5 @@ private:
     void initObstacles(GameEngine &gameEngine);
 
     BuildingGraphicsComponent buildingGraphicsComponent;
-    CubeGraphicsComponent bulletGraphicsComponent;
     vector<Cube> obstacles;
 };

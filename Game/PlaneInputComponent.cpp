@@ -14,7 +14,6 @@ void PlaneInputComponent::registerInputHandlers()
     registerInputHandler('S', arrowKeyHandler);
     registerInputHandler('A', arrowKeyHandler);
     registerInputHandler('D', arrowKeyHandler);
-    registerInputHandler(VK_SPACE, arrowKeyHandler);
 }
 
 void PlaneInputComponent::arrowKeyHandler( unsigned char key )
@@ -37,10 +36,10 @@ void PlaneInputComponent::arrowKeyHandler( unsigned char key )
         camera->pitch(D3DXToRadian(-1.0f));
         break;
     case 'W':
-        // camera->moveForward(5.0f);
+        camera->changeSpeedBy(0.5f);
         break;
     case 'S':
-        // camera->moveForward(-5.0f);
+        camera->changeSpeedBy(-0.5f);
         break;
     case 'A':
         camera->roll(D3DXToRadian(1.0f));
@@ -48,10 +47,5 @@ void PlaneInputComponent::arrowKeyHandler( unsigned char key )
     case 'D':
         camera->roll(D3DXToRadian(-1.0f));
         break;
-    case VK_SPACE:
-        plane->shoot();
-        break;
     }
-
-    // camera->update();
 }

@@ -122,6 +122,9 @@
     <ClCompile Include="CubeGraphicsComponent.cpp">
       <Filter>Source Files\Example\Objects\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -192,6 +195,9 @@
     </ClInclude>
     <ClInclude Include="Plane.h">
       <Filter>Header Files\Example\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

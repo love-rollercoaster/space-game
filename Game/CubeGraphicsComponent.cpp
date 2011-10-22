@@ -22,7 +22,6 @@ void CubeGraphicsComponent::initVertexBuffer( GraphicsEngine &graphicsEngine )
         { D3DXVECTOR3( 1.0f, -1.0f,  1.0f), D3DCOLOR_XRGB(255,255,255), },
     };
 
-    // create a vertex buffer interface called v_buffer
     graphicsEngine.getDirect3DDevice()->CreateVertexBuffer(
         8 * sizeof(CustomVertex),
         0,
@@ -33,7 +32,6 @@ void CubeGraphicsComponent::initVertexBuffer( GraphicsEngine &graphicsEngine )
 
     VOID* pVoid;    // a void pointer
 
-    // lock v_buffer and load the vertices into it
     vertexBuffer->Lock(0, 0, static_cast<void**>(&pVoid), 0);
     memcpy(pVoid, vertices, sizeof(vertices));
     vertexBuffer->Unlock();

@@ -54,8 +54,6 @@ long InputSystem::HandleKeyDown( Window &window, HWND hwnd, long wparam, long lp
     unsigned char key = static_cast<unsigned char>(wparam);
     KeysPressed[key] = true;
 
-    DispatchMessageToRegisteredHandlers(key);
-
     return 0;
 }
 

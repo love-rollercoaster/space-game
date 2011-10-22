@@ -9,7 +9,7 @@ class PlaneInputComponent
 {
 public:
     virtual void registerInputHandlers();
-    void arrowKeyHandler( Window &window, unsigned char key );
+    void arrowKeyHandler( unsigned char key );
 
 private:
     Plane *plane;

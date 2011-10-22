@@ -14,7 +14,7 @@ void PlaneInputComponent::registerInputHandlers()
     registerInputHandler('D',  arrowKeyHandler);
 }
 
-void PlaneInputComponent::arrowKeyHandler( Window &window, unsigned char key )
+void PlaneInputComponent::arrowKeyHandler( unsigned char key )
 {
     Plane *plane = dynamic_cast<Plane*>(gameObject);
     Camera *camera = plane->getCamera();

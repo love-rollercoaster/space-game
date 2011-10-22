@@ -82,7 +82,6 @@
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="InputSystem.cpp" />
-    <ClCompile Include="MeshSurface.cpp" />
     <ClCompile Include="MeshSurfaceGraphicsComponent.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PlaneInputComponent.cpp" />
@@ -108,7 +107,6 @@
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="InputSystem.h" />
-    <ClInclude Include="MeshSurface.h" />
     <ClInclude Include="MeshSurfaceGraphicsComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="BasePropertyHolder.h" />

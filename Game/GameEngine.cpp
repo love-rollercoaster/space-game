@@ -1,7 +1,6 @@
 #include "GameEngine.h"
-
 #include "GameObject.h"
-#include "TestGraphicsComponent.h"
+#include "InputSystem.h"
 
 GameEngine::GameEngine(GameApp &gameApp, GraphicsEngine &graphicsEngine)
     : TIME_PER_FRAME(1000 / TARGET_FRAMERATE) // maybe to this at a 'display' level, same thing with the fps limiter
@@ -23,6 +22,7 @@ WPARAM GameEngine::startGameLoop()
     do {
         msg = getMessage();
 
+        InputSystem::DispatchInputEvents();
         updateGameState(GetTickCount() - lastUpdateTime);
         lastUpdateTime = GetTickCount();
 

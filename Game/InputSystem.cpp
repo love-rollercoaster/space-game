@@ -1,7 +1,8 @@
 #include "InputSystem.h"
 
 InputSystem::KeyboardMappings InputSystem::keyboardMappings;
-InputSystem::MouseHandlerPairs    InputSystem::mouseHandlerPairs;
+InputSystem::MouseHandlerPairs InputSystem::mouseHandlerPairs;
+bool InputSystem::KeysPressed[] = {false};
 
 void InputSystem::StaticInit()
 {
@@ -18,8 +19,6 @@ InputSystem::~InputSystem(void)
 
 void InputSystem::init(/* Window &window */)
 {
-    // this->window = &window;
-
     // TODO: CHANGE THIS PUT IT IN InputCompnents CLASS' init, like graphics comp, engine cascade init
     InputComponent::SetInputSystem(this);
 }
@@ -34,17 +33,36 @@ void InputSystem::registerInputHandler( InputComponent &inputComponent, InputCom
     mouseHandlerPairs.push_back(MouseInputHandlerPair(&inputComponent, inputHandler));
 }
 
+void InputSystem::DispatchInputEvents()
+{
+    for (int key = 0; key < NUM_OF_KEYS; key++) {
+        if (KeysPressed[key]) {
+            DispatchMessageToRegisteredHandlers(key);
+        }
+    }
+}
+
 void InputSystem::InitMessageHandlers()
 {
-    Window::RegisterMessageHandler(WM_KEYDOWN, InputSystem::HandleKeyboardInput);
+    Window::RegisterMessageHandler(WM_KEYDOWN, InputSystem::HandleKeyDown);
+    Window::RegisterMessageHandler(WM_KEYUP, InputSystem::HandleKeyUp);
     Window::RegisterMessageHandler(WM_MOUSEMOVE, InputSystem::HandleMouseInput);
 }
 
-long InputSystem::HandleKeyboardInput( Window &window, HWND hwnd, long wparam, long lparam )
+long InputSystem::HandleKeyDown( Window &window, HWND hwnd, long wparam, long lparam )
+{
+    unsigned char key = static_cast<unsigned char>(wparam);
+    KeysPressed[key] = true;
+
+    DispatchMessageToRegisteredHandlers(key);
+
+    return 0;
+}
+
+long InputSystem::HandleKeyUp( Window &window, HWND hwnd, long wparam, long lparam )
 {
     unsigned char input = static_cast<unsigned char>(wparam);
-    KeyboardHandlerPairs &keyboardHandlerPairs = GetRegisteredHandlersFromKeyboardInput(input);      
-    DispatchMessageToRegisteredHandlers(input, window, keyboardHandlerPairs);
+    KeysPressed[input] = false;
 
     return 0;
 }
@@ -66,13 +84,15 @@ long InputSystem::HandleMouseInput( Window &window, HWND hwnd, long wparam, long
     return 0;
 }
 
-void InputSystem::DispatchMessageToRegisteredHandlers(unsigned char key, Window &window, KeyboardHandlerPairs &keyboardHandlerPairs )
+void InputSystem::DispatchMessageToRegisteredHandlers(unsigned char key)
 {
+    KeyboardHandlerPairs &keyboardHandlerPairs = GetRegisteredHandlersFromKeyboardInput(key);
+
     for each (KeyboardInputHandlerPair keyboardInputHandlerPair in keyboardHandlerPairs)
     {
         InputComponent *inputComponent = keyboardInputHandlerPair.first;
         InputComponent::KeyboardInputHandler &inputHandler = keyboardInputHandlerPair.second;
-        (inputComponent->*inputHandler)(window, key);
+        (inputComponent->*inputHandler)(key);
     }
 }
 

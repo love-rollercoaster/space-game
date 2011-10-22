@@ -27,8 +27,8 @@ public:
 
     virtual ~InputComponent() {}
 
-    typedef void (InputComponent::*KeyboardInputHandler)(Window&, unsigned char key);
-    typedef void (InputComponent::*MouseInputHandler)(Window&, Point point);
+    typedef void (InputComponent::*KeyboardInputHandler)(unsigned char key);
+    typedef void (InputComponent::*MouseInputHandler)(Point point);
 
     void init();
     void init(GameObject *gameObject);

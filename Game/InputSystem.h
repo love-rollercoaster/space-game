@@ -26,18 +26,18 @@ public:
         float y;
     };
 
-    // void unregisterAllInputHandlersFrom(int inputComponentId);
     static void StaticInit();
-    static long HandleKeyboardInput(Window &window, HWND hwnd, long wparam, long lparam);
+    static long HandleKeyDown(Window &window, HWND hwnd, long wparam, long lparam);
+    static long HandleKeyUp(Window &window, HWND hwnd, long wparam, long lparam);
     static long HandleMouseInput(Window &window, HWND hwnd, long wparam, long lparam);
 
     void init(/* Window &window */);
     void registerInputHandler(unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler);
     void registerInputHandler(InputComponent &inputComponent, InputComponent::MouseInputHandler inputHandler);
 
-private:
-    static void InitMessageHandlers();
+    static void DispatchInputEvents();
 
+private:
     typedef pair<InputComponent*, InputComponent::KeyboardInputHandler> KeyboardInputHandlerPair;
     typedef list<KeyboardInputHandlerPair>                              KeyboardHandlerPairs;
     typedef pair<unsigned char, KeyboardHandlerPairs>                   KeyboardMapping;
@@ -49,7 +49,11 @@ private:
     static KeyboardMappings  keyboardMappings;
     static MouseHandlerPairs mouseHandlerPairs;
 
-    static void DispatchMessageToRegisteredHandlers(unsigned char key,  Window &window, KeyboardHandlerPairs &keyboardHandlerPairs);
+    static const int NUM_OF_KEYS = 256; // Key events are 8-bit chars
+    static bool KeysPressed[NUM_OF_KEYS];
+
+    static void InitMessageHandlers();
+    static void DispatchMessageToRegisteredHandlers(unsigned char key);
     static KeyboardHandlerPairs GetRegisteredHandlersFromKeyboardInput(unsigned char input);
     static void AddToKeyboardMappings(unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler);
 };

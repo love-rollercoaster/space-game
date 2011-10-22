@@ -76,6 +76,7 @@ void GraphicsEngine::initRenderStates()
     direct3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
     direct3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
     direct3DDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+    
     // direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE , TRUE);
 }
 
@@ -164,6 +165,7 @@ void GraphicsEngine::setCamera( Camera &camera )
 void GraphicsEngine::setBackgroundColor( DWORD backgroundColor )
 {
     this->backgroundColor = backgroundColor;
+    direct3DDevice->SetRenderState(D3DRS_FOGCOLOR, backgroundColor);
 }
 
 
@@ -192,4 +194,17 @@ void GraphicsEngine::cleanVertexBuffers()
 void GraphicsEngine::cleanDirect3D()
 {
     cleanVertexBuffers();
+}
+
+void GraphicsEngine::enableFog(float fogStart, float fogEnd)
+{
+    // Reference
+    // http://www.two-kings.de/tutorials/dxgraphics/dxgraphics15.html
+
+    direct3DDevice->SetRenderState(D3DRS_FOGENABLE,true);
+    direct3DDevice->SetRenderState(D3DRS_RANGEFOGENABLE,true);
+    direct3DDevice->SetRenderState(D3DRS_FOGCOLOR, backgroundColor);
+    direct3DDevice->SetRenderState(D3DRS_FOGVERTEXMODE, D3DFOG_LINEAR);
+    direct3DDevice->SetRenderState(D3DRS_FOGSTART, *(DWORD*)(&fogStart));
+    direct3DDevice->SetRenderState(D3DRS_FOGEND, *(DWORD*)(&fogEnd));
 }

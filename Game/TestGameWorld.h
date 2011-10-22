@@ -17,7 +17,6 @@ class TestGameWorld :
 {
 public:
     TestGameWorld(void);
-    ~TestGameWorld(void);
 
     void init(GameEngine &gameEngine);
     void update(time_t time);
@@ -25,7 +24,6 @@ public:
 
 private:
     QuatCamera camera;
-    GameObject mesh;
     Plane plane;
     MeshSurfaceGraphicsComponent meshSurfaceGraphicsComponent;
     PlaneInputComponent planeInputComponent;
@@ -36,5 +34,5 @@ private:
     void initObstacles(GameEngine &gameEngine);
 
     BuildingGraphicsComponent buildingGraphicsComponent;
-    vector<Cube> obstacles;
+    vector<Cube*> obstacles;
 };

@@ -2,7 +2,7 @@
 
 Camera::Camera()
     : maxPitchAngle(D3DXToRadian( 89.0f ))
-    , maxSpeed(1.0f)
+    , maxSpeed(5.0f)
     , yInverted(false)
     , yMovementEnabled(true)
     , position(0.0f, 0.0f, 0.0f)

@@ -36,7 +36,7 @@ void PlaneInputComponent::arrowKeyHandler( unsigned char key )
         camera->pitch(D3DXToRadian(-1.0f));
         break;
     case 'W':
-        camera->changeSpeedBy(0.5f);
+        camera->setSpeed(5.0f);
         break;
     case 'S':
         camera->setSpeed(0.0f);

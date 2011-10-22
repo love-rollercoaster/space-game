@@ -1,8 +1,11 @@
 #pragma once
 
 #include <d3dx9.h>
+#include <vector>
 #include "GraphicsComponent.h"
 #include "Cube.h"
+
+using std::vector;
 
 class CubeGraphicsComponent
     : public GraphicsComponent

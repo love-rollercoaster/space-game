@@ -52,25 +52,7 @@ public:
         }
     }
 
-/*
-    Property getProperty(string propertyName)
-    {
-        PropertyMap::iterator propertyMapIterator = propertyMap.find(propertyName);
-
-        if (propertyMapIterator != propertyMap.end()) {
-            return propertyMapIterator->second;
-        } else {
-            // FIXME: Throw a better exception here.
-            throw "Can't find property!";
-        }
-    }
-*/
-
-private:
-    // typedef std::map<string, Property> PropertyMap;
-    // typedef std::pair<string, Property> PropertyPair;
-    // PropertyMap propertyMap;
-
+protected:
     InputComponent* inputComponent;
     PhysicsComponent* physicsComponent;
     GraphicsComponent* graphicsComponent;

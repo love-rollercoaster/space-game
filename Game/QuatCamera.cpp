@@ -1,4 +1,5 @@
 #include "QuatCamera.h"
+#include <stdio.h>
 
 const D3DXVECTOR3 QuatCamera::basisDirectionVector(0.0f, 0.0f, 1.0f);
 const D3DXVECTOR3 QuatCamera::basisUpVector(0.0f, 1.0f, 0.0f);
@@ -34,7 +35,7 @@ void QuatCamera::roll( float radians )
 
 void QuatCamera::update(time_t time)
 {
-    position += lookDirection * speed * static_cast<float>(time);
+    position += lookDirection * speed /* * static_cast<float>(time) */;
 
     updateViewMatrix();
 }

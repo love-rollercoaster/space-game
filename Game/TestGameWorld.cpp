@@ -11,20 +11,16 @@ TestGameWorld::TestGameWorld( void )
 {
 }
 
-TestGameWorld::~TestGameWorld( void )
-{
-}
-
 void TestGameWorld::init( GameEngine &gameEngine )
 {
     initCamera(gameEngine);
     initPlane(gameEngine);
     initMesh(gameEngine);
+    initObstacles(gameEngine);
 
     plane.setCamera(camera);
-    gameEngine.getGraphicsEngine().setBackgroundColor(D3DCOLOR_XRGB(89,176,234));
-
-    initObstacles(gameEngine);
+    gameEngine.getGraphicsEngine().setBackgroundColor(D3DCOLOR_XRGB(89, 176, 234));
+    gameEngine.getGraphicsEngine().enableFog(camera.getFarPlane() - 1000.0f, camera.getFarPlane());   
 }
 
 void TestGameWorld::update( time_t time )
@@ -37,18 +33,16 @@ void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
     for each (GameObject* gameObject in gameObjects) {
         gameObject->draw(graphicsEngine);
     }
-
-    for each (Cube obstacle in obstacles) {
-        obstacle.draw(graphicsEngine);
-    }
 }
 
 void TestGameWorld::initMesh( GameEngine &gameEngine )
 {
+    GameObject *mesh = new GameObject();
     meshSurfaceGraphicsComponent.initSurface(MESH_COLUMNS, MESH_ROWS, MESH_CELL_SIZE, MESH_CELL_SIZE);
     meshSurfaceGraphicsComponent.init(gameEngine.getGraphicsEngine());
-    mesh.init(NULL, NULL, &meshSurfaceGraphicsComponent);
-    addGameObject(&mesh);
+    mesh->init(NULL, NULL, &meshSurfaceGraphicsComponent);
+
+    addGameObject(mesh);
 }
 
 void TestGameWorld::initPlane( GameEngine &gameEngine )
@@ -59,11 +53,12 @@ void TestGameWorld::initPlane( GameEngine &gameEngine )
 
 void TestGameWorld::initCamera( GameEngine &gameEngine )
 {
-    D3DXVECTOR3 position(5000, 100, 5000);
+    D3DXVECTOR3 position(5000.0f, 100.0f, 5000.0f);
 
     camera.setPosition(position);
     camera.setIgnoreMaxPitchAngle(true);
     camera.setInvertY(true);
+    camera.createProjectionMatrix(D3DXToRadian(45), 1.3f, 1.0f, 5000.0f);
 
     gameEngine.getGraphicsEngine().setCamera(camera);
 }
@@ -92,11 +87,13 @@ void TestGameWorld::initObstacles( GameEngine &gameEngine )
 
                 D3DXVECTOR3 position(xPosition, yPosition, zPosition);
 
-                Cube cube;
-                cube.setPosition(position);
-                cube.setScale(scale, scale*10.0f, scale);
-                cube.init(NULL, NULL, &buildingGraphicsComponent);
+                Cube *cube = new Cube;
+                cube->setPosition(position);
+                cube->setScale(scale, scale*10.0f, scale);
+                cube->init(NULL, NULL, &buildingGraphicsComponent);
+                
                 obstacles.push_back(cube);
+                addGameObject(cube);
             }
         }
     }

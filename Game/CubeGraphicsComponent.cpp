@@ -99,3 +99,5 @@ void CubeGraphicsComponent::performWorldTransformations( GameObject &gameObject,
 
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
 }
+
+

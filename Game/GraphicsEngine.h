@@ -41,6 +41,8 @@ public:
     void setCamera(Camera &camera);
     void setBackgroundColor(DWORD backgroundColor);
 
+    void enableFog(float fogStart, float fogEnd);
+
 private:
     CComPtr<IDirect3D9> direct3DInterface;
     CComPtr<IDirect3DDevice9> direct3DDevice;

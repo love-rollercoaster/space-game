@@ -26,18 +26,14 @@ void MeshSurfaceGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine 
     D3DXMatrixScaling(&scalingMatrix, scaleX, scaleY, scaleZ);
     worldMatrix = scalingMatrix;
 
-    // D3DXMatrixTranslation(&translationMatrix, position.x, position.y, position.z);
-    // worldMatrix *= translationMatrix;
-
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
 
+    // graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_COLORVERTEX, FALSE);
+    // graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+    graphicsEngine.getDirect3DDevice()->SetFVF(CUSTOM_FLEXIBLE_VECTOR_FORMAT);
     graphicsEngine.getDirect3DDevice()->SetStreamSource( 0, this->vertexBuffer, 0, sizeof(CustomVertex) );
     graphicsEngine.getDirect3DDevice()->SetVertexDeclaration(this->vertexDeclaration);
     graphicsEngine.getDirect3DDevice()->SetIndices(this->indexBuffer);
-
-    graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_COLORVERTEX, FALSE);
-    // graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-    graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
     graphicsEngine.getDirect3DDevice()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, this->vertices.size(), 0, this->triangleCount);
 }
@@ -72,13 +68,13 @@ void MeshSurfaceGraphicsComponent::initVertices( int rows, int columns, float xO
             vertices[currentVertex].position.y = (float)((double)rand() / (RAND_MAX+1) * (yMax - yMin) + yMin); // FIXME casting
             
             if (vertices[currentVertex].position.y < yMax / 6.0f) {
-                vertices[currentVertex].color = D3DCOLOR_XRGB(10, 50, 10);
+                vertices[currentVertex].color = D3DCOLOR_XRGB(2, 12, 1);
             }
             else if (vertices[currentVertex].position.y < 4.0f * yMax / 6.0f) {
-                vertices[currentVertex].color = D3DCOLOR_XRGB(50, 128, 50);
+                vertices[currentVertex].color = D3DCOLOR_XRGB(10, 32, 7);
             }
             else {
-                vertices[currentVertex].color = D3DCOLOR_XRGB(240, 255, 240);
+                vertices[currentVertex].color = D3DCOLOR_XRGB(48, 62, 33);
             }
 
             columnPosition.x += xOffset;

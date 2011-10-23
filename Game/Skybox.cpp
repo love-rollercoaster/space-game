@@ -61,29 +61,31 @@ void Skybox::initVertexBuffer( GraphicsEngine &graphicsEngine )
 
     // create a vertex buffer interface called v_buffer
     graphicsEngine.getDirect3DDevice()->CreateVertexBuffer(
-        24 * sizeof(TexturedVertex),
+        sizeof(vertices),
         0,
         D3DFVF_XYZ | D3DFVF_TEX1,
         D3DPOOL_MANAGED,
         &vertexBuffer,
         NULL);
 
-    VOID* pVoid;    // a void pointer
-    vertexBuffer->Lock(0, 0, static_cast<void**>(&pVoid), 0);
-    memcpy(pVoid, vertices, sizeof(vertices));
+    void* verticesLock;    // a void pointer
+    vertexBuffer->Lock(0, sizeof(vertices), static_cast<void**>(&verticesLock), 0);
+    memcpy(verticesLock, vertices, sizeof(vertices));
     vertexBuffer->Unlock();
 }
 
 void Skybox::initTexture( GraphicsEngine &graphicsEngine )
 {
-    D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Front.jpg") , &texture[0] );
-    D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Back.jpg")  , &texture[1] );
-    D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Left.jpg")  , &texture[2] );
-    D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Right.jpg") , &texture[3] );
-    D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Top.jpg")   , &texture[4] );
-    HRESULT res = D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Bottom.jpg"), &texture[5] );
+    HRESULT result;
 
-    if ( FAILED( res ) )
+    result  = D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Front.jpg"),  &texture[0] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Back.jpg") ,  &texture[1] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Left.jpg") ,  &texture[2] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Right.jpg"),  &texture[3] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Top.jpg")  ,  &texture[4] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Bottom.jpg"), &texture[5] );
+
+    if ( FAILED( result ) )
     {
         ::MessageBox(NULL, "Failed to create the vertex buffer!", "Error in BuildSkybox()", MB_OK | MB_ICONSTOP);
     }
@@ -102,11 +104,10 @@ void Skybox::draw( GameObject &gameObject, GraphicsEngine &graphicsEngine )
     {
         graphicsEngine.getDirect3DDevice()->SetTexture( 0, texture[i] );
         graphicsEngine.getDirect3DDevice()->DrawPrimitive( D3DPT_TRIANGLESTRIP, i * 4, 2 );
-
     } 
 
     graphicsEngine.getDirect3DDevice()->SetRenderState( D3DRS_ZWRITEENABLE, true );
-    graphicsEngine.getDirect3DDevice()->SetFVF(CUSTOM_FLEXIBLE_VECTOR_FORMAT);
+    graphicsEngine.getDirect3DDevice()->SetTexture( 0, NULL );
 }
 
 void Skybox::performWorldTransformations( GameObject &gameObject, GraphicsEngine &graphicsEngine )

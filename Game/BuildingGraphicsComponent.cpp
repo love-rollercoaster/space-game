@@ -2,12 +2,12 @@
 
 void BuildingGraphicsComponent::initVertexBuffer( GraphicsEngine &graphicsEngine )
 {
-    DWORD darkGrey = D3DCOLOR_XRGB(12,12,12);
-    DWORD grey     = D3DCOLOR_XRGB(50,50,50);
-    DWORD light    = D3DCOLOR_XRGB(210,220,222);
+    DWORD darkGrey = D3DCOLOR_XRGB(2,18,2);
+    DWORD grey     = D3DCOLOR_XRGB(40,50,40);
+    DWORD light    = D3DCOLOR_XRGB(239,253,215);
     CustomVertex vertices[] = {
-        { D3DXVECTOR3(-1.0f,  1.0f, -1.0f), grey, },
-        { D3DXVECTOR3( 1.0f,  1.0f, -1.0f), light, },
+        { D3DXVECTOR3(-1.0f,  1.0f, -1.0f), light, },
+        { D3DXVECTOR3( 1.0f,  1.0f, -1.0f), grey, },
         { D3DXVECTOR3(-1.0f, -1.0f, -1.0f), grey, },
         { D3DXVECTOR3( 1.0f, -1.0f, -1.0f), grey, },
         { D3DXVECTOR3(-1.0f,  1.0f,  1.0f), darkGrey, },

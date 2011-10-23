@@ -25,8 +25,8 @@ void TestGameWorld::init( GameEngine &gameEngine )
     skybox->camera = &camera;
 
     plane.setCamera(camera);
-    gameEngine.getGraphicsEngine().setBackgroundColor(D3DCOLOR_XRGB(89, 176, 234));
-    // gameEngine.getGraphicsEngine().enableFog(camera.getFarPlane() - 1000.0f, camera.getFarPlane());   
+    gameEngine.getGraphicsEngine().setBackgroundColor(D3DCOLOR_XRGB(40,50,40));
+    gameEngine.getGraphicsEngine().enableFog(camera.getFarPlane() - 1000.0f, camera.getFarPlane());   
 }
 
 void TestGameWorld::update( time_t time )
@@ -41,8 +41,6 @@ void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
     for each (GameObject* gameObject in gameObjects) {
         gameObject->draw(graphicsEngine);
     }
-
-    
 }
 
 void TestGameWorld::initMesh( GameEngine &gameEngine )

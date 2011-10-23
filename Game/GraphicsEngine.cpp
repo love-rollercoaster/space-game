@@ -71,11 +71,11 @@ void GraphicsEngine::initDirect3DDevice(HWND window)
 void GraphicsEngine::initRenderStates()
 {
     direct3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-    direct3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
-    direct3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+    direct3DDevice->SetRenderState(D3DRS_LIGHTING, false);
+    direct3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
     direct3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
     direct3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-    direct3DDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+    direct3DDevice->SetRenderState(D3DRS_ZENABLE, true);
     
     // direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE , TRUE);
 }
@@ -99,9 +99,9 @@ LPDIRECT3DVERTEXBUFFER9 GraphicsEngine::createVertexBuffer( CustomVertex vertice
 
     vertexBuffers.push_front(vertexBuffer);
 
-    VOID* pVoid;
-    vertexBuffer->Lock(0, 0, static_cast<void**>(&pVoid), 0);
-    memcpy(pVoid, vertices, numberOfVertices * sizeof(CustomVertex));
+    void* lock;
+    vertexBuffer->Lock(0, 0, static_cast<void**>(&lock), 0);
+    memcpy(lock, vertices, numberOfVertices * sizeof(CustomVertex));
     vertexBuffer->Unlock();
 
     return vertexBuffer;

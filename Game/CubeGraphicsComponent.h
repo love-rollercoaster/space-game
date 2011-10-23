@@ -23,4 +23,3 @@ protected:
     LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
     LPDIRECT3DINDEXBUFFER9 indexBuffer;
 };
-

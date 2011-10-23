@@ -1,9 +1,26 @@
 #include "MeshSurfaceGraphicsComponent.h"
 
+MeshSurfaceGraphicsComponent::MeshSurfaceGraphicsComponent()
+    : vertexBuffer(NULL)
+    , indexBuffer(NULL)
+    , vertexDeclaration(NULL)
+{
+}
+
+
 MeshSurfaceGraphicsComponent::~MeshSurfaceGraphicsComponent()
 {
-    this->vertexBuffer->Release();
-    this->indexBuffer->Release();
+    if (vertexBuffer != NULL) {
+        this->vertexBuffer->Release();
+    }
+
+    if (indexBuffer != NULL) {
+        this->indexBuffer->Release();
+    }
+
+    if (vertexDeclaration != NULL) {
+        this->vertexDeclaration->Release();
+    }
 }
 
 void MeshSurfaceGraphicsComponent::init( GraphicsEngine &graphicsEngine )

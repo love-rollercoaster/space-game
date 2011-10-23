@@ -29,6 +29,7 @@ class MeshSurfaceGraphicsComponent
     : public GraphicsComponent
 {
 public:
+    MeshSurfaceGraphicsComponent();
     ~MeshSurfaceGraphicsComponent();
 
     void init(GraphicsEngine &graphicsEngine);

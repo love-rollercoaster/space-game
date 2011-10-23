@@ -91,13 +91,13 @@ void GraphicsEngine::initRenderStates()
     direct3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
     direct3DDevice->SetRenderState(D3DRS_ZENABLE, true);
     
-    // direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE , TRUE);
+    direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE , TRUE);
 }
 
 void GraphicsEngine::initSamplerStates()
 {
     direct3DDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_ANISOTROPIC);
-    direct3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_ANISOTROPIC);
+    direct3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_POINT);
     direct3DDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_ANISOTROPIC);
 }
 

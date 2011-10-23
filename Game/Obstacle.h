@@ -2,11 +2,11 @@
 
 #include "GameObject.h"
 
-class Cube
+class Obstacle
     : public GameObject
 {
 public:
-    Cube(void);
+    Obstacle(void);
 
     D3DXVECTOR3 getPosition();
     D3DXVECTOR3 getScale();

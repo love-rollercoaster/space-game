@@ -79,14 +79,14 @@ void CubeGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &graphi
 
 void CubeGraphicsComponent::performWorldTransformations( GameObject &gameObject, GraphicsEngine &graphicsEngine )
 {
-    Cube *cube = dynamic_cast<Cube*>(&gameObject);
+    Obstacle *obstacle = dynamic_cast<Obstacle*>(&gameObject);
 
-    if (cube == NULL) {
+    if (obstacle == NULL) {
         throw "Can't draw game object with this component.";
     }
 
-    D3DXVECTOR3 position = cube->getPosition();
-    D3DXVECTOR3 scale = cube->getScale();
+    D3DXVECTOR3 position = obstacle->getPosition();
+    D3DXVECTOR3 scale = obstacle->getScale();
 
     D3DXMATRIX worldMatrix, matScale, matTranslate, matRotate;
 

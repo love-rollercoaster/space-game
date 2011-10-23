@@ -1,14 +1,21 @@
 #include "TestGameWorld.h"
 #include "GameEngine.h"
 #include "GraphicsEngine.h"
-#include "FontSystem.h"
+#include "TeapotGraphicsComponent.h"
+#include "BuildingGraphicsComponent.h"
 
 #define MESH_COLUMNS   100
 #define MESH_ROWS      100
 #define MESH_CELL_SIZE 10
 
 TestGameWorld::TestGameWorld( void )
+    : obstacleGraphicsComponent(new TeapotGraphicsComponent())
 {
+}
+
+TestGameWorld::~TestGameWorld( void )
+{
+    delete obstacleGraphicsComponent;
 }
 
 void TestGameWorld::init( GameEngine &gameEngine )
@@ -19,7 +26,7 @@ void TestGameWorld::init( GameEngine &gameEngine )
     initObstacles(gameEngine);
 
     plane.setCamera(camera);
-    gameEngine.getGraphicsEngine().setBackgroundColor(D3DCOLOR_XRGB(85,85,255));
+    gameEngine.getGraphicsEngine().setBackgroundColor(D3DCOLOR_XRGB(0, 6, 8));
     gameEngine.getGraphicsEngine().enableFog(camera.getFarPlane() - 1000.0f, camera.getFarPlane());   
 }
 
@@ -65,10 +72,10 @@ void TestGameWorld::initCamera( GameEngine &gameEngine )
 
 void TestGameWorld::initObstacles( GameEngine &gameEngine )
 {
-    buildingGraphicsComponent.init(gameEngine.getGraphicsEngine());
+    obstacleGraphicsComponent->init(gameEngine.getGraphicsEngine());
 
-    float yMin = 10.0f;
-    float yMax = 100.0f;
+    float yMin = -1000.0f;
+    float yMax = 1000.0f;
     float scaleMin = 20.0f;
     float scaleMax = 70.0f;
     float cubeCreationProbablility = 0.98f;
@@ -87,13 +94,13 @@ void TestGameWorld::initObstacles( GameEngine &gameEngine )
 
                 D3DXVECTOR3 position(xPosition, yPosition, zPosition);
 
-                Cube *cube = new Cube;
-                cube->setPosition(position);
-                cube->setScale(scale, scale*10.0f, scale);
-                cube->init(NULL, NULL, &buildingGraphicsComponent);
-                
-                obstacles.push_back(cube);
-                addGameObject(cube);
+                Obstacle *obstacle = new Obstacle;
+                obstacle->setPosition(position);
+                obstacle->setScale(scale, scale, scale);
+                obstacle->init(NULL, NULL, obstacleGraphicsComponent);
+
+                obstacles.push_back(obstacle);
+                addGameObject(obstacle);
             }
         }
     }

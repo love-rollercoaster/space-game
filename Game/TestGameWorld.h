@@ -7,8 +7,7 @@
 #include "MeshSurfaceGraphicsComponent.h"
 #include "Plane.h"
 #include "PlaneInputComponent.h"
-#include "Cube.h"
-#include "BuildingGraphicsComponent.h"
+#include "Obstacle.h"
 
 using std::vector;
 
@@ -17,6 +16,7 @@ class TestGameWorld :
 {
 public:
     TestGameWorld(void);
+    ~TestGameWorld(void);
 
     void init(GameEngine &gameEngine);
     void update(time_t time);
@@ -27,12 +27,11 @@ private:
     Plane plane;
     MeshSurfaceGraphicsComponent meshSurfaceGraphicsComponent;
     PlaneInputComponent planeInputComponent;
+    GraphicsComponent *obstacleGraphicsComponent;
+    vector<Obstacle*> obstacles;
 
     void initCamera(GameEngine &gameEngine);
     void initPlane(GameEngine &gameEngine);
     void initMesh(GameEngine &gameEngine);
     void initObstacles(GameEngine &gameEngine);
-
-    BuildingGraphicsComponent buildingGraphicsComponent;
-    vector<Cube*> obstacles;
 };

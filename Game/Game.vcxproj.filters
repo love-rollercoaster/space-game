@@ -63,15 +63,18 @@
     <Filter Include="Header Files\Example\Objects\Components">
       <UniqueIdentifier>{c8dc9d23-c1b9-4746-bc81-286bd60bfac1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Graphics">
+      <UniqueIdentifier>{f86970a7-28ad-43d1-a758-7e431998976d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Graphics">
+      <UniqueIdentifier>{63250579-d893-487b-a0de-d84aaba67999}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameEngine.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsEngine.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="InputSystem.cpp">
@@ -104,9 +107,6 @@
     <ClCompile Include="InputComponent.cpp">
       <Filter>Source Files\Engine\Game\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Source Files\Example\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="BuildingGraphicsComponent.cpp">
       <Filter>Source Files\Example\Objects\Components</Filter>
     </ClCompile>
@@ -122,15 +122,21 @@
     <ClCompile Include="CubeGraphicsComponent.cpp">
       <Filter>Source Files\Example\Objects\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>Source Files\Example\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsEngine.cpp">
+      <Filter>Source Files\Engine\Graphics</Filter>
+    </ClCompile>
     <ClCompile Include="Skybox.cpp">
+      <Filter>Source Files\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TeapotGraphicsComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsEngine.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="InputSystem.h">
@@ -178,9 +184,6 @@
     <ClInclude Include="GameWorld.h">
       <Filter>Header Files\Engine\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Header Files\Example\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="CubeGraphicsComponent.h">
       <Filter>Header Files\Example\Objects\Components</Filter>
     </ClInclude>
@@ -196,7 +199,16 @@
     <ClInclude Include="Plane.h">
       <Filter>Header Files\Example\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>Header Files\Example\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsEngine.h">
+      <Filter>Header Files\Engine\Graphics</Filter>
+    </ClInclude>
     <ClInclude Include="Skybox.h">
+      <Filter>Header Files\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TeapotGraphicsComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

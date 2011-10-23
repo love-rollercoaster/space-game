@@ -6,6 +6,7 @@
 #include <list>
 
 #include "Window.h"
+#include "Skybox.h"
 
 #pragma comment (lib, "d3d9.lib")
 
@@ -50,12 +51,14 @@ private:
     list<LPDIRECT3DVERTEXBUFFER9> vertexBuffers;
     Camera *camera;
     DWORD backgroundColor;
+    Skybox skybox;
 
     void initDirect3DInterface();
     void initPresentationParameters(HWND window, int windowWidth, int windowHeight, bool isFullscreen);
     void initDirect3DDevice(HWND window);
     void initRenderStates();
     void initSamplerStates();
+    void initSkybox();
 
     void setupViewMatrix();
     void setupProjectionMatrix();

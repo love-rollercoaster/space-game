@@ -17,6 +17,19 @@ CComPtr<IDirect3DDevice9> GraphicsEngine::getDirect3DDevice() const
     return direct3DDevice;
 }
 
+void GraphicsEngine::enableFog(float fogStart, float fogEnd)
+{
+    // Reference
+    // http://www.two-kings.de/tutorials/dxgraphics/dxgraphics15.html
+
+    direct3DDevice->SetRenderState(D3DRS_FOGENABLE,true);
+    direct3DDevice->SetRenderState(D3DRS_RANGEFOGENABLE,true);
+    direct3DDevice->SetRenderState(D3DRS_FOGCOLOR, backgroundColor);
+    direct3DDevice->SetRenderState(D3DRS_FOGVERTEXMODE, D3DFOG_LINEAR);
+    direct3DDevice->SetRenderState(D3DRS_FOGSTART, *(DWORD*)(&fogStart));
+    direct3DDevice->SetRenderState(D3DRS_FOGEND, *(DWORD*)(&fogEnd));
+}
+
 void GraphicsEngine::initializeD3D(Window window, bool isFullscreen)
 {
     HWND hwnd = window.GetHandle();
@@ -24,6 +37,7 @@ void GraphicsEngine::initializeD3D(Window window, bool isFullscreen)
     initPresentationParameters(hwnd, window.getWidth(), window.getHeight(), isFullscreen);
     initDirect3DDevice(hwnd);
     initRenderStates();
+    initSkybox();
     // initSamplerStates();
 }
 
@@ -87,6 +101,11 @@ void GraphicsEngine::initSamplerStates()
     direct3DDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_ANISOTROPIC);
 }
 
+void GraphicsEngine::initSkybox()
+{
+    skybox.init(*this);
+}
+
 LPDIRECT3DVERTEXBUFFER9 GraphicsEngine::createVertexBuffer( CustomVertex vertices[], int numberOfVertices )
 {
     LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
@@ -115,6 +134,10 @@ void GraphicsEngine::beginDraw()
     direct3DDevice->Clear(0, NULL, D3DCLEAR_TARGET,  this->backgroundColor, 1.0f, 0);
     direct3DDevice->Clear(0, NULL, D3DCLEAR_ZBUFFER, this->backgroundColor, 1.0f, 0);
     direct3DDevice->BeginScene();
+
+    if (camera != NULL) {
+        skybox.draw(*camera, *this);
+    }
 }
 
 void GraphicsEngine::drawVertexBuffer( LPDIRECT3DVERTEXBUFFER9 &vertexBuffer)
@@ -194,17 +217,4 @@ void GraphicsEngine::cleanVertexBuffers()
 void GraphicsEngine::cleanDirect3D()
 {
     cleanVertexBuffers();
-}
-
-void GraphicsEngine::enableFog(float fogStart, float fogEnd)
-{
-    // Reference
-    // http://www.two-kings.de/tutorials/dxgraphics/dxgraphics15.html
-
-    direct3DDevice->SetRenderState(D3DRS_FOGENABLE,true);
-    direct3DDevice->SetRenderState(D3DRS_RANGEFOGENABLE,true);
-    direct3DDevice->SetRenderState(D3DRS_FOGCOLOR, backgroundColor);
-    direct3DDevice->SetRenderState(D3DRS_FOGVERTEXMODE, D3DFOG_LINEAR);
-    direct3DDevice->SetRenderState(D3DRS_FOGSTART, *(DWORD*)(&fogStart));
-    direct3DDevice->SetRenderState(D3DRS_FOGEND, *(DWORD*)(&fogEnd));
 }

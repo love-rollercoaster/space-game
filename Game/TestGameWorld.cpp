@@ -2,13 +2,10 @@
 #include "GameEngine.h"
 #include "GraphicsEngine.h"
 #include "FontSystem.h"
-#include "Skybox.h"
 
 #define MESH_COLUMNS   100
 #define MESH_ROWS      100
 #define MESH_CELL_SIZE 10
-
-Skybox *skybox = new Skybox;
 
 TestGameWorld::TestGameWorld( void )
 {
@@ -18,14 +15,11 @@ void TestGameWorld::init( GameEngine &gameEngine )
 {
     initCamera(gameEngine);
     initPlane(gameEngine);
-    initMesh(gameEngine);
+    // initMesh(gameEngine);
     initObstacles(gameEngine);
 
-    skybox->init(gameEngine.getGraphicsEngine());
-    skybox->camera = &camera;
-
     plane.setCamera(camera);
-    gameEngine.getGraphicsEngine().setBackgroundColor(D3DCOLOR_XRGB(40,50,40));
+    gameEngine.getGraphicsEngine().setBackgroundColor(D3DCOLOR_XRGB(85,85,255));
     gameEngine.getGraphicsEngine().enableFog(camera.getFarPlane() - 1000.0f, camera.getFarPlane());   
 }
 
@@ -36,8 +30,6 @@ void TestGameWorld::update( time_t time )
 
 void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
 {
-    skybox->draw(plane, graphicsEngine);
-    
     for each (GameObject* gameObject in gameObjects) {
         gameObject->draw(graphicsEngine);
     }

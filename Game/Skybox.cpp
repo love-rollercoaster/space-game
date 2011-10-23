@@ -1,13 +1,13 @@
-#include "Skybox.h"
-
 // Reference
 // http://www.gameengineer.net/samples-graphics.html
+
+#include "Skybox.h"
+#include "GraphicsEngine.h"
 
 
 Skybox::Skybox(void)
 {
 }
-
 
 Skybox::~Skybox(void)
 {
@@ -78,12 +78,12 @@ void Skybox::initTexture( GraphicsEngine &graphicsEngine )
 {
     HRESULT result;
 
-    result  = D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Front.jpg"),  &texture[0] );
-    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Back.jpg") ,  &texture[1] );
-    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Left.jpg") ,  &texture[2] );
-    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Right.jpg"),  &texture[3] );
-    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Top.jpg")  ,  &texture[4] );
-    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_Bottom.jpg"), &texture[5] );
+    result  = D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_front5.png"),  &texture[0] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_back6.png") ,  &texture[1] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_left2.png") ,  &texture[2] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_right1.png"),  &texture[3] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_top3.png")  ,  &texture[4] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_bottom4.png"), &texture[5] );
 
     if ( FAILED( result ) )
     {
@@ -91,33 +91,33 @@ void Skybox::initTexture( GraphicsEngine &graphicsEngine )
     }
 }
 
-void Skybox::draw( GameObject &gameObject, GraphicsEngine &graphicsEngine )
+void Skybox::draw( Camera &camera, GraphicsEngine &graphicsEngine )
 {
     graphicsEngine.getDirect3DDevice()->SetRenderState( D3DRS_ZWRITEENABLE, false );
 
-    performWorldTransformations(gameObject, graphicsEngine);
+    performWorldTransformations(camera, graphicsEngine);
     
     graphicsEngine.getDirect3DDevice()->SetFVF(D3DFVF_XYZ | D3DFVF_TEX1);
     graphicsEngine.getDirect3DDevice()->SetStreamSource( 0, vertexBuffer, 0, sizeof(TexturedVertex));
 
-    for ( ULONG i = 0; i < 6; ++i )
+    for ( int i = 0; i < 6; ++i )
     {
         graphicsEngine.getDirect3DDevice()->SetTexture( 0, texture[i] );
         graphicsEngine.getDirect3DDevice()->DrawPrimitive( D3DPT_TRIANGLESTRIP, i * 4, 2 );
-    } 
+    }
 
     graphicsEngine.getDirect3DDevice()->SetRenderState( D3DRS_ZWRITEENABLE, true );
     graphicsEngine.getDirect3DDevice()->SetTexture( 0, NULL );
 }
 
-void Skybox::performWorldTransformations( GameObject &gameObject, GraphicsEngine &graphicsEngine )
+void Skybox::performWorldTransformations( Camera &camera, GraphicsEngine &graphicsEngine )
 {
-    D3DXMATRIX worldMatrix, matTranslate;
+    D3DXMATRIX worldMatrix, translationMatrix;
     D3DXMatrixIdentity(&worldMatrix);
 
-    D3DXVECTOR3 position = camera->getPosition();
-    D3DXMatrixTranslation(&matTranslate, position.x, position.y, position.z);
-    worldMatrix *= matTranslate;
+    D3DXVECTOR3 position = camera.getPosition();
+    D3DXMatrixTranslation(&translationMatrix, position.x, position.y, position.z);
+    worldMatrix *= translationMatrix;
 
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
 }

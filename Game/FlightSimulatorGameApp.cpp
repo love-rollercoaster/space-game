@@ -1,7 +1,7 @@
 #include "FlightSimulatorGameApp.h"
 
 FlightSimulatorGameApp::FlightSimulatorGameApp(void)
-    : GameApp("Game", 800, 600)
+    : GameApp("Game", 1024, 768)
 {
 }
 

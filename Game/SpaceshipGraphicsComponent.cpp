@@ -1,40 +1,40 @@
-#include "AsteroidGraphicsComponent.h"
+#include "SpaceshipGraphicsComponent.h"
 
 
-AsteroidGraphicsComponent::AsteroidGraphicsComponent(void)
+SpaceshipGraphicsComponent::SpaceshipGraphicsComponent(void)
 {
 }
 
 
-AsteroidGraphicsComponent::~AsteroidGraphicsComponent(void)
+SpaceshipGraphicsComponent::~SpaceshipGraphicsComponent(void)
 {
 }
 
-void AsteroidGraphicsComponent::init( GraphicsEngine &graphicsEngine )
+void SpaceshipGraphicsComponent::init( GraphicsEngine &graphicsEngine )
 {
-    LPD3DXBUFFER asteroidMaterials;
+    LPD3DXBUFFER spaceshipMaterials;
 
-    if (FAILED(D3DXLoadMeshFromX("resources/meshes/asteroid.x",
-                                 D3DXMESH_MANAGED,
-                                 graphicsEngine.getDirect3DDevice(),
-                                 NULL,
-                                 &asteroidMaterials,
-                                 NULL,
-                                 &numMaterials,
-                                 &asteroidMesh)))
+    if (FAILED(D3DXLoadMeshFromX("resources/meshes/spaceship.x",
+        D3DXMESH_MANAGED,
+        graphicsEngine.getDirect3DDevice(),
+        NULL,
+        &spaceshipMaterials,
+        NULL,
+        &numMaterials,
+        &spaceshipMesh)))
     {
         ERR("Failed to load asteroid mesh");
         return;
     }
 
     if(FAILED(D3DXCreateTextureFromFileA(graphicsEngine.getDirect3DDevice(),
-                                         "resources/textures/asteroid.tga",
-                                         &texture)))
+        "resources/textures/spaceship.jpg",
+        &texture)))
     {
         texture = NULL;
     }
 
-    D3DXMATERIAL* tempMaterials = (D3DXMATERIAL*)asteroidMaterials->GetBufferPointer();
+    D3DXMATERIAL* tempMaterials = static_cast<D3DXMATERIAL*>(spaceshipMaterials->GetBufferPointer());
     material = new D3DMATERIAL9[numMaterials];
 
     for(DWORD i = 0; i < numMaterials; i++)
@@ -44,17 +44,17 @@ void AsteroidGraphicsComponent::init( GraphicsEngine &graphicsEngine )
     }
 }
 
-void AsteroidGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &graphicsEngine )
+void SpaceshipGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &graphicsEngine )
 {
     Obstacle *obstacle = dynamic_cast<Obstacle*>(&gameObject);
-    
+
     if (obstacle == NULL) {
         throw "This component only works with obstacles!";
     }
 
     D3DXVECTOR3 position = obstacle->getPosition();
     D3DXVECTOR3 scale = obstacle->getScale();
-    
+
     D3DXMATRIX worldMatrix, matScale, matTranslate, matRotate;
 
     D3DXMatrixScaling(&matScale, scale.x, scale.y, scale.z);
@@ -65,14 +65,14 @@ void AsteroidGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &gr
 
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
     if (texture != NULL) {
-       graphicsEngine.getDirect3DDevice()->SetTexture(0, texture);
+        graphicsEngine.getDirect3DDevice()->SetTexture(0, texture);
     }
 
     graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 
     for (DWORD i = 0; i < numMaterials; i++) {
         graphicsEngine.getDirect3DDevice()->SetMaterial(&material[i]);
-        if (FAILED(asteroidMesh->DrawSubset(i))) {
+        if (FAILED(spaceshipMesh->DrawSubset(i))) {
             ERR("Failed to draw asteroid");
         }
     }

@@ -93,6 +93,7 @@
     <ClCompile Include="PlaneInputComponent.cpp" />
     <ClCompile Include="QuatCamera.cpp" />
     <ClCompile Include="Skybox.cpp" />
+    <ClCompile Include="SpaceshipGraphicsComponent.cpp" />
     <ClCompile Include="TestGameWorld.cpp" />
     <ClCompile Include="Win32Console.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="PlaneInputComponent.h" />
     <ClInclude Include="QuatCamera.h" />
     <ClInclude Include="Skybox.h" />
+    <ClInclude Include="SpaceshipGraphicsComponent.h" />
     <ClInclude Include="TestGameWorld.h" />
     <ClInclude Include="Win32Console.h" />
     <ClInclude Include="Window.h" />

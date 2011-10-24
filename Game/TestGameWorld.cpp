@@ -3,6 +3,7 @@
 #include "GraphicsEngine.h"
 #include "AsteroidGraphicsComponent.h"
 #include "BuildingGraphicsComponent.h"
+#include "SpaceshipGraphicsComponent.h"
 
 #define MESH_COLUMNS   100
 #define MESH_ROWS      100
@@ -10,11 +11,13 @@
 
 TestGameWorld::TestGameWorld( void )
     : obstacleGraphicsComponent(new AsteroidGraphicsComponent())
+    , spaceshipGraphicsComponent(new SpaceshipGraphicsComponent())
 {
 }
 
 TestGameWorld::~TestGameWorld( void )
 {
+    delete spaceshipGraphicsComponent;
     delete obstacleGraphicsComponent;
 }
 
@@ -26,8 +29,11 @@ void TestGameWorld::init( GameEngine &gameEngine )
     initObstacles(gameEngine);
 
     plane.setCamera(camera);
-    gameEngine.getGraphicsEngine().setBackgroundColor(D3DCOLOR_XRGB(0, 6, 8));
-    gameEngine.getGraphicsEngine().enableFog(camera.getFarPlane() - 1000.0f, camera.getFarPlane());   
+
+    GraphicsEngine &graphicsEngine = gameEngine.getGraphicsEngine();
+    spaceshipGraphicsComponent->init(graphicsEngine);
+    graphicsEngine.setBackgroundColor(D3DCOLOR_XRGB(0, 6, 8));
+    graphicsEngine.enableFog(camera.getFarPlane() - 1000.0f, camera.getFarPlane());   
 }
 
 void TestGameWorld::update( time_t time )
@@ -76,9 +82,9 @@ void TestGameWorld::initObstacles( GameEngine &gameEngine )
 
     float yMin = -1000.0f;
     float yMax = 1000.0f;
-    float scaleMin = 20.0f;
-    float scaleMax = 70.0f;
-    float cubeCreationProbablility = 0.98f;
+    float scaleMin = 10.0f;
+    float scaleMax = 150.0f;
+    float cubeCreationProbablility = 0.99f;
 
     for (int i = 0; i < MESH_ROWS; i++) {
         for (int j = 0; j < MESH_COLUMNS; j++) {
@@ -92,12 +98,16 @@ void TestGameWorld::initObstacles( GameEngine &gameEngine )
                 float xPosition = (float) i * MESH_ROWS;
                 float zPosition = (float) j * MESH_COLUMNS;
 
-                D3DXVECTOR3 position(xPosition, yPosition, zPosition);
-
                 Obstacle *obstacle = new Obstacle;
-                obstacle->setPosition(position);
-                obstacle->setScale(scale, scale, scale);
-                obstacle->init(NULL, NULL, obstacleGraphicsComponent);
+                obstacle->setPosition(D3DXVECTOR3(xPosition, yPosition, zPosition));
+
+                if (((double)rand() / (RAND_MAX+1) * 2.0f) > 1) {
+                    obstacle->setScale(100.0f, 100.0f, 100.0f);
+                    obstacle->init(NULL, NULL, spaceshipGraphicsComponent);
+                } else {
+                    obstacle->setScale(scale, scale, scale);
+                    obstacle->init(NULL, NULL, obstacleGraphicsComponent);
+                }
 
                 obstacles.push_back(obstacle);
                 addGameObject(obstacle);

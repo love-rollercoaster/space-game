@@ -28,6 +28,7 @@ private:
     MeshSurfaceGraphicsComponent meshSurfaceGraphicsComponent;
     PlaneInputComponent planeInputComponent;
     GraphicsComponent *obstacleGraphicsComponent;
+    GraphicsComponent *spaceshipGraphicsComponent;
     vector<Obstacle*> obstacles;
 
     void initCamera(GameEngine &gameEngine);

@@ -38,7 +38,7 @@ void GraphicsEngine::initializeD3D(Window window, bool isFullscreen)
     initDirect3DDevice(hwnd);
     initRenderStates();
     initSkybox();
-    // initSamplerStates();
+    initSamplerStates();
 }
 
 void GraphicsEngine::initDirect3DInterface()
@@ -62,8 +62,7 @@ void GraphicsEngine::initPresentationParameters(HWND window, int windowWidth, in
     d3dPresentationParameters.BackBufferHeight  = windowHeight;
     d3dPresentationParameters.EnableAutoDepthStencil = TRUE;
     d3dPresentationParameters.AutoDepthStencilFormat = D3DFMT_D24S8;
-    // d3dPresentationParameters.MultiSampleType   = D3DMULTISAMPLE_4_SAMPLES;
-
+    // d3dPresentationParameters.MultiSampleType   = D3DMULTISAMPLE_8_SAMPLES;
 }
 
 void GraphicsEngine::initDirect3DDevice(HWND window)
@@ -84,21 +83,20 @@ void GraphicsEngine::initDirect3DDevice(HWND window)
 
 void GraphicsEngine::initRenderStates()
 {
-    direct3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+    direct3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
     direct3DDevice->SetRenderState(D3DRS_LIGHTING, false);
     direct3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
     direct3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
     direct3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
     direct3DDevice->SetRenderState(D3DRS_ZENABLE, true);
-    
-    direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE , TRUE);
+    // direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE , TRUE);
 }
 
 void GraphicsEngine::initSamplerStates()
 {
-    direct3DDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_ANISOTROPIC);
-    direct3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_POINT);
-    direct3DDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_ANISOTROPIC);
+    direct3DDevice->SetSamplerState(1, D3DSAMP_MINFILTER, D3DTEXF_ANISOTROPIC);
+    direct3DDevice->SetSamplerState(1, D3DSAMP_MAGFILTER, D3DTEXF_ANISOTROPIC);
+    direct3DDevice->SetSamplerState(1, D3DSAMP_MIPFILTER, D3DTEXF_ANISOTROPIC);
 }
 
 void GraphicsEngine::initSkybox()

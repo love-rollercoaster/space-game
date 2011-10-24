@@ -1,10 +1,13 @@
 #pragma once
-#include "gameobject.h"
+#include "Obstacle.h"
+
+#define MIN_SCALE 0.3f
+
 class Asteroid :
-    public GameObject
+    public Obstacle
 {
 public:
-    Asteroid(void);
+    Asteroid(D3DXVECTOR3 position, D3DXVECTOR3 scale);
     ~Asteroid(void);
 };
 

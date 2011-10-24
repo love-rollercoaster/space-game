@@ -78,6 +78,9 @@
     <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="AsteroidGraphicsComponent.cpp" />
     <ClCompile Include="BuildingGraphicsComponent.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletGraphicsComponent.cpp" />
+    <ClCompile Include="BulletPhysicsComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="CubeGraphicsComponent.cpp" />
@@ -103,6 +106,9 @@
     <ClInclude Include="Asteroid.h" />
     <ClInclude Include="AsteroidGraphicsComponent.h" />
     <ClInclude Include="BuildingGraphicsComponent.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletGraphicsComponent.h" />
+    <ClInclude Include="BulletPhysicsComponent.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="CubeGraphicsComponent.h" />

@@ -51,17 +51,10 @@ void AsteroidGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &gr
     if (obstacle == NULL) {
         throw "This component only works with obstacles!";
     }
-
-    D3DXVECTOR3 position = obstacle->getPosition();
-    D3DXVECTOR3 scale = obstacle->getScale();
     
-    D3DXMATRIX worldMatrix, matScale, matTranslate, matRotate;
+    D3DXMATRIX worldMatrix;
 
-    D3DXMatrixScaling(&matScale, scale.x, scale.y, scale.z);
-    worldMatrix = matScale;
-
-    D3DXMatrixTranslation(&matTranslate, position.x, position.y, position.z);
-    worldMatrix *= matTranslate;
+    obstacle->generateTransformationMatrix(&worldMatrix);
 
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
     if (texture != NULL) {

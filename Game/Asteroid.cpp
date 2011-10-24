@@ -1,7 +1,8 @@
 #include "Asteroid.h"
 
 
-Asteroid::Asteroid(void)
+Asteroid::Asteroid(D3DXVECTOR3 position, D3DXVECTOR3 scale) :
+    Obstacle(position, scale)
 {
 }
 

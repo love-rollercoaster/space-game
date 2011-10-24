@@ -51,23 +51,35 @@
     <Filter Include="Source Files\Example">
       <UniqueIdentifier>{cc411a0d-d813-4597-9ebc-a44250a8fba9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Example\Objects">
-      <UniqueIdentifier>{6a65e1c3-80d5-48bd-a8d3-c083fc47ffac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Example\Objects\Components">
-      <UniqueIdentifier>{03687b6e-538b-4611-94d2-fa1af0680d6c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Example\Objects">
-      <UniqueIdentifier>{0342b2a2-3f51-4ae3-babe-23706b7ca7da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Example\Objects\Components">
-      <UniqueIdentifier>{c8dc9d23-c1b9-4746-bc81-286bd60bfac1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine\Graphics">
       <UniqueIdentifier>{f86970a7-28ad-43d1-a758-7e431998976d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine\Graphics">
       <UniqueIdentifier>{63250579-d893-487b-a0de-d84aaba67999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects">
+      <UniqueIdentifier>{becb20bc-93c5-4173-ab30-a7e3ca09d471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects">
+      <UniqueIdentifier>{81e89ccd-4f51-45a4-8b94-30ca52b91f89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects\Graphics">
+      <UniqueIdentifier>{03687b6e-538b-4611-94d2-fa1af0680d6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects\Input">
+      <UniqueIdentifier>{9aafea8f-96c8-49b0-9601-4a7f53573435}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects\Physics">
+      <UniqueIdentifier>{843fb3e9-7564-4fd1-8c10-5c618be7a908}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects\Input">
+      <UniqueIdentifier>{3b9d86ce-ff14-4bfb-bb8d-1083fa94977e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects\Physics">
+      <UniqueIdentifier>{e5d5933b-6777-4c45-b734-76ad44e9c75b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects\Graphics">
+      <UniqueIdentifier>{c8dc9d23-c1b9-4746-bc81-286bd60bfac1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -108,22 +120,13 @@
       <Filter>Source Files\Engine\Game\Components</Filter>
     </ClCompile>
     <ClCompile Include="BuildingGraphicsComponent.cpp">
-      <Filter>Source Files\Example\Objects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Plane.cpp">
-      <Filter>Source Files\Example\Objects</Filter>
+      <Filter>Source Files\GameObjects\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="MeshSurfaceGraphicsComponent.cpp">
-      <Filter>Source Files\Example\Objects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PlaneInputComponent.cpp">
-      <Filter>Source Files\Example\Objects\Components</Filter>
+      <Filter>Source Files\GameObjects\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="CubeGraphicsComponent.cpp">
-      <Filter>Source Files\Example\Objects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
-      <Filter>Source Files\Example\Objects</Filter>
+      <Filter>Source Files\GameObjects\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsEngine.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
@@ -131,14 +134,32 @@
     <ClCompile Include="Skybox.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
     <ClCompile Include="Asteroid.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="AsteroidGraphicsComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjects\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletGraphicsComponent.cpp">
+      <Filter>Source Files\GameObjects\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaneInputComponent.cpp">
+      <Filter>Source Files\GameObjects\Input</Filter>
     </ClCompile>
     <ClCompile Include="SpaceshipGraphicsComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjects\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletPhysicsComponent.cpp">
+      <Filter>Source Files\GameObjects\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,38 +211,47 @@
     <ClInclude Include="GameWorld.h">
       <Filter>Header Files\Engine\Game</Filter>
     </ClInclude>
-    <ClInclude Include="CubeGraphicsComponent.h">
-      <Filter>Header Files\Example\Objects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="BuildingGraphicsComponent.h">
-      <Filter>Header Files\Example\Objects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshSurfaceGraphicsComponent.h">
-      <Filter>Header Files\Example\Objects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PlaneInputComponent.h">
-      <Filter>Header Files\Example\Objects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Plane.h">
-      <Filter>Header Files\Example\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Obstacle.h">
-      <Filter>Header Files\Example\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="GraphicsEngine.h">
       <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Skybox.h">
       <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Asteroid.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Plane.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshSurfaceGraphicsComponent.h">
+      <Filter>Header Files\GameObjects\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingGraphicsComponent.h">
+      <Filter>Header Files\GameObjects\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeGraphicsComponent.h">
+      <Filter>Header Files\GameObjects\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="AsteroidGraphicsComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameObjects\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Asteroid.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletGraphicsComponent.h">
+      <Filter>Header Files\GameObjects\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaneInputComponent.h">
+      <Filter>Header Files\GameObjects\Input</Filter>
     </ClInclude>
     <ClInclude Include="SpaceshipGraphicsComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameObjects\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletPhysicsComponent.h">
+      <Filter>Header Files\GameObjects\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

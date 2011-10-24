@@ -1,10 +1,9 @@
 #include "Obstacle.h"
 
-Obstacle::Obstacle(void)
-    : position(0.0f, 0.0f, 0.0f)
-    , scale(1.0f, 1.0f, 1.0f)
-    , GameObject()
+Obstacle::Obstacle(D3DXVECTOR3 position, D3DXVECTOR3 scale) :
+    position(position), scale(scale), GameObject()
 {
+
 }
 
 D3DXVECTOR3 Obstacle::getPosition()
@@ -32,4 +31,18 @@ void Obstacle::setScale( float x, float y, float z )
     this->scale.x = x;
     this->scale.y = y;
     this->scale.z = z;
+}
+
+D3DXMATRIX *Obstacle::generateTransformationMatrix(D3DXMATRIX *matrix)
+{
+    D3DXMATRIX matScale, matTranslate, matRotate;
+    D3DXMatrixIdentity(matrix);
+
+    D3DXMatrixScaling(&matScale, scale.x, scale.y, scale.z);
+
+    //TODO add rotation
+
+    D3DXMatrixTranslation(&matTranslate, position.x, position.y, position.z);
+    D3DXMatrixMultiply(matrix, &matScale, &matTranslate);
+    return matrix;
 }

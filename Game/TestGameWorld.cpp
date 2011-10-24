@@ -28,17 +28,21 @@ void TestGameWorld::init( GameEngine &gameEngine )
     // initMesh(gameEngine);
     initMoveableGameObjects(gameEngine);
 
-    plane.setCamera(camera);
+    camera = new FollowCamera(&plane);
+    gameEngine.getGraphicsEngine().setCamera(*camera);
 
     GraphicsEngine &graphicsEngine = gameEngine.getGraphicsEngine();
     spaceshipGraphicsComponent->init(graphicsEngine);
     graphicsEngine.setBackgroundColor(D3DCOLOR_XRGB(0, 6, 8));
-    graphicsEngine.enableFog(camera.getFarPlane() - 1000.0f, camera.getFarPlane());   
+    graphicsEngine.enableFog(camera->getFarPlane() - 1000.0f, camera->getFarPlane());   
 }
 
 void TestGameWorld::update( float time )
 {
-    camera.update(time);
+    camera->update(time);
+    for each (GameObject* gameObject in gameObjects) {
+        gameObject->update(time);
+    }
 }
 
 void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
@@ -61,12 +65,13 @@ void TestGameWorld::initMesh( GameEngine &gameEngine )
 void TestGameWorld::initPlane( GameEngine &gameEngine )
 {
     planeInputComponent.init(&plane);
-    plane.init(&planeInputComponent, NULL, NULL);
+    plane.init(&planeInputComponent, NULL, spaceshipGraphicsComponent);
+    addGameObject(&plane); //crash during destruction
 }
 
 void TestGameWorld::initCamera( GameEngine &gameEngine )
 {
-    D3DXVECTOR3 position(5000.0f, 100.0f, 5000.0f);
+/*    D3DXVECTOR3 position(5000.0f, 100.0f, 5000.0f);
 
     camera.setPosition(position);
     camera.setIgnoreMaxPitchAngle(true);
@@ -74,6 +79,7 @@ void TestGameWorld::initCamera( GameEngine &gameEngine )
     camera.createProjectionMatrix(D3DXToRadian(45), 1.3f, 1.0f, 5000.0f);
 
     gameEngine.getGraphicsEngine().setCamera(camera);
+    */
 }
 
 void TestGameWorld::initMoveableGameObjects( GameEngine &gameEngine )

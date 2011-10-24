@@ -161,6 +161,9 @@
     <ClCompile Include="MoveableGameObject.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="FollowCamera.cpp">
+      <Filter>Source Files\Engine\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -252,6 +255,9 @@
     </ClInclude>
     <ClInclude Include="MoveableGameObject.h">
       <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="FollowCamera.h">
+      <Filter>Header Files\Engine\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -82,6 +82,7 @@
     <ClCompile Include="BulletGraphicsComponent.cpp" />
     <ClCompile Include="BulletPhysicsComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="FollowCamera.cpp" />
     <ClCompile Include="MoveableGameObject.cpp" />
     <ClCompile Include="CubeGraphicsComponent.cpp" />
     <ClCompile Include="FlightSimulatorGameApp.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="BulletGraphicsComponent.h" />
     <ClInclude Include="BulletPhysicsComponent.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="FollowCamera.h" />
     <ClInclude Include="MoveableGameObject.h" />
     <ClInclude Include="CubeGraphicsComponent.h" />
     <ClInclude Include="FlightSimulatorGameApp.h" />

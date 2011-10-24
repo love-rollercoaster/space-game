@@ -9,6 +9,8 @@ public:
     MoveableGameObject(D3DXVECTOR3 position = D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3 scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 
     D3DXVECTOR3 getPosition();
+    D3DXVECTOR3 getDirection();
+    D3DXVECTOR3 getUpVector();
     D3DXVECTOR3 getScale();
     D3DXVECTOR3 getVelocity();
     void yaw( float radians );
@@ -20,6 +22,7 @@ public:
     void setPitchRotationSpeed(float radsPerSec);
     D3DXQUATERNION getRotationQuat();
     virtual void update(float time);
+    virtual void changeSpeedBy(float dSpeed);
 
     D3DXMATRIX *generateTransformationMatrix(D3DXMATRIX *matrix);
 

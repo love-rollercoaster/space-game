@@ -8,6 +8,7 @@
 #include "Plane.h"
 #include "PlaneInputComponent.h"
 #include "MoveableGameObject.h"
+#include "FollowCamera.h"
 
 using std::vector;
 
@@ -23,7 +24,7 @@ public:
     void draw(GraphicsEngine &graphicsEngine);
 
 private:
-    QuatCamera camera;
+    Camera *camera;
     Plane plane;
     MeshSurfaceGraphicsComponent meshSurfaceGraphicsComponent;
     PlaneInputComponent planeInputComponent;

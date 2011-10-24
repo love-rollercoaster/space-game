@@ -18,34 +18,33 @@ void PlaneInputComponent::registerInputHandlers()
 
 void PlaneInputComponent::arrowKeyHandler( unsigned char key )
 {
-    Plane *plane = dynamic_cast<Plane*>(gameObject);
-    Camera *camera = plane->getCamera();
+    MoveableGameObject *plane = dynamic_cast<MoveableGameObject*>(gameObject);
 
     switch(key)
     {
     case VK_LEFT:
-        camera->yaw(D3DXToRadian(-1.0f));
+        plane->yaw(D3DXToRadian(-1.0f));
         break;
     case VK_RIGHT:
-        camera->yaw(D3DXToRadian(1.0f));
+        plane->yaw(D3DXToRadian(1.0f));
         break;
     case VK_DOWN:
-        camera->pitch(D3DXToRadian(1.0f));
+        plane->pitch(D3DXToRadian(1.0f));
         break;
     case VK_UP:
-        camera->pitch(D3DXToRadian(-1.0f));
+        plane->pitch(D3DXToRadian(-1.0f));
         break;
     case 'W':
-        camera->changeSpeedBy(1.0f);
+        plane->changeSpeedBy(10.0f);
         break;
     case 'S':
-        camera->changeSpeedBy(-1.0f);
+        plane->changeSpeedBy(-10.0f);
         break;
     case 'A':
-        camera->roll(D3DXToRadian(2.0f));
+        plane->roll(D3DXToRadian(2.0f));
         break;
     case 'D':
-        camera->roll(D3DXToRadian(-2.0f));
+        plane->roll(D3DXToRadian(-2.0f));
         break;
     }
 }

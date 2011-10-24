@@ -1,6 +1,7 @@
 #pragma once
 
 #include "InputComponent.h"
+#include "MoveableGameObject.h"
 
 class Plane;
 

@@ -23,11 +23,13 @@ void SpaceshipGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &g
         throw "This component only works with MoveableGameObjects!";
     }
 
-    D3DXMATRIX worldMatrix;
+    D3DXMATRIX worldMatrix, extraRot;
+
+    D3DXMatrixRotationYawPitchRoll(&extraRot, D3DXToRadian(90.0f), 0.0f, 0.0f);
 
     moveableGameObject->generateTransformationMatrix(&worldMatrix);
 
-    graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
+    graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &(extraRot*worldMatrix));
 
     graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 

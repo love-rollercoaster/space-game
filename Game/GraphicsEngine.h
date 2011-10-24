@@ -44,6 +44,8 @@ public:
 
     void enableFog(float fogStart, float fogEnd);
 
+    HRESULT loadMesh(string fileName, LPD3DXMESH *meshP, D3DMATERIAL9** mats, LPDIRECT3DTEXTURE9 **texture, DWORD *numMats);
+
 private:
     CComPtr<IDirect3D9> direct3DInterface;
     CComPtr<IDirect3DDevice9> direct3DDevice;

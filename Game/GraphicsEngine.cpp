@@ -1,6 +1,7 @@
 #include "GraphicsEngine.h"
 
 #include "QuatCamera.h"
+#include "Log.h"
 
 GraphicsEngine::GraphicsEngine(void)
     : backgroundColor(D3DCOLOR_XRGB(0,0,0))
@@ -214,4 +215,40 @@ void GraphicsEngine::cleanVertexBuffers()
 void GraphicsEngine::cleanDirect3D()
 {
     cleanVertexBuffers();
+}
+
+HRESULT GraphicsEngine::loadMesh(string fileName, LPD3DXMESH *meshP, D3DMATERIAL9** mats, LPDIRECT3DTEXTURE9 **texture, DWORD *numMats) {
+    LPD3DXBUFFER matsTemp;
+    HRESULT result;
+
+    result = D3DXLoadMeshFromX(fileName.c_str(),
+                             D3DXMESH_MANAGED,
+                             getDirect3DDevice(),
+                             NULL,
+                             &matsTemp,
+                             NULL,
+                             numMats,
+                             meshP);
+
+    
+    if (result != D3D_OK)
+        return result;
+
+    D3DXMATERIAL* tempMaterials = (D3DXMATERIAL*)matsTemp->GetBufferPointer();
+    D3DMATERIAL9* materialsArray = new D3DMATERIAL9[*numMats];
+    LPDIRECT3DTEXTURE9 *textureArray = new LPDIRECT3DTEXTURE9[*numMats];
+
+    for(DWORD i = 0; i < *numMats; i++)
+    {
+        materialsArray[i] = tempMaterials[i].MatD3D;
+        materialsArray[i].Ambient = materialsArray[i].Diffuse;
+        if (FAILED(D3DXCreateTextureFromFileA(getDirect3DDevice(),
+                                            tempMaterials[i].pTextureFilename,
+                                            &textureArray[i]))) {
+            textureArray[i] = NULL;
+        }
+    }
+    *mats = materialsArray;
+    *texture = textureArray;
+    return D3D_OK;
 }

@@ -163,7 +163,7 @@ Material phong1SG {
 	0.000000;0.000000;0.000000;;
 	0.000000;0.000000;0.000000;;
 	TextureFilename {
-		"..\\textures\\asteroid1.tga";
+		"resources\\textures\\asteroid.tga";
 	}
 }
 Mesh single_mesh_object {

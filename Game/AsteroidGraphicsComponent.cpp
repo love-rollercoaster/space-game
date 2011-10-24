@@ -12,6 +12,8 @@ AsteroidGraphicsComponent::~AsteroidGraphicsComponent(void)
 
 void AsteroidGraphicsComponent::init( GraphicsEngine &graphicsEngine )
 {
+    graphicsEngine.loadMesh("resources/meshes/asteroid.x", &asteroidMesh, &materials, &texture, &numMaterials);
+    /*
     LPD3DXBUFFER asteroidMaterials;
 
     if (FAILED(D3DXLoadMeshFromX("resources/meshes/asteroid.x",
@@ -41,7 +43,7 @@ void AsteroidGraphicsComponent::init( GraphicsEngine &graphicsEngine )
     {
         material[i] = tempMaterials[i].MatD3D;
         material[i].Ambient = material[i].Diffuse;
-    }
+    }*/
 }
 
 void AsteroidGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &graphicsEngine )
@@ -57,14 +59,15 @@ void AsteroidGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &gr
     obstacle->generateTransformationMatrix(&worldMatrix);
 
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
-    if (texture != NULL) {
-       graphicsEngine.getDirect3DDevice()->SetTexture(0, texture);
-    }
+    
 
     graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 
     for (DWORD i = 0; i < numMaterials; i++) {
-        graphicsEngine.getDirect3DDevice()->SetMaterial(&material[i]);
+        graphicsEngine.getDirect3DDevice()->SetMaterial(&materials[i]);
+        if (texture[i] != NULL) {
+            graphicsEngine.getDirect3DDevice()->SetTexture(0, texture[i]);
+        }
         if (FAILED(asteroidMesh->DrawSubset(i))) {
             ERR("Failed to draw asteroid");
         }

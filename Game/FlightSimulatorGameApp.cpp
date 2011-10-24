@@ -16,7 +16,7 @@ void FlightSimulatorGameApp::init( GameEngine &gameEngine )
 
 }
 
-void FlightSimulatorGameApp::update( time_t time )
+void FlightSimulatorGameApp::update( float time )
 {
     gameWorld.update(time);
 }

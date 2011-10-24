@@ -35,7 +35,7 @@ public:
         this->physicsComponent = physicsComponent;
     }
 
-    virtual void update(time_t time)
+    virtual void update(float time)
     {
         // if (inputComponent != NULL)
         //     inputComponent->update(*this, time);

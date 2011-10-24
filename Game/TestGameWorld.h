@@ -19,7 +19,7 @@ public:
     ~TestGameWorld(void);
 
     void init(GameEngine &gameEngine);
-    void update(time_t time);
+    void update(float time);
     void draw(GraphicsEngine &graphicsEngine);
 
 private:

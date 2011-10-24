@@ -36,7 +36,7 @@ void TestGameWorld::init( GameEngine &gameEngine )
     graphicsEngine.enableFog(camera.getFarPlane() - 1000.0f, camera.getFarPlane());   
 }
 
-void TestGameWorld::update( time_t time )
+void TestGameWorld::update( float time )
 {
     camera.update(time);
 }

@@ -24,7 +24,7 @@ WPARAM GameEngine::startGameLoop()
         msg = getMessage();
 
         InputSystem::DispatchInputEvents();
-        updateGameState(GetTickCount() - lastUpdateTime);
+        updateGameState((float)(GetTickCount() - lastUpdateTime));
         lastUpdateTime = GetTickCount();
 
         graphicsEngine.beginDraw();
@@ -45,7 +45,7 @@ WPARAM GameEngine::startGameLoop()
     return msg.wParam;
 }
 
-void GameEngine::updateGameState(time_t time)
+void GameEngine::updateGameState(float time)
 {
 	gameApp.update(time);
 }

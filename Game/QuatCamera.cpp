@@ -33,7 +33,7 @@ void QuatCamera::roll( float radians )
     updateOrientation(lookDirection, radians);
 }
 
-void QuatCamera::update(time_t time)
+void QuatCamera::update(float time)
 {
     position += lookDirection * speed /* * static_cast<float>(time) */;
 

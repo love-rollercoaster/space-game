@@ -7,5 +7,5 @@ class PhysicsComponent
 {
 public:
     virtual ~PhysicsComponent() { }
-    virtual void update(GameObject &gameObject, time_t time) = 0;
+    virtual void update(GameObject &gameObject, float time) = 0;
 };

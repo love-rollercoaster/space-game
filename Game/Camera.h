@@ -13,7 +13,7 @@ public:
     virtual void yaw( float radians ) = 0;
     virtual void pitch( float radians ) = 0;
     virtual void roll( float radians ) = 0;
-    virtual void update(time_t time) = 0;
+    virtual void update(float time) = 0;
 
     virtual void setPosition( D3DXVECTOR3 &position ) {this->position = D3DXVECTOR3(position);}
     virtual void setFOV( float fov )            { createProjectionMatrix( fov, aspect, nearPlane, farPlane ); }

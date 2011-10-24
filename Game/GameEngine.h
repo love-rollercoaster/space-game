@@ -17,10 +17,10 @@ public:
     GraphicsEngine& getGraphicsEngine();
 
 private:
-    const time_t TIME_PER_FRAME;
+    const float TIME_PER_FRAME;
 
     MSG getMessage();
-    void updateGameState(time_t time);
+    void updateGameState(float time);
 
     GraphicsEngine &graphicsEngine;
     GameApp &gameApp;

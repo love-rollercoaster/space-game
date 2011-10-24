@@ -22,7 +22,7 @@ public:
 
     void init(HINSTANCE hInstance, int nCmdShow);
     virtual void init(GameEngine &gameEngine) = 0;
-    virtual void update(time_t time) = 0;
+    virtual void update(float time) = 0;
     virtual void draw(GraphicsEngine &graphicsEngine) = 0;
 
     void start();

@@ -1,7 +1,7 @@
 #include "TestGameWorld.h"
 #include "GameEngine.h"
 #include "GraphicsEngine.h"
-#include "TeapotGraphicsComponent.h"
+#include "AsteroidGraphicsComponent.h"
 #include "BuildingGraphicsComponent.h"
 
 #define MESH_COLUMNS   100
@@ -9,7 +9,7 @@
 #define MESH_CELL_SIZE 10
 
 TestGameWorld::TestGameWorld( void )
-    : obstacleGraphicsComponent(new TeapotGraphicsComponent())
+    : obstacleGraphicsComponent(new AsteroidGraphicsComponent())
 {
 }
 

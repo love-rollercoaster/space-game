@@ -78,12 +78,12 @@ void Skybox::initTexture( GraphicsEngine &graphicsEngine )
 {
     HRESULT result;
 
-    result  = D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_front5.png"),  &texture[0] );
-    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_back6.png") ,  &texture[1] );
-    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_left2.png") ,  &texture[2] );
-    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_right1.png"),  &texture[3] );
-    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_top3.png")  ,  &texture[4] );
-    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("SkyBox_bottom4.png"), &texture[5] );
+    result  = D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("resources/textures/SkyBox_front5.png"),  &texture[0] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("resources/textures/SkyBox_back6.png") ,  &texture[1] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("resources/textures/SkyBox_left2.png") ,  &texture[2] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("resources/textures/SkyBox_right1.png"),  &texture[3] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("resources/textures/SkyBox_top3.png")  ,  &texture[4] );
+    result |= D3DXCreateTextureFromFile( graphicsEngine.getDirect3DDevice(), ("resources/textures/SkyBox_bottom4.png"), &texture[5] );
 
     if ( FAILED( result ) )
     {

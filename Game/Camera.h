@@ -20,7 +20,8 @@ public:
     virtual void setAspectRatio( float aspect ) { createProjectionMatrix( fov, aspect, nearPlane, farPlane ); }
     virtual void setNearPlane( float plane )    { createProjectionMatrix( fov, aspect, plane, farPlane ); }
     virtual void setFarPlane( float plane )     { createProjectionMatrix( fov, aspect, nearPlane, plane ); }
-    virtual void setMaxSpeed( float maxSpeed )  { this->maxSpeed = maxSpeed; }
+    virtual void setMaxSpeed( float maxSpeed );
+    virtual void setMinSpeed( float minSpeed );
     virtual void setInvertY( bool invert )      { this->yInverted = invert; }
     virtual void setMaxPitch( float maxPitch )  { this->maxPitchAngle = maxPitch; }
     virtual void setIgnoreMaxPitchAngle( bool ignore ) { this->ignoreMaxPitchAngle = ignore;}
@@ -39,6 +40,7 @@ public:
     virtual float getFarPlane() const         { return farPlane; }
     virtual float getSpeed() const            { return speed; }
     virtual float getMaxSpeed() const         { return maxSpeed; }
+    virtual float getMinSpeed() const         { return minSpeed; }
     virtual bool  getInvertY() const          { return yInverted; }
     virtual float getMaxPitchAngle() const    { return maxPitchAngle; }
     virtual float getPitchAngle() const = 0;
@@ -54,6 +56,7 @@ protected:
     float       speed;
     float       maxPitchAngle;
     float       maxSpeed;
+    float       minSpeed;
     float       fov;
     float       aspect;
     float       nearPlane;

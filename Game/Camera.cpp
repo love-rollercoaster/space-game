@@ -2,7 +2,8 @@
 
 Camera::Camera()
     : maxPitchAngle(D3DXToRadian( 89.0f ))
-    , maxSpeed(5.0f)
+    , maxSpeed(10.0f)
+    , minSpeed(0.0f)
     , yInverted(false)
     , yMovementEnabled(true)
     , position(0.0f, 0.0f, 0.0f)
@@ -34,11 +35,23 @@ void Camera::changeSpeedBy(float dSpeed)
     keepSpeedBounds();
 }
 
+void Camera::setMaxSpeed( float maxSpeed )
+{ 
+    this->maxSpeed = maxSpeed;
+    keepSpeedBounds();
+}
+
+void Camera::setMinSpeed( float minSpeed )
+{
+    this->minSpeed = minSpeed;
+    keepSpeedBounds();
+}
+
 void Camera::keepSpeedBounds()
 {
     if (this->speed > maxSpeed) {
         this->speed = maxSpeed;
-    } else if (this->speed < maxSpeed * -1.0f) {
-        this->speed = maxSpeed * -1.0f;
+    } else if (this->speed < minSpeed) {
+        this->speed = minSpeed;
     }
 }

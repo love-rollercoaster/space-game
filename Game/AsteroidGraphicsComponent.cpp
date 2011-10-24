@@ -68,6 +68,8 @@ void AsteroidGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &gr
         graphicsEngine.getDirect3DDevice()->SetTexture(0, texture);
     }
 
+    graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+
     for (DWORD i = 0; i < numMaterials; i++) {
         graphicsEngine.getDirect3DDevice()->SetMaterial(&material[i]);
         if (FAILED(asteroidMesh->DrawSubset(i))) {

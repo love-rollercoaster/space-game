@@ -131,8 +131,7 @@ void GraphicsEngine::beginDraw()
     setupViewMatrix();
     setupProjectionMatrix();
 
-    direct3DDevice->Clear(0, NULL, D3DCLEAR_TARGET,  this->backgroundColor, 1.0f, 0);
-    direct3DDevice->Clear(0, NULL, D3DCLEAR_ZBUFFER, this->backgroundColor, 1.0f, 0);
+    direct3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,  D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0);
     direct3DDevice->BeginScene();
 
     if (camera != NULL) {

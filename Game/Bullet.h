@@ -1,9 +1,9 @@
 #pragma once
 #include "gameobject.h"
-#include "Obstacle.h"
+#include "MoveableGameObject.h"
 
 class Bullet :
-    public Obstacle
+    public MoveableGameObject
 {
 public:
     Bullet(void);

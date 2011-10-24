@@ -3,7 +3,7 @@
 #include <d3dx9.h>
 #include <vector>
 #include "GraphicsComponent.h"
-#include "Obstacle.h"
+#include "MoveableGameObject.h"
 
 using std::vector;
 

@@ -2,7 +2,7 @@
 
 
 Asteroid::Asteroid(D3DXVECTOR3 position, D3DXVECTOR3 scale) :
-    Obstacle(position, scale)
+    MoveableGameObject(position, scale)
 {
 }
 

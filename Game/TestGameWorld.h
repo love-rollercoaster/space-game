@@ -7,7 +7,7 @@
 #include "MeshSurfaceGraphicsComponent.h"
 #include "Plane.h"
 #include "PlaneInputComponent.h"
-#include "Obstacle.h"
+#include "MoveableGameObject.h"
 
 using std::vector;
 
@@ -27,12 +27,12 @@ private:
     Plane plane;
     MeshSurfaceGraphicsComponent meshSurfaceGraphicsComponent;
     PlaneInputComponent planeInputComponent;
-    GraphicsComponent *obstacleGraphicsComponent;
+    GraphicsComponent *moveableGameObjectGraphicsComponent;
     GraphicsComponent *spaceshipGraphicsComponent;
-    vector<Obstacle*> obstacles;
+    vector<MoveableGameObject*> moveableGameObjects;
 
     void initCamera(GameEngine &gameEngine);
     void initPlane(GameEngine &gameEngine);
     void initMesh(GameEngine &gameEngine);
-    void initObstacles(GameEngine &gameEngine);
+    void initMoveableGameObjects(GameEngine &gameEngine);
 };

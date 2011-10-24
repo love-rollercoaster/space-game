@@ -1,6 +1,6 @@
 #include "Plane.h"
 #include "PlaneInputComponent.h"
-#include "Obstacle.h"
+#include "MoveableGameObject.h"
 #include "CubeGraphicsComponent.h"
 
 Plane::Plane(void)

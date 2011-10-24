@@ -1,6 +1,6 @@
 #pragma once
 #include "graphicscomponent.h"
-#include "Obstacle.h"
+#include "MoveableGameObject.h"
 #include "Log.h"
 
 class SpaceshipGraphicsComponent :
@@ -15,7 +15,7 @@ public:
 
 protected:
     LPD3DXMESH spaceshipMesh;
-    D3DMATERIAL9* material;
-    LPDIRECT3DTEXTURE9 texture;
+    D3DMATERIAL9* materials;
+    LPDIRECT3DTEXTURE9 *texture;
     DWORD numMaterials;
 };

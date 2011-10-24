@@ -1,6 +1,6 @@
 #pragma once
 #include "graphicscomponent.h"
-#include "Obstacle.h"
+#include "MoveableGameObject.h"
 #include "Log.h"
 
 class AsteroidGraphicsComponent :

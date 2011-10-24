@@ -137,9 +137,6 @@
     <ClCompile Include="Plane.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
-      <Filter>Source Files\GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="Asteroid.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
@@ -160,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="BulletPhysicsComponent.cpp">
       <Filter>Source Files\GameObjects\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveableGameObject.cpp">
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,9 +220,6 @@
     <ClInclude Include="Plane.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Obstacle.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="MeshSurfaceGraphicsComponent.h">
       <Filter>Header Files\GameObjects\Graphics</Filter>
     </ClInclude>
@@ -252,6 +249,9 @@
     </ClInclude>
     <ClInclude Include="BulletPhysicsComponent.h">
       <Filter>Header Files\GameObjects\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveableGameObject.h">
+      <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

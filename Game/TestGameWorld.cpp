@@ -10,7 +10,7 @@
 #define MESH_CELL_SIZE 10
 
 TestGameWorld::TestGameWorld( void )
-    : obstacleGraphicsComponent(new AsteroidGraphicsComponent())
+    : moveableGameObjectGraphicsComponent(new AsteroidGraphicsComponent())
     , spaceshipGraphicsComponent(new SpaceshipGraphicsComponent())
 {
 }
@@ -18,7 +18,7 @@ TestGameWorld::TestGameWorld( void )
 TestGameWorld::~TestGameWorld( void )
 {
     delete spaceshipGraphicsComponent;
-    delete obstacleGraphicsComponent;
+    delete moveableGameObjectGraphicsComponent;
 }
 
 void TestGameWorld::init( GameEngine &gameEngine )
@@ -26,7 +26,7 @@ void TestGameWorld::init( GameEngine &gameEngine )
     initCamera(gameEngine);
     initPlane(gameEngine);
     // initMesh(gameEngine);
-    initObstacles(gameEngine);
+    initMoveableGameObjects(gameEngine);
 
     plane.setCamera(camera);
 
@@ -76,9 +76,9 @@ void TestGameWorld::initCamera( GameEngine &gameEngine )
     gameEngine.getGraphicsEngine().setCamera(camera);
 }
 
-void TestGameWorld::initObstacles( GameEngine &gameEngine )
+void TestGameWorld::initMoveableGameObjects( GameEngine &gameEngine )
 {
-    obstacleGraphicsComponent->init(gameEngine.getGraphicsEngine());
+    moveableGameObjectGraphicsComponent->init(gameEngine.getGraphicsEngine());
 
     float yMin = -1000.0f;
     float yMax = 1000.0f;
@@ -98,19 +98,19 @@ void TestGameWorld::initObstacles( GameEngine &gameEngine )
                 float xPosition = (float) i * MESH_ROWS;
                 float zPosition = (float) j * MESH_COLUMNS;
 
-                Obstacle *obstacle = new Obstacle;
-                obstacle->setPosition(D3DXVECTOR3(xPosition, yPosition, zPosition));
+                MoveableGameObject *moveableGameObject = new MoveableGameObject();
+                moveableGameObject->setPosition(D3DXVECTOR3(xPosition, yPosition, zPosition));
 
                 if (((double)rand() / (RAND_MAX+1) * 2.0f) > 1) {
-                    obstacle->setScale(100.0f, 100.0f, 100.0f);
-                    obstacle->init(NULL, NULL, spaceshipGraphicsComponent);
+                    moveableGameObject->setScale(100.0f, 100.0f, 100.0f);
+                    moveableGameObject->init(NULL, NULL, spaceshipGraphicsComponent);
                 } else {
-                    obstacle->setScale(scale, scale, scale);
-                    obstacle->init(NULL, NULL, obstacleGraphicsComponent);
+                    moveableGameObject->setScale(scale, scale, scale);
+                    moveableGameObject->init(NULL, NULL, moveableGameObjectGraphicsComponent);
                 }
 
-                obstacles.push_back(obstacle);
-                addGameObject(obstacle);
+                moveableGameObjects.push_back(moveableGameObject);
+                addGameObject(moveableGameObject);
             }
         }
     }

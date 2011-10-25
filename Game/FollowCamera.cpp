@@ -1,8 +1,10 @@
 #include "FollowCamera.h"
 
 FollowCamera::FollowCamera(MoveableGameObject *object) 
-    : obj(object), offset(0.0f, 1.0f,-3.0f), firstPersonCamera(false),
-    pastRotations(CAMERA_CACHE_SIZE)
+    : obj(object)
+    , offset(0.0f, 1.0f,-3.0f)
+    , firstPersonCamera(false)
+    , pastRotations(CAMERA_CACHE_SIZE)
 {
 }
 
@@ -42,6 +44,7 @@ void FollowCamera::roll( float radians )
 
 void FollowCamera::update(float time)
 {
+    calculateNewFov();
     pastRotations.push(obj->getRotationQuat());
 }
 
@@ -88,25 +91,40 @@ void FollowCamera::toggleCameraMode()
     this->firstPersonCamera = !this->firstPersonCamera;
 }
 
+void FollowCamera::calculateNewFov()
+{
+    float speed = obj->getSpeed();
+    if (speed <= 0) {
+        setFOV(D3DXToRadian(DEFAULT_FOV_DEGREES));
+        return;
+    }
+    float degreeStepsPerUnitOfSpeed = (MAX_FOV_DEGREES - DEFAULT_FOV_DEGREES);
+    //degreeStepsPerUnitOfSpeed *= degreeStepsPerUnitOfSpeed;
+    degreeStepsPerUnitOfSpeed /= obj->getMaxSpeed();
+
+    float newFovAngle = degreeStepsPerUnitOfSpeed * (speed);
+    setFOV(D3DXToRadian(DEFAULT_FOV_DEGREES + newFovAngle));
+}
+
 /*
  * Rotation cache stuff starts here
  */
-FollowCamera::RotationCache::RotationCache(unsigned int capacity) 
+template<class T>
+FollowCamera::Cache<T>::Cache(unsigned int capacity) 
     : capacity(capacity)
 {}
 
-void FollowCamera::RotationCache::push(D3DXQUATERNION quat)
+template<class T>
+void FollowCamera::Cache<T>::push(T item)
 {
-    history.push(quat);
+    history.push(item);
     while (history.size() > capacity) {
         history.pop();
     }
 }
 
-D3DXQUATERNION FollowCamera::RotationCache::poll() const
+template<class T>
+T FollowCamera::Cache<T>::poll() const
 {
-    if (history.empty()) {
-        return D3DXQUATERNION();
-    }
     return history.front();
 }

@@ -11,7 +11,7 @@ Camera::Camera()
     , lookDirection(0.0f, 0.0f, 1.0f)
     , ignoreMaxPitchAngle(false)
 {
-    createProjectionMatrix(D3DXToRadian(45), 1.3f, 1.0f, 5000.0f );
+    createProjectionMatrix(D3DXToRadian(45), 1.333333333f, 1.0f, 5000.0f );
 }
 
 void Camera::createProjectionMatrix( float fov, float aspect, float nearPlane, float farPlane )

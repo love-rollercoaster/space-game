@@ -185,6 +185,16 @@ void MoveableGameObject::setSpeed(float speed)
     keepSpeedBounds();
 }
 
+float MoveableGameObject::getMinSpeed()
+{
+    return minSpeed;
+}
+
+float MoveableGameObject::getMaxSpeed()
+{
+    return maxSpeed;
+}
+
 void MoveableGameObject::setMaxSpeed( float maxSpeed )
 { 
     this->maxSpeed = maxSpeed;

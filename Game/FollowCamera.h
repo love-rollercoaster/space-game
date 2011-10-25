@@ -5,6 +5,8 @@
 using std::queue;
 
 #define CAMERA_CACHE_SIZE 10
+#define DEFAULT_FOV_DEGREES 45.0f
+#define MAX_FOV_DEGREES 70.0f
 
 class FollowCamera :
     public Camera
@@ -29,19 +31,22 @@ public:
     void setGameObject(MoveableGameObject *object);
 
 private:
-    class RotationCache {
+    void calculateNewFov();
+    
+    template<class T>
+    class Cache {
     public:
-        RotationCache(unsigned int capacity);
-        void push(D3DXQUATERNION quat);
-        D3DXQUATERNION poll() const;
+        Cache(unsigned int capacity);
+        void push(T item);
+        T poll() const;
     private:
-        queue<D3DXQUATERNION> history;
+        queue<T> history;
         unsigned int capacity;
     };
 
     D3DXVECTOR3 offset;
     MoveableGameObject *obj;
     bool firstPersonCamera;
-    RotationCache pastRotations;
+    Cache<D3DXQUATERNION> pastRotations;
 };
 

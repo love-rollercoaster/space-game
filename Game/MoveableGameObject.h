@@ -3,7 +3,7 @@
 #include "GameObject.h"
 
 #define DEFAULT_MIN_SPEED -500.0f
-#define DEFAULT_MAX_SPEED 500.0f
+#define DEFAULT_MAX_SPEED 5000.0f
 
 class MoveableGameObject
     : public GameObject
@@ -26,6 +26,8 @@ public:
     virtual void update(float time);
     void setSpeed(float speed);
     virtual void changeSpeedBy(float speedDelta);
+    virtual float getMinSpeed();
+    virtual float getMaxSpeed();
     virtual void setMaxSpeed( float maxSpeed );
     virtual void setMinSpeed( float minSpeed );
 

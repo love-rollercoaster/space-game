@@ -11,6 +11,7 @@
 #include "MoveableGameObject.h"
 #include "FollowCamera.h"
 #include "Asteroid.h"
+#include "Bullet.h"
 
 using std::vector;
 using std::tr1::shared_ptr;
@@ -34,6 +35,7 @@ private:
     //    vector<MoveableGameObject*> moveableGameObjects;
 
     vector<shared_ptr<Asteroid> > asteroids;
+    vector<shared_ptr<Bullet> > bullets;
 
     void initSpaceship(GameEngine &gameEngine);
     void initAsteroids(GameEngine &gameEngine);

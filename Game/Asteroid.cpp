@@ -18,7 +18,7 @@ void Asteroid::init( GameEngine &gameEngine )
 
     if (!graphicsComponentInitialized) {
         graphicsComponent->init(gameEngine);
-        graphicsComponentInitialized = true;
+		graphicsComponentInitialized = true;
     }
 
     representation->init(NULL, NULL, graphicsComponent);

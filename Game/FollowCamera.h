@@ -47,6 +47,7 @@ private:
     D3DXVECTOR3 offset;
     MoveableGameObject *obj;
     bool firstPersonCamera;
+    float oldObjSpeed;
     Cache<D3DXQUATERNION> pastRotations;
 };
 

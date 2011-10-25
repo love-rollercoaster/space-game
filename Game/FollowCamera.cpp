@@ -5,6 +5,7 @@ FollowCamera::FollowCamera(MoveableGameObject *object)
     , offset(0.0f, 1.0f,-3.0f)
     , firstPersonCamera(false)
     , pastRotations(CAMERA_CACHE_SIZE)
+    , oldObjSpeed(0.0f)
 {
 }
 
@@ -44,7 +45,10 @@ void FollowCamera::roll( float radians )
 
 void FollowCamera::update(float time)
 {
-    calculateNewFov();
+    if (obj->getSpeed() != oldObjSpeed) {
+        calculateNewFov();
+        oldObjSpeed = obj->getSpeed();
+    }
     pastRotations.push(obj->getRotationQuat());
 }
 
@@ -99,10 +103,11 @@ void FollowCamera::calculateNewFov()
         return;
     }
     float degreeStepsPerUnitOfSpeed = (MAX_FOV_DEGREES - DEFAULT_FOV_DEGREES);
-    //degreeStepsPerUnitOfSpeed *= degreeStepsPerUnitOfSpeed;
+    degreeStepsPerUnitOfSpeed = sqrt(degreeStepsPerUnitOfSpeed);
     degreeStepsPerUnitOfSpeed /= obj->getMaxSpeed();
 
     float newFovAngle = degreeStepsPerUnitOfSpeed * (speed);
+    newFovAngle *= newFovAngle;
     setFOV(D3DXToRadian(DEFAULT_FOV_DEGREES + newFovAngle));
 }
 

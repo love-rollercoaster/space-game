@@ -5,8 +5,8 @@
 #include "BuildingGraphicsComponent.h"
 #include "SpaceshipGraphicsComponent.h"
 
-#define MESH_COLUMNS   1000
-#define MESH_ROWS      1000
+#define MESH_COLUMNS   100
+#define MESH_ROWS      100
 #define MESH_CELL_SIZE 10
 
 #define EARTH_POSITION D3DXVECTOR3(-0.3f,0,-1) // fixme

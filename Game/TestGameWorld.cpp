@@ -53,7 +53,6 @@ void TestGameWorld::update( float time )
 void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
 {
     plane.draw(graphicsEngine);
-
     for each (shared_ptr<Asteroid> asteroid in asteroids) {
         asteroid->draw(graphicsEngine);
     }

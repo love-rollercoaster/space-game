@@ -11,6 +11,8 @@ MoveableGameObject::MoveableGameObject(D3DXVECTOR3 position, D3DXVECTOR3 scale)
     , yawRotationSpeed(0.0f)
     , pitchRotationSpeed(0.0f)
     , fixedDirection(false)
+    , minSpeed(DEFAULT_MIN_SPEED)
+    , maxSpeed(DEFAULT_MAX_SPEED)
 {
     D3DXQuaternionIdentity(&rotation);
     D3DXQuaternionNormalize(&rotation, &rotation);
@@ -105,11 +107,6 @@ void MoveableGameObject::setPitchRotationSpeed(float radiansPerSecond)
     pitchRotationSpeed = radiansPerSecond;
 }
 
-void MoveableGameObject::setSpeed(float speed) 
-{
-    this->speed = speed;
-}
-
 D3DXQUATERNION MoveableGameObject::getRotationQuat()
 {
     return rotation;
@@ -150,6 +147,7 @@ void MoveableGameObject::update(float time)
 void MoveableGameObject::changeSpeedBy(float speedDelta)
 {
     this->speed += speedDelta;
+    keepSpeedBounds();
 }
 
 void MoveableGameObject::updateRotationSpeeds( float time )
@@ -179,4 +177,31 @@ void MoveableGameObject::setDirection( D3DXVECTOR3 direction )
 void MoveableGameObject::setFixedDirection( bool fixedDirection )
 {
     this->fixedDirection = fixedDirection;
+}
+
+void MoveableGameObject::setSpeed(float speed) 
+{
+    this->speed = speed;
+    keepSpeedBounds();
+}
+
+void MoveableGameObject::setMaxSpeed( float maxSpeed )
+{ 
+    this->maxSpeed = maxSpeed;
+    keepSpeedBounds();
+}
+
+void MoveableGameObject::setMinSpeed( float minSpeed )
+{
+    this->minSpeed = minSpeed;
+    keepSpeedBounds();
+}
+
+void MoveableGameObject::keepSpeedBounds()
+{
+    if (this->speed > maxSpeed) {
+        this->speed = maxSpeed;
+    } else if (this->speed < minSpeed) {
+        this->speed = minSpeed;
+    }
 }

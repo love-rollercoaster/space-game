@@ -2,6 +2,9 @@
 
 #include "GameObject.h"
 
+#define DEFAULT_MIN_SPEED -500.0f
+#define DEFAULT_MAX_SPEED 500.0f
+
 class MoveableGameObject
     : public GameObject
 {
@@ -16,13 +19,15 @@ public:
     void yaw( float radians );
     void pitch( float radians );
     void roll( float radians );
-    void setSpeed(float speed);
     void setYawRotationSpeed(float radiansPerSecond);
     void setRollRotationSpeed(float radiansPerSecond);
     void setPitchRotationSpeed(float radiansPerSecond);
     D3DXQUATERNION getRotationQuat();
     virtual void update(float time);
+    void setSpeed(float speed);
     virtual void changeSpeedBy(float speedDelta);
+    virtual void setMaxSpeed( float maxSpeed );
+    virtual void setMinSpeed( float minSpeed );
 
     D3DXMATRIX* generateTransformationMatrix(D3DXMATRIX *matrix);
 
@@ -33,8 +38,9 @@ public:
     void setFixedDirection(bool fixedDirection);
 
 private:
-    void changeOrientation(D3DXVECTOR3 rotationVector, float radians);
+    void changeOrientation(D3DXVECTOR3 rotVector, float angleRad);
     void computeDirectionVectors();
+    void keepSpeedBounds();
     void updateRotationSpeeds(float time);
     void updatePosition(float time);
 
@@ -51,6 +57,8 @@ private:
     float rollRotationSpeed;
     float pitchRotationSpeed;
     float speed;
+    float minSpeed;
+    float maxSpeed;
     bool fixedDirection;
 };
 

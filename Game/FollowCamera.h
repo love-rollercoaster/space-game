@@ -1,6 +1,11 @@
 #pragma once
 #include "camera.h"
 #include "MoveableGameObject.h"
+#include <queue>
+using std::queue;
+
+#define CAMERA_CACHE_SIZE 10
+
 class FollowCamera :
     public Camera
 {
@@ -17,11 +22,26 @@ public:
     virtual float getYawAngle() const;
     virtual D3DXVECTOR3 getPosition() const;
     void setOffset(D3DXVECTOR3 offset);
+    void setFirstPersonCamera();
+    void setThirdPersonCamera();
+    void toggleCameraMode();
 
     void setGameObject(MoveableGameObject *object);
 
 private:
-    D3DXVECTOR3 offset; // needs better name, what kind of offset?
-    MoveableGameObject *object;
+    class RotationCache {
+    public:
+        RotationCache(unsigned int capacity);
+        void push(D3DXQUATERNION quat);
+        D3DXQUATERNION poll() const;
+    private:
+        queue<D3DXQUATERNION> history;
+        unsigned int capacity;
+    };
+
+    D3DXVECTOR3 offset;
+    MoveableGameObject *obj;
+    bool firstPersonCamera;
+    RotationCache pastRotations;
 };
 

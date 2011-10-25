@@ -1,8 +1,8 @@
 #include "FollowCamera.h"
 
 FollowCamera::FollowCamera(MoveableGameObject *object) 
-    : object(object)
-    , offset(0.0f, 0.3f,-3.0f)
+    : obj(object), offset(0.0f, 1.0f,-3.0f), firstPersonCamera(false),
+    pastRotations(CAMERA_CACHE_SIZE)
 {
 }
 
@@ -12,18 +12,19 @@ FollowCamera::~FollowCamera(void)
 
 void FollowCamera::setGameObject(MoveableGameObject *object)
 {
-    this->object = object;
+    this->obj = object;
 }
 
 D3DXMATRIX FollowCamera::getViewMatrix() const
 {
     D3DXMATRIX view;
-    D3DXVECTOR3 up, direction, position;
-    position = getPosition();
-    direction = object->getDirection();
-    up = object->getUpVector();
+    D3DXVECTOR3 up, dir, cameraPos, objPos;
+    cameraPos = getPosition();
+    objPos = obj->getPosition();
+    dir = obj->getDirection();
+    up = obj->getUpVector();
 
-    D3DXMatrixLookAtLH(&view, &position, &(direction+position), &up);
+    D3DXMatrixLookAtLH(&view, &cameraPos, &(dir+objPos), &up);
     return view;
 }
 
@@ -41,6 +42,7 @@ void FollowCamera::roll( float radians )
 
 void FollowCamera::update(float time)
 {
+    pastRotations.push(obj->getRotationQuat());
 }
 
 float FollowCamera::getPitchAngle() const
@@ -54,17 +56,57 @@ float FollowCamera::getYawAngle() const
 }
 
 D3DXVECTOR3 FollowCamera::getPosition() const {
-    D3DXQUATERNION rotationQuat = object->getRotationQuat();
-    D3DXMATRIX rotationMatrix;
+    if (firstPersonCamera) {
+        return obj->getPosition();
+    }
+    D3DXQUATERNION quat = pastRotations.poll();
+    D3DXMATRIX rotMat;
     D3DXVECTOR3 offsetTransformed;
-    D3DXVECTOR3 position = object->getPosition();
-    D3DXMatrixRotationQuaternion(&rotationMatrix, &rotationQuat);
-    D3DXVec3TransformCoord(&offsetTransformed, &offset, &rotationMatrix);
-    
-    return object->getPosition() + offsetTransformed; // TODO update with offset
+    D3DXVECTOR3 pos = obj->getPosition();
+    D3DXMatrixRotationQuaternion(&rotMat, &quat);
+    D3DXVec3TransformCoord(&offsetTransformed, &offset, &rotMat);
+    return obj->getPosition() + offsetTransformed;
 }
 
 void FollowCamera::setOffset(D3DXVECTOR3 offset)
 {
     this->offset = offset;
+}
+
+void FollowCamera::setFirstPersonCamera()
+{
+    this->firstPersonCamera = true;
+}
+
+void FollowCamera::setThirdPersonCamera()
+{
+    this->firstPersonCamera = false;
+}
+
+void FollowCamera::toggleCameraMode()
+{
+    this->firstPersonCamera = !this->firstPersonCamera;
+}
+
+/*
+ * Rotation cache stuff starts here
+ */
+FollowCamera::RotationCache::RotationCache(unsigned int capacity) 
+    : capacity(capacity)
+{}
+
+void FollowCamera::RotationCache::push(D3DXQUATERNION quat)
+{
+    history.push(quat);
+    while (history.size() > capacity) {
+        history.pop();
+    }
+}
+
+D3DXQUATERNION FollowCamera::RotationCache::poll() const
+{
+    if (history.empty()) {
+        return D3DXQUATERNION();
+    }
+    return history.front();
 }

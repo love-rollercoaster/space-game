@@ -1,29 +1,29 @@
 #include "FollowCamera.h"
 
 FollowCamera::FollowCamera(MoveableGameObject *object) 
-    : obj(object), offset(0.0f, 0.3f,-3.0f)
+    : object(object)
+    , offset(0.0f, 0.3f,-3.0f)
 {
 }
-
 
 FollowCamera::~FollowCamera(void)
 {
 }
 
-void FollowCamera::setGameObject(MoveableGameObject *obj)
+void FollowCamera::setGameObject(MoveableGameObject *object)
 {
-    this->obj = obj;
+    this->object = object;
 }
 
 D3DXMATRIX FollowCamera::getViewMatrix() const
 {
     D3DXMATRIX view;
-    D3DXVECTOR3 up, dir, pos;
-    pos = getPosition();
-    dir = obj->getDirection();
-    up = obj->getUpVector();
+    D3DXVECTOR3 up, direction, position;
+    position = getPosition();
+    direction = object->getDirection();
+    up = object->getUpVector();
 
-    D3DXMatrixLookAtLH(&view, &pos, &(dir+pos), &up);
+    D3DXMatrixLookAtLH(&view, &position, &(direction+position), &up);
     return view;
 }
 
@@ -54,13 +54,14 @@ float FollowCamera::getYawAngle() const
 }
 
 D3DXVECTOR3 FollowCamera::getPosition() const {
-    D3DXQUATERNION quat = obj->getRotationQuat();
-    D3DXMATRIX rotMat;
+    D3DXQUATERNION rotationQuat = object->getRotationQuat();
+    D3DXMATRIX rotationMatrix;
     D3DXVECTOR3 offsetTransformed;
-    D3DXVECTOR3 pos = obj->getPosition();
-    D3DXMatrixRotationQuaternion(&rotMat, &quat);
-    D3DXVec3TransformCoord(&offsetTransformed, &offset, &rotMat);
-    return obj->getPosition() + offsetTransformed; //TODO update with offset
+    D3DXVECTOR3 position = object->getPosition();
+    D3DXMatrixRotationQuaternion(&rotationMatrix, &rotationQuat);
+    D3DXVec3TransformCoord(&offsetTransformed, &offset, &rotationMatrix);
+    
+    return object->getPosition() + offsetTransformed; // TODO update with offset
 }
 
 void FollowCamera::setOffset(D3DXVECTOR3 offset)

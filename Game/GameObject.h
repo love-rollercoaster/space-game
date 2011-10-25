@@ -1,17 +1,16 @@
 #pragma once
 
-#include <string>
 #include <list>
+#include <memory>
 #include <time.h>
 #include <d3dx9.h>
 #include "GraphicsComponent.h"
 #include "PhysicsComponent.h"
 #include "InputComponent.h"
-// #include "Property.h"
 
 class GraphicsEngine;
 
-using std::string;
+using std::tr1::shared_ptr;
 
 // Does not take ownership of components.
 class GameObject
@@ -26,34 +25,34 @@ public:
 
     virtual ~GameObject(void) {}
 
-    virtual void init(InputComponent* inputComponent,
-                      PhysicsComponent* physicsComponent,
-                      GraphicsComponent* graphicsComponent)
+    virtual void init(shared_ptr<InputComponent> inputComponent,
+                      shared_ptr<PhysicsComponent> physicsComponent,
+                      shared_ptr<GraphicsComponent> graphicsComponent)
     {
         this->inputComponent = inputComponent;
         this->graphicsComponent = graphicsComponent;
-        this->physicsComponent = physicsComponent;
+        this->physicsComponent  = physicsComponent;
     }
 
     virtual void update(float time)
     {
-        // if (inputComponent != NULL)
+        // if (inputComponent)
         //     inputComponent->update(*this, time);
 
-        if (physicsComponent != NULL) {
+        if (physicsComponent) {
             physicsComponent->update(*this, time);
         }
     }
 
     virtual void draw(GraphicsEngine &graphicsEngine)
     {
-        if (graphicsComponent != NULL) {
+        if (graphicsComponent) {
             graphicsComponent->draw(*this, graphicsEngine);
         }
     }
 
 protected:
-    InputComponent* inputComponent;
-    PhysicsComponent* physicsComponent;
-    GraphicsComponent* graphicsComponent;
+    shared_ptr<InputComponent>    inputComponent;
+    shared_ptr<PhysicsComponent>  physicsComponent;
+    shared_ptr<GraphicsComponent> graphicsComponent;
 };

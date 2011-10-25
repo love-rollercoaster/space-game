@@ -1,13 +1,29 @@
 #pragma once
-#include "MoveableGameObject.h"
 
-#define MIN_SCALE 0.3f
+#include <memory>
+#include "AsteroidGraphicsComponent.h"
 
-class Asteroid :
-    public MoveableGameObject
+class MoveableGameObject;
+class GraphicsComponent;
+class GraphicsEngine;
+class GameEngine;
+
+using std::tr1::shared_ptr;
+
+class Asteroid
 {
 public:
-    Asteroid(D3DXVECTOR3 position, D3DXVECTOR3 scale);
+    Asteroid(void);
     ~Asteroid(void);
+
+    void init(GameEngine &gameEngine);
+    void draw(GraphicsEngine &graphicsEngine);
+    void update(float time);
+
+    shared_ptr<MoveableGameObject> getGameObjectRepresentation();
+
+private:
+    shared_ptr<MoveableGameObject> representation;
+    static shared_ptr<GraphicsComponent> graphicsComponent;
 };
 

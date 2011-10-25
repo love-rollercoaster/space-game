@@ -3,13 +3,19 @@
 const D3DXVECTOR3 MoveableGameObject::basisDirectionVector(0.0f, 0.0f, 1.0f);
 const D3DXVECTOR3 MoveableGameObject::basisUpVector(0.0f, 1.0f, 0.0f);
 
-MoveableGameObject::MoveableGameObject(D3DXVECTOR3 position, D3DXVECTOR3 scale) :
-    position(position), scale(scale), GameObject(), speed(0.0f), 
-    rollRotateSpeed(0.0f), yawRotateSpeed(0.0f), pitchRotateSpeed(0.0f)
+MoveableGameObject::MoveableGameObject(D3DXVECTOR3 position, D3DXVECTOR3 scale)
+    : position(position)
+    , scale(scale)
+    , speed(0.0f)
+    , rollRotationSpeed(0.0f)
+    , yawRotationSpeed(0.0f)
+    , pitchRotationSpeed(0.0f)
+    , fixedDirection(false)
 {
     D3DXQuaternionIdentity(&rotation);
     D3DXQuaternionNormalize(&rotation, &rotation);
-    updateDirectionVectors();
+
+    computeDirectionVectors();
 }
 
 D3DXVECTOR3 MoveableGameObject::getPosition()
@@ -48,17 +54,18 @@ void MoveableGameObject::setScale( float x, float y, float z )
     this->scale.z = z;
 }
 
-D3DXMATRIX *MoveableGameObject::generateTransformationMatrix(D3DXMATRIX *matrix)
+D3DXMATRIX* MoveableGameObject::generateTransformationMatrix(D3DXMATRIX *matrix)
 {
-    D3DXMATRIX matScale, matTranslate, matRotate;
+    D3DXMATRIX scalingMatrix, translationMatrix, rotationMatrix;
     D3DXMatrixIdentity(matrix);
 
-    D3DXMatrixScaling(&matScale, scale.x, scale.y, scale.z);
+    D3DXMatrixScaling(&scalingMatrix, scale.x, scale.y, scale.z);
 
-    D3DXMatrixRotationQuaternion(&matRotate, &rotation);
+    D3DXMatrixRotationQuaternion(&rotationMatrix, &rotation);
 
-    D3DXMatrixTranslation(&matTranslate, position.x, position.y, position.z);
-    D3DXMatrixMultiply(matrix, &(matScale * matRotate), &matTranslate);
+    D3DXMatrixTranslation(&translationMatrix, position.x, position.y, position.z);
+    D3DXMatrixMultiply(matrix, &(scalingMatrix * rotationMatrix), &translationMatrix);
+
     return matrix;
 }
 
@@ -66,36 +73,36 @@ void MoveableGameObject::yaw( float radians )
 {
     if (radians == 0)
         return;
-    updateOrientation(up, radians);
+    changeOrientation(up, radians);
 }
 
 void MoveableGameObject::pitch( float radians )
 {
     if (radians == 0)
         return;
-    updateOrientation(right, radians);
+    changeOrientation(right, radians);
 }
 
 void MoveableGameObject::roll( float radians )
 {
     if (radians == 0)
         return;
-    updateOrientation(direction, radians);
+    changeOrientation(direction, radians);
 }
 
-void MoveableGameObject::setYawRotationSpeed(float radsPerSec) 
+void MoveableGameObject::setYawRotationSpeed(float radiansPerSecond) 
 {
-    yawRotateSpeed = radsPerSec;
+    yawRotationSpeed = radiansPerSecond;
 }
 
-void MoveableGameObject::setRollRotationSpeed(float radsPerSec) 
+void MoveableGameObject::setRollRotationSpeed(float radiansPerSecond) 
 {
-    rollRotateSpeed = radsPerSec;
+    rollRotationSpeed = radiansPerSecond;
 }
 
-void MoveableGameObject::setPitchRotationSpeed(float radsPerSec) 
+void MoveableGameObject::setPitchRotationSpeed(float radiansPerSecond) 
 {
-    pitchRotateSpeed = radsPerSec;
+    pitchRotationSpeed = radiansPerSecond;
 }
 
 void MoveableGameObject::setSpeed(float speed) 
@@ -108,23 +115,25 @@ D3DXQUATERNION MoveableGameObject::getRotationQuat()
     return rotation;
 }
 
-void MoveableGameObject::updateOrientation(D3DXVECTOR3 rotVector, float angleRad)
+void MoveableGameObject::changeOrientation(D3DXVECTOR3 rotationVector, float radians)
 {
-    D3DXQUATERNION rot;
-
-	// create rotation matrix
-	D3DXQuaternionRotationAxis(&rot, &rotVector, angleRad);
-    rotation *= rot;
+    D3DXQUATERNION newRotation;
+	D3DXQuaternionRotationAxis(&newRotation, &rotationVector, radians);
+    
+    rotation *= newRotation;
     D3DXQuaternionNormalize(&rotation, &rotation);
-    updateDirectionVectors();
+    
+    if (!fixedDirection) {
+        computeDirectionVectors();
+    }
 }
 
-void MoveableGameObject::updateDirectionVectors()
+void MoveableGameObject::computeDirectionVectors()
 {
-    D3DXMATRIX matRotation;
-    D3DXMatrixRotationQuaternion(&matRotation, &rotation);
-    D3DXVec3TransformCoord(&up, &basisUpVector, &matRotation);
-    D3DXVec3TransformCoord(&direction, &basisDirectionVector, &matRotation);
+    D3DXMATRIX rotationMatrix;
+    D3DXMatrixRotationQuaternion(&rotationMatrix, &rotation);
+    D3DXVec3TransformCoord(&up, &basisUpVector, &rotationMatrix);
+    D3DXVec3TransformCoord(&direction, &basisDirectionVector, &rotationMatrix);
     D3DXVec3Cross(&right, &up, &direction);
 
     D3DXVec3Normalize(&direction, &direction);
@@ -132,14 +141,42 @@ void MoveableGameObject::updateDirectionVectors()
     D3DXVec3Normalize(&right, &right);
 }
 
-void MoveableGameObject::update(float time) {
-    position += direction * speed * time / 1000.0f;
-    roll(rollRotateSpeed * time / 1000.0f);
-    pitch(pitchRotateSpeed * time / 1000.0f);
-    yaw(yawRotateSpeed * time / 1000.0f);
+void MoveableGameObject::update(float time)
+{
+    updatePosition(time);
+    updateRotationSpeeds(time);
 }
 
-void MoveableGameObject::changeSpeedBy(float dSpeed)
+void MoveableGameObject::changeSpeedBy(float speedDelta)
 {
-    this->speed += dSpeed;
+    this->speed += speedDelta;
+}
+
+void MoveableGameObject::updateRotationSpeeds( float time )
+{
+    float timeInMilliseconds = time / 1000.0f;
+
+    roll(rollRotationSpeed * timeInMilliseconds);
+    pitch(pitchRotationSpeed * timeInMilliseconds);
+    yaw(yawRotationSpeed * timeInMilliseconds);
+}
+
+void MoveableGameObject::updatePosition( float time )
+{
+    position += direction * speed * time / 1000.0f;
+}
+
+float MoveableGameObject::getSpeed()
+{
+    return this->speed;
+}
+
+void MoveableGameObject::setDirection( D3DXVECTOR3 direction )
+{
+    this->direction = direction;
+}
+
+void MoveableGameObject::setFixedDirection( bool fixedDirection )
+{
+    this->fixedDirection = fixedDirection;
 }

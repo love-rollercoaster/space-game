@@ -5,7 +5,7 @@ class FollowCamera :
     public Camera
 {
 public:
-    FollowCamera(MoveableGameObject *obj);
+    FollowCamera(MoveableGameObject *object);
     ~FollowCamera(void);
 
     virtual D3DXMATRIX getViewMatrix() const;
@@ -18,10 +18,10 @@ public:
     virtual D3DXVECTOR3 getPosition() const;
     void setOffset(D3DXVECTOR3 offset);
 
-    void setGameObject(MoveableGameObject *obj);
+    void setGameObject(MoveableGameObject *object);
 
 private:
-    D3DXVECTOR3 offset;
-    MoveableGameObject *obj;
+    D3DXVECTOR3 offset; // needs better name, what kind of offset?
+    MoveableGameObject *object;
 };
 

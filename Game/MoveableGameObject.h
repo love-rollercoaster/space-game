@@ -12,27 +12,31 @@ public:
     D3DXVECTOR3 getDirection();
     D3DXVECTOR3 getUpVector();
     D3DXVECTOR3 getScale();
-    D3DXVECTOR3 getVelocity();
+    float getSpeed();
     void yaw( float radians );
     void pitch( float radians );
     void roll( float radians );
     void setSpeed(float speed);
-    void setYawRotationSpeed(float radsPerSec);
-    void setRollRotationSpeed(float radsPerSec);
-    void setPitchRotationSpeed(float radsPerSec);
+    void setYawRotationSpeed(float radiansPerSecond);
+    void setRollRotationSpeed(float radiansPerSecond);
+    void setPitchRotationSpeed(float radiansPerSecond);
     D3DXQUATERNION getRotationQuat();
     virtual void update(float time);
-    virtual void changeSpeedBy(float dSpeed);
+    virtual void changeSpeedBy(float speedDelta);
 
-    D3DXMATRIX *generateTransformationMatrix(D3DXMATRIX *matrix);
+    D3DXMATRIX* generateTransformationMatrix(D3DXMATRIX *matrix);
 
     void setPosition(D3DXVECTOR3 position);
     void setScale(D3DXVECTOR3 scale);
     void setScale(float x, float y, float z);
+    void setDirection(D3DXVECTOR3 direction);
+    void setFixedDirection(bool fixedDirection);
 
 private:
-    void updateOrientation(D3DXVECTOR3 rotVector, float angleRad);
-    void updateDirectionVectors();
+    void changeOrientation(D3DXVECTOR3 rotationVector, float radians);
+    void computeDirectionVectors();
+    void updateRotationSpeeds(float time);
+    void updatePosition(float time);
 
     static const D3DXVECTOR3 basisDirectionVector;
     static const D3DXVECTOR3 basisUpVector;
@@ -43,9 +47,10 @@ private:
     D3DXVECTOR3 position;
     D3DXVECTOR3 scale;
     D3DXQUATERNION rotation;
-    float yawRotateSpeed;
-    float rollRotateSpeed;
-    float pitchRotateSpeed;
-    float speed;    
+    float yawRotationSpeed;
+    float rollRotationSpeed;
+    float pitchRotationSpeed;
+    float speed;
+    bool fixedDirection;
 };
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 #include "GameWorld.h"
 #include "GameObject.h"
@@ -9,8 +10,10 @@
 #include "PlaneInputComponent.h"
 #include "MoveableGameObject.h"
 #include "FollowCamera.h"
+#include "Asteroid.h"
 
 using std::vector;
+using std::tr1::shared_ptr;
 
 class TestGameWorld :
     public GameWorld
@@ -24,16 +27,14 @@ public:
     void draw(GraphicsEngine &graphicsEngine);
 
 private:
-    Camera *camera;
+    Camera* camera;
     Plane plane;
-    MeshSurfaceGraphicsComponent meshSurfaceGraphicsComponent;
-    PlaneInputComponent planeInputComponent;
-    GraphicsComponent *moveableGameObjectGraphicsComponent;
-    GraphicsComponent *spaceshipGraphicsComponent;
-    vector<MoveableGameObject*> moveableGameObjects;
+    shared_ptr<PlaneInputComponent> planeInputComponent;
+    shared_ptr<GraphicsComponent> spaceshipGraphicsComponent;
+    //    vector<MoveableGameObject*> moveableGameObjects;
 
-    void initCamera(GameEngine &gameEngine);
-    void initPlane(GameEngine &gameEngine);
-    void initMesh(GameEngine &gameEngine);
-    void initMoveableGameObjects(GameEngine &gameEngine);
+    vector<shared_ptr<Asteroid> > asteroids;
+
+    void initSpaceship(GameEngine &gameEngine);
+    void initAsteroids(GameEngine &gameEngine);
 };

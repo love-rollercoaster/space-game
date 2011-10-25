@@ -9,26 +9,29 @@
 #define MESH_ROWS      100
 #define MESH_CELL_SIZE 10
 
+#define EARTH_POSITION D3DXVECTOR3(-0.3f,0,-1) // fixme
+// temporary
+#define RANDOM(lowerBound, upperBound) (float)((double)rand() / (RAND_MAX+1) * (upperBound - lowerBound) + lowerBound)
+
+
+
 TestGameWorld::TestGameWorld( void )
-    : moveableGameObjectGraphicsComponent(new AsteroidGraphicsComponent())
-    , spaceshipGraphicsComponent(new SpaceshipGraphicsComponent())
+    : spaceshipGraphicsComponent(new SpaceshipGraphicsComponent())
+    , planeInputComponent(new PlaneInputComponent())
 {
 }
 
 TestGameWorld::~TestGameWorld( void )
 {
-    delete spaceshipGraphicsComponent;
-    delete moveableGameObjectGraphicsComponent;
 }
 
 void TestGameWorld::init( GameEngine &gameEngine )
 {
-    initCamera(gameEngine);
-    initPlane(gameEngine);
-    // initMesh(gameEngine);
-    initMoveableGameObjects(gameEngine);
+    initSpaceship(gameEngine);
+    initAsteroids(gameEngine);
 
     camera = new FollowCamera(&plane);
+    camera->setFarPlane(20000.0f);
     gameEngine.getGraphicsEngine().setCamera(*camera);
 
     GraphicsEngine &graphicsEngine = gameEngine.getGraphicsEngine();
@@ -39,84 +42,72 @@ void TestGameWorld::init( GameEngine &gameEngine )
 
 void TestGameWorld::update( float time )
 {
+    plane.update(time);
     camera->update(time);
-    for each (GameObject* gameObject in gameObjects) {
-        gameObject->update(time);
+
+    for each (shared_ptr<Asteroid> asteroid in asteroids) {
+        asteroid->update(time);
     }
 }
 
 void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
 {
-    for each (GameObject* gameObject in gameObjects) {
-        gameObject->draw(graphicsEngine);
+    plane.draw(graphicsEngine);
+
+    for each (shared_ptr<Asteroid> asteroid in asteroids) {
+        asteroid->draw(graphicsEngine);
     }
 }
 
-void TestGameWorld::initMesh( GameEngine &gameEngine )
+void TestGameWorld::initSpaceship( GameEngine &gameEngine )
 {
-    GameObject *mesh = new GameObject();
-    meshSurfaceGraphicsComponent.initSurface(MESH_COLUMNS, MESH_ROWS, MESH_CELL_SIZE, MESH_CELL_SIZE);
-    meshSurfaceGraphicsComponent.init(gameEngine.getGraphicsEngine());
-    mesh->init(NULL, NULL, &meshSurfaceGraphicsComponent);
-
-    addGameObject(mesh);
+    planeInputComponent->init(&plane);
+    plane.init(planeInputComponent, NULL, spaceshipGraphicsComponent);
 }
 
-void TestGameWorld::initPlane( GameEngine &gameEngine )
+void TestGameWorld::initAsteroids( GameEngine &gameEngine )
 {
-    planeInputComponent.init(&plane);
-    plane.init(&planeInputComponent, NULL, spaceshipGraphicsComponent);
-    addGameObject(&plane); //crash during destruction
-}
-
-void TestGameWorld::initCamera( GameEngine &gameEngine )
-{
-/*    D3DXVECTOR3 position(5000.0f, 100.0f, 5000.0f);
-
-    camera.setPosition(position);
-    camera.setIgnoreMaxPitchAngle(true);
-    camera.setInvertY(true);
-    camera.createProjectionMatrix(D3DXToRadian(45), 1.3f, 1.0f, 5000.0f);
-
-    gameEngine.getGraphicsEngine().setCamera(camera);
-    */
-}
-
-void TestGameWorld::initMoveableGameObjects( GameEngine &gameEngine )
-{
-    moveableGameObjectGraphicsComponent->init(gameEngine.getGraphicsEngine());
-
     float yMin = -1000.0f;
     float yMax = 1000.0f;
-    float scaleMin = 10.0f;
-    float scaleMax = 150.0f;
-    float cubeCreationProbablility = 0.99f;
+    float minAsteroidScale = 10.0f;
+    float maxAsteroidScale = 150.0f;
+    float asteroidCreationProbablility = 0.994f;
 
     for (int i = 0; i < MESH_ROWS; i++) {
         for (int j = 0; j < MESH_COLUMNS; j++) {
 
-            float cubeCreationDice = (float)((double)rand() / (RAND_MAX+1)); // FIXME casting
+            float asteroidCreationDice = RANDOM(0,1);
 
-            if (cubeCreationDice > cubeCreationProbablility) {
-                float yPosition = (float)((double)rand() / (RAND_MAX+1) * (yMax - yMin) + yMin);         // FIXME casting
-                float scale = (float)((double)rand() / (RAND_MAX+1) * (scaleMin - scaleMax) + scaleMax); // FIXME casting
+            if (asteroidCreationDice > asteroidCreationProbablility) {
+                float yAsteroidPosition = RANDOM(yMax, yMin);
+                float asteroidScale = RANDOM(minAsteroidScale, maxAsteroidScale);
 
-                float xPosition = (float) i * MESH_ROWS;
-                float zPosition = (float) j * MESH_COLUMNS;
+                float xAsteroidPosition = (float) i * MESH_ROWS;
+                float zAsteroidPosition = (float) j * MESH_COLUMNS;
 
-                MoveableGameObject *moveableGameObject = new MoveableGameObject();
-                moveableGameObject->setPosition(D3DXVECTOR3(xPosition, yPosition, zPosition));
+                shared_ptr<Asteroid> asteroid(new Asteroid());
 
-                if (((double)rand() / (RAND_MAX+1) * 2.0f) > 1) {
-                    moveableGameObject->setScale(100.0f, 100.0f, 100.0f);
-                    moveableGameObject->init(NULL, NULL, spaceshipGraphicsComponent);
-                } else {
-                    moveableGameObject->setScale(scale, scale, scale);
-                    moveableGameObject->init(NULL, NULL, moveableGameObjectGraphicsComponent);
-                }
+                asteroid->init(gameEngine);
+                
 
-                moveableGameObjects.push_back(moveableGameObject);
-                addGameObject(moveableGameObject);
+                shared_ptr<MoveableGameObject> asteroidRepresentation = asteroid->getGameObjectRepresentation();
+                
+                asteroidRepresentation->setScale(asteroidScale, asteroidScale, asteroidScale);
+                
+                D3DXVECTOR3 asteroidPosition = D3DXVECTOR3(xAsteroidPosition, yAsteroidPosition, zAsteroidPosition);
+
+                asteroidRepresentation->yaw(D3DXToRadian(RANDOM(0, 360)));
+                asteroidRepresentation->pitch(D3DXToRadian(RANDOM(0, 360)));
+                asteroidRepresentation->roll(D3DXToRadian(RANDOM(0, 360)));
+                asteroidRepresentation->setPitchRotationSpeed(RANDOM(0, -0.3f));
+                asteroidRepresentation->setRollRotationSpeed(RANDOM(0, -0.3f));
+                asteroidRepresentation->setYawRotationSpeed(RANDOM(0, -0.3f));
+                asteroidRepresentation->setPosition(asteroidPosition);
+                asteroidRepresentation->setFixedDirection(true);
+                asteroidRepresentation->setDirection(EARTH_POSITION);
+                asteroidRepresentation->setSpeed(RANDOM(75, 400));
+
+                asteroids.push_back(asteroid);
             }
         }
     }

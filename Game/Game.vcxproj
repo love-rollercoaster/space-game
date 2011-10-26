@@ -83,6 +83,7 @@
     <ClCompile Include="LaserPhysicsComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="FollowCamera.cpp" />
+    <ClCompile Include="KeyboardInputHandler.cpp" />
     <ClCompile Include="MoveableGameObject.cpp" />
     <ClCompile Include="CubeGraphicsComponent.cpp" />
     <ClCompile Include="FlightSimulatorGameApp.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="LaserPhysicsComponent.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="FollowCamera.h" />
+    <ClInclude Include="KeyboardInputHandler.h" />
     <ClInclude Include="MoveableGameObject.h" />
     <ClInclude Include="CubeGraphicsComponent.h" />
     <ClInclude Include="FlightSimulatorGameApp.h" />

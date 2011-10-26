@@ -20,7 +20,8 @@ void GameApp::init(HINSTANCE hInstance, int nCmdShow)
 
     graphicsEngine.initializeD3D(window, false);
     FontSystem::Init(graphicsEngine); // This should be merged with graphic system
-    
+
+    this->KeyboardInputHandler::init();
     this->init(gameEngine);
 }
 
@@ -53,10 +54,17 @@ long GameApp::WindowDestroyHandler(Window &window, HWND hwnd, long wparam, long 
     return 0;
 }
 
+void GameApp::quitGame()
+{
+    ::PostQuitMessage(0);
+}
 
+void GameApp::handleEscapeKey( unsigned char key )
+{
+    this->quitGame();
+}
 
-
-
-
-
-
+void GameApp::registerKeyboardInputCallbacks()
+{
+    registerCallback(VK_ESCAPE,  MAKE_KEYBOARD_INPUT_HANDLER(GameApp::handleEscapeKey));
+}

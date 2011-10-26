@@ -27,9 +27,6 @@
     <Filter Include="Header Files\Engine\Win32">
       <UniqueIdentifier>{d108e6e0-038f-4a7d-b86f-fe4b498a1b63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Engine\Systems">
-      <UniqueIdentifier>{ecb92c1d-eece-418d-a419-f995df42fd3d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine\Camera">
       <UniqueIdentifier>{450ed085-7c29-4e7a-bb03-eb98026d4df5}</UniqueIdentifier>
     </Filter>
@@ -38,9 +35,6 @@
     </Filter>
     <Filter Include="Source Files\Engine\Game\Components">
       <UniqueIdentifier>{b85656f5-f08a-42c6-b7f7-82708acb4c17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\Systems">
-      <UniqueIdentifier>{e600f1f6-9209-4e6a-b247-e7db6922a16f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine\Win32">
       <UniqueIdentifier>{37de7dff-8390-4d38-812e-9cde5e0a32cd}</UniqueIdentifier>
@@ -81,6 +75,12 @@
     <Filter Include="Header Files\GameObjects\Graphics">
       <UniqueIdentifier>{c8dc9d23-c1b9-4746-bc81-286bd60bfac1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Input">
+      <UniqueIdentifier>{397e39ce-1714-4216-b2e2-9cdc3bc033b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Input">
+      <UniqueIdentifier>{81fe3f22-2d61-407a-b673-4c9ff9d687b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winmain.cpp">
@@ -88,12 +88,6 @@
     </ClCompile>
     <ClCompile Include="GameEngine.cpp">
       <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="InputSystem.cpp">
-      <Filter>Source Files\Engine\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="FontSystem.cpp">
-      <Filter>Source Files\Engine\Systems</Filter>
     </ClCompile>
     <ClCompile Include="Win32Console.cpp">
       <Filter>Source Files\Engine\Win32</Filter>
@@ -164,16 +158,19 @@
     <ClCompile Include="Laser.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>Source Files\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardInputHandler.cpp">
+      <Filter>Source Files\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="FontSystem.cpp">
+      <Filter>Source Files\Engine\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
       <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="InputSystem.h">
-      <Filter>Header Files\Engine\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="FontSystem.h">
-      <Filter>Header Files\Engine\Systems</Filter>
     </ClInclude>
     <ClInclude Include="Win32Console.h">
       <Filter>Header Files\Engine\Win32</Filter>
@@ -258,6 +255,15 @@
     </ClInclude>
     <ClInclude Include="Laser.h">
       <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>Header Files\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardInputHandler.h">
+      <Filter>Header Files\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="FontSystem.h">
+      <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

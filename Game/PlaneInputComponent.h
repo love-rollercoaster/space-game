@@ -9,7 +9,7 @@ class PlaneInputComponent
     : public InputComponent
 {
 public:
-    virtual void registerInputHandlers();
+    virtual void registerKeyboardInputCallbacks();
     void arrowKeyHandler( unsigned char key );
 
 private:

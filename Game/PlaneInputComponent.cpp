@@ -2,18 +2,18 @@
 #include "Camera.h"
 #include "Plane.h"
 
-void PlaneInputComponent::registerInputHandlers()
+void PlaneInputComponent::registerKeyboardInputCallbacks()
 {
-    InputComponent::KeyboardInputHandler arrowKeyHandler = MAKE_KEYBOARD_INPUT_HANDLER(PlaneInputComponent::arrowKeyHandler);
+    KeyboardInputHandler::KeyboardInputCallback handler = MAKE_KEYBOARD_INPUT_HANDLER(PlaneInputComponent::arrowKeyHandler);
 
-    registerInputHandler(VK_LEFT,  arrowKeyHandler);
-    registerInputHandler(VK_RIGHT, arrowKeyHandler);
-    registerInputHandler(VK_DOWN,  arrowKeyHandler);
-    registerInputHandler(VK_UP,  arrowKeyHandler);
-    registerInputHandler('W', arrowKeyHandler);
-    registerInputHandler('S', arrowKeyHandler);
-    registerInputHandler('A', arrowKeyHandler);
-    registerInputHandler('D', arrowKeyHandler);
+    registerCallback(VK_LEFT,  handler);
+    registerCallback(VK_RIGHT, handler);
+    registerCallback(VK_DOWN,  handler);
+    registerCallback(VK_UP,  handler);
+    registerCallback('W', handler);
+    registerCallback('S', handler);
+    registerCallback('A', handler);
+    registerCallback('D', handler);
 }
 
 void PlaneInputComponent::arrowKeyHandler( unsigned char key )

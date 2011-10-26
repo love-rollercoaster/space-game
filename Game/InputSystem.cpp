@@ -1,7 +1,8 @@
 #include "InputSystem.h"
+#include "KeyboardInputHandler.h"
 
 InputSystem::KeyboardMappings InputSystem::keyboardMappings;
-InputSystem::MouseHandlerPairs InputSystem::mouseHandlerPairs;
+// InputSystem::MouseHandlerPairs InputSystem::mouseHandlerPairs;
 bool InputSystem::KeysPressed[] = {false};
 
 void InputSystem::StaticInit()
@@ -20,18 +21,20 @@ InputSystem::~InputSystem(void)
 void InputSystem::init(/* Window &window */)
 {
     // TODO: CHANGE THIS PUT IT IN InputCompnents CLASS' init, like graphics comp, engine cascade init
-    InputComponent::SetInputSystem(this);
+    KeyboardInputHandler::SetInputSystem(this);
 }
 
-void InputSystem::registerInputHandler( unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler )
+void InputSystem::registerInputCallback( unsigned char key, KeyboardInputHandler &inputComponent, KeyboardInputHandler::KeyboardInputCallback callback )
 {
-    InputSystem::AddToKeyboardMappings(key, inputComponent, inputHandler);
+    InputSystem::AddToKeyboardMappings(key, inputComponent, callback);
 }
 
+/*
 void InputSystem::registerInputHandler( InputComponent &inputComponent, InputComponent::MouseInputHandler inputHandler )
 {
     mouseHandlerPairs.push_back(MouseInputHandlerPair(&inputComponent, inputHandler));
 }
+*/
 
 void InputSystem::DispatchInputEvents()
 {
@@ -46,7 +49,7 @@ void InputSystem::InitMessageHandlers()
 {
     Window::RegisterMessageHandler(WM_KEYDOWN, InputSystem::HandleKeyDown);
     Window::RegisterMessageHandler(WM_KEYUP, InputSystem::HandleKeyUp);
-    Window::RegisterMessageHandler(WM_MOUSEMOVE, InputSystem::HandleMouseInput);
+    // Window::RegisterMessageHandler(WM_MOUSEMOVE, InputSystem::HandleMouseInput);
 }
 
 long InputSystem::HandleKeyDown( Window &window, HWND hwnd, long wparam, long lparam )
@@ -77,10 +80,12 @@ InputSystem::KeyboardHandlerPairs InputSystem::GetRegisteredHandlersFromKeyboard
     }
 }
 
+/*
 long InputSystem::HandleMouseInput( Window &window, HWND hwnd, long wparam, long lparam )
 {
     return 0;
 }
+*/
 
 void InputSystem::DispatchMessageToRegisteredHandlers(unsigned char key)
 {
@@ -88,23 +93,26 @@ void InputSystem::DispatchMessageToRegisteredHandlers(unsigned char key)
 
     for each (KeyboardInputHandlerPair keyboardInputHandlerPair in keyboardHandlerPairs)
     {
-        InputComponent *inputComponent = keyboardInputHandlerPair.first;
-        InputComponent::KeyboardInputHandler &inputHandler = keyboardInputHandlerPair.second;
-        (inputComponent->*inputHandler)(key);
-    }
+        KeyboardInputHandler *keyboardInputHandler = keyboardInputHandlerPair.first;
+        KeyboardInputHandler::KeyboardInputCallback &callback = keyboardInputHandlerPair.second;
+        (keyboardInputHandler->*callback)(key);    }
 }
 
-                                                                                           /* fix this, should not be a member of InputComponent */
-void InputSystem::AddToKeyboardMappings(unsigned char key, InputComponent &inputComponent, InputComponent::KeyboardInputHandler inputHandler)
+
+void InputSystem::AddToKeyboardMappings(unsigned char key, KeyboardInputHandler &inputHandler, KeyboardInputHandler::KeyboardInputCallback callback)
 {
     KeyboardMappings::iterator keyboardMappingsIterator = InputSystem::keyboardMappings.find(key);
 
-    if (keyboardMappingsIterator != keyboardMappings.end()) {
+    if (keyboardMappingsIterator != keyboardMappings.end())
+    {
+        // adding handler-callback pair to existing list of handlers for that key
         list<KeyboardInputHandlerPair> &keyboardInputHandlerPairs = keyboardMappingsIterator->second;
-        keyboardInputHandlerPairs.push_back(KeyboardInputHandlerPair(&inputComponent, inputHandler));
+        keyboardInputHandlerPairs.push_back(KeyboardInputHandlerPair(&inputHandler, callback));
     } 
-    else {
+    else
+    {
+        // creating a new list of handler-callback pairs for that key and adding the handler
         InputSystem::keyboardMappings.insert(KeyboardMapping(key, list<KeyboardInputHandlerPair>()));
-        AddToKeyboardMappings(key, inputComponent, inputHandler);
+        AddToKeyboardMappings(key, inputHandler, callback);
     }
 }

@@ -73,21 +73,21 @@ D3DXMATRIX* MoveableGameObject::generateTransformationMatrix(D3DXMATRIX *matrix)
 
 void MoveableGameObject::yaw( float radians )
 {
-    if (radians == 0)
+    if (radians == 0.0f)
         return;
     changeOrientation(up, radians);
 }
 
 void MoveableGameObject::pitch( float radians )
 {
-    if (radians == 0)
+    if (radians == 0.0f)
         return;
     changeOrientation(right, radians);
 }
 
 void MoveableGameObject::roll( float radians )
 {
-    if (radians == 0)
+    if (radians == 0.0f)
         return;
     changeOrientation(direction, radians);
 }
@@ -161,7 +161,7 @@ void MoveableGameObject::updateRotationSpeeds( float time )
 
 void MoveableGameObject::updatePosition( float time )
 {
-    position += direction * speed * time / 1000.0f;
+    position += direction * (speed * time / 1000.0f);
 }
 
 float MoveableGameObject::getSpeed()

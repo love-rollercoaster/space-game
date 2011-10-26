@@ -19,6 +19,7 @@
 TestGameWorld::TestGameWorld( void )
     : spaceshipGraphicsComponent(new SpaceshipGraphicsComponent())
     , planeInputComponent(new PlaneInputComponent())
+    , laserShootDelay(0.0f)
 {
 }
 
@@ -36,10 +37,6 @@ void TestGameWorld::init( GameEngine &gameEngine )
     camera->setFarPlane(20000.0f);
     gameEngine.getGraphicsEngine().setCamera(*camera);
 
-    shared_ptr<Laser> laser(new Laser(plane.getRotationQuat(), plane.getPosition() + plane.getDirection() * 5.0f, plane.getDirection()));
-    laser->init(NULL, NULL, laserGraphicsComponent);
-    lasers.push_back(laser);
-
     GraphicsEngine &graphicsEngine = gameEngine.getGraphicsEngine();
 
     initLighting(graphicsEngine);
@@ -51,6 +48,7 @@ void TestGameWorld::init( GameEngine &gameEngine )
 
 void TestGameWorld::update( float time )
 {
+    laserShootDelay -= time;
     plane.update(time);
     camera->update(time);
 
@@ -81,6 +79,17 @@ void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
     }
     for each(shared_ptr<Laser> laser in lasers) {
         laser->draw(graphicsEngine);
+    }
+}
+
+void TestGameWorld::shootLaser()
+{
+    if (laserShootDelay <= 0.0f) {
+        shared_ptr<Laser> laser = shared_ptr<Laser>(new Laser(plane.getRotationQuat(), plane.getPosition() + plane.getDirection() *0.5f, plane.getDirection()));
+        laser->changeSpeedBy(plane.getSpeed());
+        laser->init(NULL, NULL, laserGraphicsComponent);
+        lasers.push_back(laser);
+        laserShootDelay = LASER_SHOOT_DELAY_MS;
     }
 }
 

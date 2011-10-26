@@ -2,7 +2,7 @@
 
 FollowCamera::FollowCamera(MoveableGameObject *object) 
     : obj(object)
-    , offset(0.0f, 1.0f,-3.0f)
+    , offset(0.0f, 0.5f,-3.0f)
     , firstPersonCamera(false)
     , pastRotations(CAMERA_CACHE_SIZE)
     , oldObjSpeed(0.0f)

@@ -13,6 +13,8 @@
 #include "Asteroid.h"
 #include "Laser.h"
 
+#define LASER_SHOOT_DELAY_MS 300.0f
+
 using std::vector;
 using std::tr1::shared_ptr;
 
@@ -26,10 +28,12 @@ public:
     void init(GameEngine &gameEngine);
     void update(float time);
     void draw(GraphicsEngine &graphicsEngine);
+    void shootLaser();
 
 private:
     Camera* camera;
     Plane plane;
+    float laserShootDelay;
     shared_ptr<PlaneInputComponent> planeInputComponent;
     shared_ptr<GraphicsComponent> spaceshipGraphicsComponent;
     shared_ptr<GraphicsComponent> laserGraphicsComponent;

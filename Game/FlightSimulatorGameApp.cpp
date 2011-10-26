@@ -25,3 +25,14 @@ void FlightSimulatorGameApp::draw( GraphicsEngine &graphicsEngine )
 {
     gameWorld.draw(graphicsEngine);
 }
+
+void FlightSimulatorGameApp::registerKeyboardInputCallbacks()
+{
+    GameApp::registerKeyboardInputCallbacks();
+    registerCallback(VK_SPACE,  MAKE_KEYBOARD_INPUT_HANDLER(FlightSimulatorGameApp::handleSpacePress));
+}
+
+void FlightSimulatorGameApp::handleSpacePress(unsigned char key)
+{
+    gameWorld.shootLaser();
+}

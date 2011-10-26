@@ -11,7 +11,7 @@
 #include "MoveableGameObject.h"
 #include "FollowCamera.h"
 #include "Asteroid.h"
-#include "Bullet.h"
+#include "Laser.h"
 
 using std::vector;
 using std::tr1::shared_ptr;
@@ -32,11 +32,16 @@ private:
     Plane plane;
     shared_ptr<PlaneInputComponent> planeInputComponent;
     shared_ptr<GraphicsComponent> spaceshipGraphicsComponent;
+    shared_ptr<GraphicsComponent> laserGraphicsComponent;
     //    vector<MoveableGameObject*> moveableGameObjects;
 
     vector<shared_ptr<Asteroid> > asteroids;
-    vector<shared_ptr<Bullet> > bullets;
+    vector<shared_ptr<Laser> > lasers;
 
     void initSpaceship(GameEngine &gameEngine);
     void initAsteroids(GameEngine &gameEngine);
+    void initLighting(GraphicsEngine &graphicsEngine);
+    void initAmbientLighting(GraphicsEngine &graphicsEngine);
+    int initDirectionalLighting(int lightIndex, GraphicsEngine &graphicsEngine);
+    int initPointLighting(int lightIndex, GraphicsEngine &graphicsEngine);
 };

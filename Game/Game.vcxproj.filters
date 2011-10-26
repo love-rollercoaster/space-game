@@ -143,26 +143,26 @@
     <ClCompile Include="AsteroidGraphicsComponent.cpp">
       <Filter>Source Files\GameObjects\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Source Files\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletGraphicsComponent.cpp">
-      <Filter>Source Files\GameObjects\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="PlaneInputComponent.cpp">
       <Filter>Source Files\GameObjects\Input</Filter>
     </ClCompile>
     <ClCompile Include="SpaceshipGraphicsComponent.cpp">
       <Filter>Source Files\GameObjects\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="BulletPhysicsComponent.cpp">
-      <Filter>Source Files\GameObjects\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="MoveableGameObject.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="FollowCamera.cpp">
       <Filter>Source Files\Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserGraphicsComponent.cpp">
+      <Filter>Source Files\GameObjects\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserPhysicsComponent.cpp">
+      <Filter>Source Files\GameObjects\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,26 +238,26 @@
     <ClInclude Include="Asteroid.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletGraphicsComponent.h">
-      <Filter>Header Files\GameObjects\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="PlaneInputComponent.h">
       <Filter>Header Files\GameObjects\Input</Filter>
     </ClInclude>
     <ClInclude Include="SpaceshipGraphicsComponent.h">
       <Filter>Header Files\GameObjects\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="BulletPhysicsComponent.h">
-      <Filter>Header Files\GameObjects\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="MoveableGameObject.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="FollowCamera.h">
       <Filter>Header Files\Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserPhysicsComponent.h">
+      <Filter>Header Files\GameObjects\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserGraphicsComponent.h">
+      <Filter>Header Files\GameObjects\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

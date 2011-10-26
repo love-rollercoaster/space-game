@@ -38,6 +38,7 @@ public:
     void setScale(float x, float y, float z);
     void setDirection(D3DXVECTOR3 direction);
     void setFixedDirection(bool fixedDirection);
+    void setRotation(D3DXQUATERNION rot);
 
 private:
     void changeOrientation(D3DXVECTOR3 rotVector, float angleRad);

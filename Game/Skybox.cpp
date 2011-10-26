@@ -93,6 +93,7 @@ void Skybox::initTexture( GraphicsEngine &graphicsEngine )
 
 void Skybox::draw( Camera &camera, GraphicsEngine &graphicsEngine )
 {
+    graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_LIGHTING, false);
     DWORD antialiasedLineEnable;
     graphicsEngine.getDirect3DDevice()->GetRenderState(D3DRS_ANTIALIASEDLINEENABLE, &antialiasedLineEnable);
     graphicsEngine.getDirect3DDevice()->SetRenderState( D3DRS_ZWRITEENABLE, false );

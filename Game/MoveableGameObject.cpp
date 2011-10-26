@@ -215,3 +215,8 @@ void MoveableGameObject::keepSpeedBounds()
         this->speed = minSpeed;
     }
 }
+
+void MoveableGameObject::setRotation(D3DXQUATERNION rot) {
+    rotation = rot;
+    computeDirectionVectors();
+}

@@ -15,7 +15,9 @@ FollowCamera::~FollowCamera(void)
 
 void FollowCamera::setGameObject(MoveableGameObject *object)
 {
+    pastRotations.clear();
     this->obj = object;
+    pastRotations.push(object->getRotationQuat());
 }
 
 D3DXMATRIX FollowCamera::getViewMatrix() const
@@ -132,4 +134,12 @@ template<class T>
 T FollowCamera::Cache<T>::poll() const
 {
     return history.front();
+}
+
+template<class T>
+void FollowCamera::Cache<T>::clear()
+{
+    while(!history.empty()) {
+        history.pop();
+    }
 }

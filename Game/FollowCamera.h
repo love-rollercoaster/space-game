@@ -39,6 +39,7 @@ private:
         Cache(unsigned int capacity);
         void push(T item);
         T poll() const;
+        void clear();
     private:
         queue<T> history;
         unsigned int capacity;

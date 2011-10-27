@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "Log.h"
 
-float EarthSceneryElement::Z_CAMERA_POSITION_MULTIPLIER = 0.99997f;
+float EarthSceneryElement::Z_CAMERA_POSITION_MULTIPLIER = 0.95f;
 
 EarthSceneryElement::EarthSceneryElement(void)
     : texture(nullptr)
@@ -44,10 +44,10 @@ void EarthSceneryElement::draw( Camera &camera, GraphicsEngine &graphicsEngine )
 void EarthSceneryElement::initVertexBuffer(GraphicsEngine &graphicsEngine)
 {
     TexturedVertex vertices[] = {
-        {D3DXVECTOR3( 10.0f, -10.0f, -15.0f),  D3DXVECTOR2(0.0f, 1.0f) },
-        {D3DXVECTOR3( 10.0f,  10.0f, -15.0f),  D3DXVECTOR2(0.0f, 0.0f) },
-        {D3DXVECTOR3(-10.0f, -10.0f, -15.0f),  D3DXVECTOR2(1.0f, 1.0f) },
-        {D3DXVECTOR3(-10.0f,  10.0f, -15.0f),  D3DXVECTOR2(1.0f, 0.0f) },
+        {D3DXVECTOR3( 10000.0f, -10000.0f, -15000.0f),  D3DXVECTOR2(0.0f, 1.0f) },
+        {D3DXVECTOR3( 10000.0f,  10000.0f, -15000.0f),  D3DXVECTOR2(0.0f, 0.0f) },
+        {D3DXVECTOR3(-10000.0f, -10000.0f, -15000.0f),  D3DXVECTOR2(1.0f, 1.0f) },
+        {D3DXVECTOR3(-10000.0f,  10000.0f, -15000.0f),  D3DXVECTOR2(1.0f, 0.0f) },
     };
 
     // create a vertex buffer interface called v_buffer
@@ -79,7 +79,10 @@ void EarthSceneryElement::performWorldTransformations( Camera &camera, GraphicsE
     D3DXMatrixIdentity(&worldMatrix);
 
     D3DXVECTOR3 cameraPosition = camera.getPosition();
-    D3DXMatrixTranslation(&worldMatrix, cameraPosition.x, cameraPosition.y, cameraPosition.z * Z_CAMERA_POSITION_MULTIPLIER);
+    
+    
+    D3DXMatrixTranslation(&worldMatrix, cameraPosition.x, cameraPosition.y, cameraPosition.z*Z_CAMERA_POSITION_MULTIPLIER);
+
 
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
 }

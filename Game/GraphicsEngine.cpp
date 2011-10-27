@@ -247,19 +247,23 @@ void GraphicsEngine::drawScenery()
     
     // DWORD previousAntialiazingValue;
     DWORD previousLightingValue;
+    DWORD previousFogValue;
 
     //direct3DDevice->GetRenderState(D3DRS_ANTIALIASEDLINEENABLE, &previousAntialiazingValue);
     direct3DDevice->GetRenderState(D3DRS_LIGHTING, &previousLightingValue);
+    direct3DDevice->GetRenderState(D3DRS_FOGENABLE, &previousFogValue);
 
     //direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE, false);
     direct3DDevice->SetRenderState(D3DRS_LIGHTING, false);
+    direct3DDevice->SetRenderState(D3DRS_FOGENABLE, false);
     direct3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, false);
 
     for each (shared_ptr<SceneryElement> sceneryElement in scenery) {
         sceneryElement->draw(*camera, *this);
     }
     
-    //direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE, previousAntialiazingValue);
     direct3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
+    direct3DDevice->SetRenderState(D3DRS_FOGENABLE, previousFogValue);
     direct3DDevice->SetRenderState(D3DRS_LIGHTING, previousLightingValue);
+    //direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE, previousAntialiazingValue);
 }

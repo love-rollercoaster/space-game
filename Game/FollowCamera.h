@@ -23,6 +23,7 @@ public:
     virtual float getPitchAngle() const;
     virtual float getYawAngle() const;
     virtual D3DXVECTOR3 getPosition() const;
+
     void setOffset(D3DXVECTOR3 offset);
     void setFirstPersonCamera();
     void setThirdPersonCamera();

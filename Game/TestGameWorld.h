@@ -33,8 +33,6 @@ private:
     shared_ptr<PlaneInputComponent> planeInputComponent;
     shared_ptr<GraphicsComponent> spaceshipGraphicsComponent;
     shared_ptr<GraphicsComponent> laserGraphicsComponent;
-    //    vector<MoveableGameObject*> moveableGameObjects;
-
     vector<shared_ptr<Asteroid> > asteroids;
     vector<shared_ptr<Laser> > lasers;
 

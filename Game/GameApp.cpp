@@ -18,7 +18,7 @@ void GameApp::init(HINSTANCE hInstance, int nCmdShow)
     initWindow(hInstance, nCmdShow);
     initInputSystem();
 
-    graphicsEngine.initializeD3D(window, false);
+    graphicsEngine.init(window, false);
     FontSystem::Init(graphicsEngine); // This should be merged with graphic system
 
     this->KeyboardInputHandler::init();

@@ -25,7 +25,7 @@ void CubeGraphicsComponent::initVertexBuffer( GraphicsEngine &graphicsEngine )
     graphicsEngine.getDirect3DDevice()->CreateVertexBuffer(
         8 * sizeof(CustomVertex),
         0,
-        CUSTOM_FLEXIBLE_VECTOR_FORMAT,
+        CUSTOM_FVF,
         D3DPOOL_MANAGED,
         &vertexBuffer,
         NULL);
@@ -71,7 +71,7 @@ void CubeGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &graphi
 {
     performWorldTransformations(gameObject, graphicsEngine);
 
-    graphicsEngine.getDirect3DDevice()->SetFVF(CUSTOM_FLEXIBLE_VECTOR_FORMAT);
+    graphicsEngine.getDirect3DDevice()->SetFVF(CUSTOM_FVF);
     graphicsEngine.getDirect3DDevice()->SetStreamSource(0, vertexBuffer, 0, sizeof(CustomVertex));
     graphicsEngine.getDirect3DDevice()->SetIndices(indexBuffer);
     graphicsEngine.getDirect3DDevice()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12); 

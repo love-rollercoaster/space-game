@@ -47,7 +47,7 @@ void MeshSurfaceGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine 
 
     // graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_COLORVERTEX, FALSE);
     // graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-    graphicsEngine.getDirect3DDevice()->SetFVF(CUSTOM_FLEXIBLE_VECTOR_FORMAT);
+    graphicsEngine.getDirect3DDevice()->SetFVF(CUSTOM_FVF);
     graphicsEngine.getDirect3DDevice()->SetStreamSource( 0, this->vertexBuffer, 0, sizeof(CustomVertex) );
     graphicsEngine.getDirect3DDevice()->SetVertexDeclaration(this->vertexDeclaration);
     graphicsEngine.getDirect3DDevice()->SetIndices(this->indexBuffer);

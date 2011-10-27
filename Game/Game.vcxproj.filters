@@ -42,9 +42,6 @@
     <Filter Include="Source Files\Engine\Camera">
       <UniqueIdentifier>{52599527-575f-4924-9742-aa98f511dfd9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Example">
-      <UniqueIdentifier>{cc411a0d-d813-4597-9ebc-a44250a8fba9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine\Graphics">
       <UniqueIdentifier>{f86970a7-28ad-43d1-a758-7e431998976d}</UniqueIdentifier>
     </Filter>
@@ -100,12 +97,6 @@
     </ClCompile>
     <ClCompile Include="QuatCamera.cpp">
       <Filter>Source Files\Engine\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="TestGameWorld.cpp">
-      <Filter>Source Files\Example</Filter>
-    </ClCompile>
-    <ClCompile Include="FlightSimulatorGameApp.cpp">
-      <Filter>Source Files\Example</Filter>
     </ClCompile>
     <ClCompile Include="GameApp.cpp">
       <Filter>Source Files\Engine\Game</Filter>
@@ -166,6 +157,15 @@
     </ClCompile>
     <ClCompile Include="FontSystem.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="EarthSceneryElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlightSimulatorGameApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestGameWorld.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +264,12 @@
     </ClInclude>
     <ClInclude Include="FontSystem.h">
       <Filter>Header Files\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneryElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthSceneryElement.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

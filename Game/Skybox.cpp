@@ -2,8 +2,9 @@
 // http://www.gameengineer.net/samples-graphics.html
 
 #include "Skybox.h"
-#include "GraphicsEngine.h"
-
+#include "Camera.h"
+#include "GameEngine.h"
+#include "Log.h"
 
 Skybox::Skybox(void)
 {
@@ -13,7 +14,8 @@ Skybox::~Skybox(void)
 {
 }
 
-void Skybox::init(GraphicsEngine &graphicsEngine) {
+void Skybox::init(GraphicsEngine &graphicsEngine)
+{
     initVertexBuffer(graphicsEngine);
     initTexture(graphicsEngine);
 }
@@ -63,12 +65,12 @@ void Skybox::initVertexBuffer( GraphicsEngine &graphicsEngine )
     graphicsEngine.getDirect3DDevice()->CreateVertexBuffer(
         sizeof(vertices),
         0,
-        D3DFVF_XYZ | D3DFVF_TEX1,
+        TEXTURE_FVF,
         D3DPOOL_MANAGED,
         &vertexBuffer,
-        NULL);
+        nullptr);
 
-    void* verticesLock;    // a void pointer
+    void* verticesLock;
     vertexBuffer->Lock(0, sizeof(vertices), static_cast<void**>(&verticesLock), 0);
     memcpy(verticesLock, vertices, sizeof(vertices));
     vertexBuffer->Unlock();
@@ -87,20 +89,15 @@ void Skybox::initTexture( GraphicsEngine &graphicsEngine )
 
     if ( FAILED( result ) )
     {
-        ::MessageBox(NULL, "Failed to create the vertex buffer!", "Error in BuildSkybox()", MB_OK | MB_ICONSTOP);
+        ERR("Failed to load the skybox texture!");
     }
 }
 
 void Skybox::draw( Camera &camera, GraphicsEngine &graphicsEngine )
 {
-    graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_LIGHTING, false);
-    DWORD antialiasedLineEnable;
-    graphicsEngine.getDirect3DDevice()->GetRenderState(D3DRS_ANTIALIASEDLINEENABLE, &antialiasedLineEnable);
-    graphicsEngine.getDirect3DDevice()->SetRenderState( D3DRS_ZWRITEENABLE, false );
-
     performWorldTransformations(camera, graphicsEngine);
     
-    graphicsEngine.getDirect3DDevice()->SetFVF(D3DFVF_XYZ | D3DFVF_TEX1);
+    graphicsEngine.getDirect3DDevice()->SetFVF(TEXTURE_FVF);
     graphicsEngine.getDirect3DDevice()->SetStreamSource( 0, vertexBuffer, 0, sizeof(TexturedVertex));
 
     for ( int i = 0; i < 6; ++i )
@@ -109,9 +106,7 @@ void Skybox::draw( Camera &camera, GraphicsEngine &graphicsEngine )
         graphicsEngine.getDirect3DDevice()->DrawPrimitive( D3DPT_TRIANGLESTRIP, i * 4, 2 );
     }
 
-    graphicsEngine.getDirect3DDevice()->SetRenderState( D3DRS_ZWRITEENABLE, true );
-    graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE, antialiasedLineEnable);
-    graphicsEngine.getDirect3DDevice()->SetTexture( 0, NULL );
+    graphicsEngine.getDirect3DDevice()->SetTexture(0, nullptr);
 }
 
 void Skybox::performWorldTransformations( Camera &camera, GraphicsEngine &graphicsEngine )

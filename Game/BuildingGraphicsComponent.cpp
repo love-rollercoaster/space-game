@@ -19,7 +19,7 @@ void BuildingGraphicsComponent::initVertexBuffer( GraphicsEngine &graphicsEngine
     // create a vertex buffer interface called v_buffer
     graphicsEngine.getDirect3DDevice()->CreateVertexBuffer(8 * sizeof(CustomVertex),
         0,
-        CUSTOM_FLEXIBLE_VECTOR_FORMAT,
+        CUSTOM_FVF,
         D3DPOOL_MANAGED,
         &this->vertexBuffer,
         NULL);

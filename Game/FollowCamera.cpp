@@ -75,7 +75,7 @@ D3DXVECTOR3 FollowCamera::getPosition() const {
     D3DXVECTOR3 scale = obj->getScale();
     D3DXMatrixScaling(&scaleMat, scale.x, scale.y, scale.z);
     D3DXMatrixRotationQuaternion(&rotMat, &quat);
-    D3DXVec3TransformCoord(&offsetTransformed, &offset, &(rotMat * scaleMat));
+    D3DXVec3TransformCoord(&offsetTransformed, &offset, &(scaleMat * rotMat));
     return obj->getPosition() + offsetTransformed;
 }
 

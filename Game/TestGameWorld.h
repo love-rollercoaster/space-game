@@ -14,6 +14,7 @@
 #include "Laser.h"
 
 #define LASER_SHOOT_DELAY_MS 300.0f
+#define CAMERA_CHANGE_DELAY_MS 100.0f
 
 using std::vector;
 using std::tr1::shared_ptr;
@@ -29,11 +30,19 @@ public:
     void update(float time);
     void draw(GraphicsEngine &graphicsEngine);
     void shootLaser();
+    void followNextAsteroid();
+    void followPreviousAsteroid();
+    void followShip();
+    void setFirstPersonCamera();
+    void setThirdPersonCamera();
 
 private:
     Camera* camera;
     Plane plane;
     float laserShootDelay;
+    float cameraChangeDelay;
+    unsigned int asteroidBeingFollowed;
+    bool cameraFollowingShip;
     shared_ptr<PlaneInputComponent> planeInputComponent;
     shared_ptr<GraphicsComponent> spaceshipGraphicsComponent;
     shared_ptr<GraphicsComponent> laserGraphicsComponent;

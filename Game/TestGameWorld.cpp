@@ -20,6 +20,9 @@ TestGameWorld::TestGameWorld( void )
     : spaceshipGraphicsComponent(new SpaceshipGraphicsComponent())
     , planeInputComponent(new PlaneInputComponent())
     , laserShootDelay(0.0f)
+    , asteroidBeingFollowed(0)
+    , cameraFollowingShip(true)
+    , cameraChangeDelay(0.0f)
 {
 }
 
@@ -49,6 +52,7 @@ void TestGameWorld::init( GameEngine &gameEngine )
 void TestGameWorld::update( float time )
 {
     laserShootDelay -= time;
+    cameraChangeDelay -= time;
     plane.update(time);
     camera->update(time);
 
@@ -204,4 +208,83 @@ int TestGameWorld::initPointLighting(int lightIndex, GraphicsEngine &graphicsEng
     graphicsEngine.getDirect3DDevice()->SetLight(lightIndex, &earth);
     graphicsEngine.getDirect3DDevice()->LightEnable(lightIndex, true);
     return lightIndex +1;
+}
+
+void TestGameWorld::followNextAsteroid()
+{
+    if (cameraChangeDelay > 0 || asteroids.size() == 0) {
+        return;
+    }
+    FollowCamera *fc = dynamic_cast<FollowCamera*>(camera);
+    if (fc == NULL) {
+        return;
+    }
+    if (cameraFollowingShip) {
+        asteroidBeingFollowed = 0;
+    } else {
+        asteroidBeingFollowed++;
+        if (asteroidBeingFollowed >= asteroids.size()) {
+            asteroidBeingFollowed = 0;
+        }
+    }
+    cameraFollowingShip = false;
+    fc->setGameObject(asteroids[asteroidBeingFollowed]->getGameObjectRepresentation().get());
+    cameraChangeDelay = CAMERA_CHANGE_DELAY_MS;
+}
+
+void TestGameWorld::followPreviousAsteroid()
+{
+    if (cameraChangeDelay > 0 || asteroids.size() == 0) {
+        return;
+    }
+    FollowCamera *fc = dynamic_cast<FollowCamera*>(camera);
+    if (fc == NULL) {
+        return;
+    }
+    if (cameraFollowingShip) {
+        asteroidBeingFollowed = 0;
+    } else {
+        if (asteroidBeingFollowed == 0) {
+            asteroidBeingFollowed = asteroids.size() - 1;
+        } else {
+            asteroidBeingFollowed--;
+        }
+    }
+    cameraFollowingShip = false;
+    fc->setGameObject(asteroids[asteroidBeingFollowed]->getGameObjectRepresentation().get());
+    cameraChangeDelay = CAMERA_CHANGE_DELAY_MS;
+}
+
+void TestGameWorld::followShip()
+{
+    if (cameraChangeDelay > 0) {
+        return;
+    }
+    if (!cameraFollowingShip) {
+        FollowCamera *fc = dynamic_cast<FollowCamera*>(camera);
+        if (fc == NULL) {
+            return;
+        }
+        cameraFollowingShip = true;
+        fc->setGameObject(&plane);
+        cameraChangeDelay = CAMERA_CHANGE_DELAY_MS;
+    }
+}
+
+void TestGameWorld::setFirstPersonCamera()
+{
+    FollowCamera *fc = dynamic_cast<FollowCamera*>(camera);
+    if (fc == NULL) {
+        return;
+    }
+    fc->setFirstPersonCamera();
+}
+
+void TestGameWorld::setThirdPersonCamera()
+{
+    FollowCamera *fc = dynamic_cast<FollowCamera*>(camera);
+    if (fc == NULL) {
+        return;
+    }
+    fc->setThirdPersonCamera();
 }

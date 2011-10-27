@@ -9,7 +9,7 @@
 
 #define MESH_COLUMNS   100
 #define MESH_ROWS      100
-#define MESH_CELL_SIZE 10
+#define MESH_CELL_SIZE 100
 
 #define EARTH_POSITION D3DXVECTOR3(-0.3f, 0, -1) // fixme
 // temporary
@@ -132,8 +132,8 @@ void TestGameWorld::initAsteroids( GameEngine &gameEngine )
             float yAsteroidPosition = RANDOM(yMax, yMin);
             float asteroidScale = RANDOM(minAsteroidScale, maxAsteroidScale);
 
-            float xAsteroidPosition = (float) i * MESH_ROWS;
-            float zAsteroidPosition = (float) j * MESH_COLUMNS;
+            float xAsteroidPosition = (float) i * MESH_CELL_SIZE;
+            float zAsteroidPosition = (float) j * MESH_CELL_SIZE;
 
             shared_ptr<Asteroid> asteroid(new Asteroid());
 

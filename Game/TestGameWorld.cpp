@@ -17,7 +17,12 @@
 
 TestGameWorld::TestGameWorld( void )
     : spaceshipGraphicsComponent(new SpaceshipGraphicsComponent())
+    , laserGraphicsComponent(new LaserGraphicsComponent())
     , planeInputComponent(new PlaneInputComponent())
+    , laserShootDelay(0.0f)
+    , asteroidBeingFollowed(0)
+    , cameraFollowingShip(true)
+    , cameraChangeDelay(0.0f)
 {
 }
 
@@ -27,7 +32,6 @@ TestGameWorld::~TestGameWorld( void )
 
 void TestGameWorld::init( GameEngine &gameEngine )
 {
-    laserGraphicsComponent = shared_ptr<GraphicsComponent>(new LaserGraphicsComponent());
     initSpaceship(gameEngine);
     initAsteroids(gameEngine);
 
@@ -54,6 +58,8 @@ void TestGameWorld::init( GameEngine &gameEngine )
 
 void TestGameWorld::update( float time )
 {
+    laserShootDelay -= time;
+    cameraChangeDelay -= time;
     plane.update(time);
     camera->update(time);
 
@@ -88,11 +94,21 @@ void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
     }
 }
 
+void TestGameWorld::shootLaser()
+{
+    if (laserShootDelay <= 0.0f) {
+        shared_ptr<Laser> laser = shared_ptr<Laser>(new Laser(plane.getRotationQuat(), plane.getPosition() + plane.getDirection() *0.5f, plane.getDirection()));
+        laser->changeSpeedBy(plane.getSpeed());
+        laser->init(NULL, NULL, laserGraphicsComponent);
+        lasers.push_back(laser);
+        laserShootDelay = LASER_SHOOT_DELAY_MS;
+    }
+}
+
 void TestGameWorld::initSpaceship( GameEngine &gameEngine )
 {
     planeInputComponent->init(&plane);
     plane.setMinSpeed(0.0f);
-    plane.setScale(0.02f, 0.02f, 0.02f);
     plane.init(planeInputComponent, NULL, spaceshipGraphicsComponent);
 }
 
@@ -201,4 +217,83 @@ int TestGameWorld::initPointLighting(int lightIndex, GraphicsEngine &graphicsEng
     graphicsEngine.getDirect3DDevice()->SetLight(lightIndex, &earthLight);
     graphicsEngine.getDirect3DDevice()->LightEnable(lightIndex, true);
     return lightIndex +1;
+}
+
+void TestGameWorld::followNextAsteroid()
+{
+    if (cameraChangeDelay > 0 || asteroids.size() == 0) {
+        return;
+    }
+    FollowCamera *followCamera = dynamic_cast<FollowCamera*>(camera);
+    if (followCamera == NULL) {
+        return;
+    }
+    if (cameraFollowingShip) {
+        asteroidBeingFollowed = 0;
+    } else {
+        asteroidBeingFollowed++;
+        if (asteroidBeingFollowed >= asteroids.size()) {
+            asteroidBeingFollowed = 0;
+        }
+    }
+    cameraFollowingShip = false;
+    followCamera->setGameObject(asteroids[asteroidBeingFollowed]->getGameObjectRepresentation().get());
+    cameraChangeDelay = CAMERA_CHANGE_DELAY_MS;
+}
+
+void TestGameWorld::followPreviousAsteroid()
+{
+    if (cameraChangeDelay > 0 || asteroids.size() == 0) {
+        return;
+    }
+    FollowCamera *followCamera = dynamic_cast<FollowCamera*>(camera);
+    if (followCamera == NULL) {
+        return;
+    }
+    if (cameraFollowingShip) {
+        asteroidBeingFollowed = 0;
+    } else {
+        if (asteroidBeingFollowed == 0) {
+            asteroidBeingFollowed = asteroids.size() - 1;
+        } else {
+            asteroidBeingFollowed--;
+        }
+    }
+    cameraFollowingShip = false;
+    followCamera->setGameObject(asteroids[asteroidBeingFollowed]->getGameObjectRepresentation().get());
+    cameraChangeDelay = CAMERA_CHANGE_DELAY_MS;
+}
+
+void TestGameWorld::followShip()
+{
+    if (cameraChangeDelay > 0) {
+        return;
+    }
+    if (!cameraFollowingShip) {
+        FollowCamera *followCamera = dynamic_cast<FollowCamera*>(camera);
+        if (followCamera == NULL) {
+            return;
+        }
+        cameraFollowingShip = true;
+        followCamera->setGameObject(&plane);
+        cameraChangeDelay = CAMERA_CHANGE_DELAY_MS;
+    }
+}
+
+void TestGameWorld::setFirstPersonCamera()
+{
+    FollowCamera *followCamera = dynamic_cast<FollowCamera*>(camera);
+    if (followCamera == NULL) {
+        return;
+    }
+    followCamera->setFirstPersonCamera();
+}
+
+void TestGameWorld::setThirdPersonCamera()
+{
+    FollowCamera *followCamera = dynamic_cast<FollowCamera*>(camera);
+    if (followCamera == NULL) {
+        return;
+    }
+    followCamera->setThirdPersonCamera();
 }

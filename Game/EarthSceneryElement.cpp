@@ -3,6 +3,8 @@
 #include "Camera.h"
 #include "Log.h"
 
+double EarthSceneryElement::Z_CAMERA_POSITION_MULTIPLIER = 0.99997;
+
 EarthSceneryElement::EarthSceneryElement(void)
     : texture(nullptr)
     , vertexBuffer(nullptr)
@@ -14,7 +16,7 @@ EarthSceneryElement::~EarthSceneryElement(void)
     if (texture != nullptr) {
         texture->Release();
     }
-    
+
     if (vertexBuffer != nullptr) {
         vertexBuffer->Release();
     }
@@ -42,10 +44,10 @@ void EarthSceneryElement::draw( Camera &camera, GraphicsEngine &graphicsEngine )
 void EarthSceneryElement::initVertexBuffer(GraphicsEngine &graphicsEngine)
 {
     TexturedVertex vertices[] = {
-        {D3DXVECTOR3(-10.0f, -10.0f,  10.0f),  D3DXVECTOR2(0.0f, 1.0f) },
-        {D3DXVECTOR3(-10.0f,  10.0f,  10.0f),  D3DXVECTOR2(0.0f, 0.0f) },
-        {D3DXVECTOR3( 10.0f, -10.0f,  10.0f),  D3DXVECTOR2(1.0f, 1.0f) },
-        {D3DXVECTOR3( 10.0f,  10.0f,  10.0f),  D3DXVECTOR2(1.0f, 0.0f) }
+        {D3DXVECTOR3( 10.0f, -10.0f, -15.0f),  D3DXVECTOR2(0.0f, 1.0f) },
+        {D3DXVECTOR3( 10.0f,  10.0f, -15.0f),  D3DXVECTOR2(0.0f, 0.0f) },
+        {D3DXVECTOR3(-10.0f, -10.0f, -15.0f),  D3DXVECTOR2(1.0f, 1.0f) },
+        {D3DXVECTOR3(-10.0f,  10.0f, -15.0f),  D3DXVECTOR2(1.0f, 0.0f) },
     };
 
     // create a vertex buffer interface called v_buffer
@@ -73,21 +75,17 @@ void EarthSceneryElement::initTexture( GraphicsEngine &graphicsEngine )
 
 void EarthSceneryElement::performWorldTransformations( Camera &camera, GraphicsEngine &graphicsEngine )
 {
-    graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_ZWRITEENABLE, false);
-    
     D3DXMATRIX worldMatrix, translationMatrix;
     D3DXMatrixIdentity(&worldMatrix);
 
-    D3DXVECTOR3 position = camera.getPosition();
-    D3DXMatrixTranslation(&translationMatrix, position.x * 0.99999f, position.y * 0.99999f, position.z * 0.99999f);
+    D3DXVECTOR3 cameraPosition = camera.getPosition();
+
+    float zPosition = static_cast<float>(cameraPosition.z * Z_CAMERA_POSITION_MULTIPLIER);
+    D3DXMatrixTranslation(&translationMatrix, cameraPosition.x, cameraPosition.y, zPosition);
 
     worldMatrix *= translationMatrix;
 
-    
-
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
-
-    graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_ZWRITEENABLE, false);
 }
 
 

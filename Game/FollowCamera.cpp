@@ -2,7 +2,7 @@
 
 FollowCamera::FollowCamera(MoveableGameObject *object) 
     : obj(object)
-    , offset(0.0f, 1.0f,-3.0f)
+    , offset(0.0f, 0.5f,-3.0f)
     , firstPersonCamera(false)
     , pastRotations(CAMERA_CACHE_SIZE)
     , oldObjSpeed(0.0f)
@@ -69,11 +69,13 @@ D3DXVECTOR3 FollowCamera::getPosition() const {
         return obj->getPosition();
     }
     D3DXQUATERNION quat = pastRotations.poll();
-    D3DXMATRIX rotMat;
+    D3DXMATRIX rotMat, scaleMat;
     D3DXVECTOR3 offsetTransformed;
     D3DXVECTOR3 pos = obj->getPosition();
+    D3DXVECTOR3 scale = obj->getScale();
+    D3DXMatrixScaling(&scaleMat, scale.x, scale.y, scale.z);
     D3DXMatrixRotationQuaternion(&rotMat, &quat);
-    D3DXVec3TransformCoord(&offsetTransformed, &offset, &rotMat);
+    D3DXVec3TransformCoord(&offsetTransformed, &offset, &(scaleMat * rotMat));
     return obj->getPosition() + offsetTransformed;
 }
 

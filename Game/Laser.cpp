@@ -7,7 +7,7 @@ Laser::Laser(D3DXQUATERNION rotation, D3DXVECTOR3 position, D3DXVECTOR3 directio
 {
     setDirection(direction);
     setRotation(rotation);
-    setMaxSpeed(LASER_SPEED);
+    setMaxSpeed(LASER_MAX_SPEED);
     setSpeed(LASER_SPEED);
 }
 
@@ -18,8 +18,8 @@ Laser::~Laser(void)
 
 void Laser::update(float time)
 {
-    //lifetimeLeft -= time;
-    //MoveableGameObject::update(time);
+    lifetimeLeft -= time;
+    MoveableGameObject::update(time);
 }
 
 bool Laser::isExpired()

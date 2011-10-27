@@ -42,5 +42,7 @@ void AsteroidGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &gr
         }
     }
 
+    graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+
     graphicsEngine.getDirect3DDevice()->SetTexture(0, NULL);
 }

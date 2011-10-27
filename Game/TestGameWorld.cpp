@@ -5,6 +5,7 @@
 #include "BuildingGraphicsComponent.h"
 #include "SpaceshipGraphicsComponent.h"
 #include "LaserGraphicsComponent.h"
+#include "VolumetricLines.h"
 #include "EarthSceneryElement.h"
 
 #define MESH_COLUMNS   100

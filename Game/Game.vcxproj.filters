@@ -173,6 +173,9 @@
     <ClCompile Include="FlightSimulatorGameApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VolumetricLines.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -276,6 +279,9 @@
     </ClInclude>
     <ClInclude Include="SceneryElement.h">
       <Filter>Header Files\Scenery</Filter>
+    </ClInclude>
+    <ClInclude Include="VolumetricLines.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

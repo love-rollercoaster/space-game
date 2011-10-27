@@ -18,7 +18,7 @@ private:
     void initTexture(GraphicsEngine &graphicsEngine);
     void performWorldTransformations(Camera &camera, GraphicsEngine &graphicsEngine);
 
-    static double Z_CAMERA_POSITION_MULTIPLIER;
+    static float Z_CAMERA_POSITION_MULTIPLIER;
 
     LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
     LPDIRECT3DTEXTURE9 texture;

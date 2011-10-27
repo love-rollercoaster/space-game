@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "Log.h"
 
-double EarthSceneryElement::Z_CAMERA_POSITION_MULTIPLIER = 0.99997;
+float EarthSceneryElement::Z_CAMERA_POSITION_MULTIPLIER = 0.99997f;
 
 EarthSceneryElement::EarthSceneryElement(void)
     : texture(nullptr)
@@ -79,11 +79,7 @@ void EarthSceneryElement::performWorldTransformations( Camera &camera, GraphicsE
     D3DXMatrixIdentity(&worldMatrix);
 
     D3DXVECTOR3 cameraPosition = camera.getPosition();
-
-    float zPosition = static_cast<float>(cameraPosition.z * Z_CAMERA_POSITION_MULTIPLIER);
-    D3DXMatrixTranslation(&translationMatrix, cameraPosition.x, cameraPosition.y, zPosition);
-
-    worldMatrix *= translationMatrix;
+    D3DXMatrixTranslation(&worldMatrix, cameraPosition.x, cameraPosition.y, cameraPosition.z * Z_CAMERA_POSITION_MULTIPLIER);
 
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
 }

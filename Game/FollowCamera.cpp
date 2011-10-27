@@ -106,6 +106,7 @@ void FollowCamera::calculateNewFov()
         setFOV(D3DXToRadian(DEFAULT_FOV_DEGREES));
         return;
     }
+
     float degreeStepsPerUnitOfSpeed = (MAX_FOV_DEGREES - DEFAULT_FOV_DEGREES);
     degreeStepsPerUnitOfSpeed = sqrt(degreeStepsPerUnitOfSpeed);
     degreeStepsPerUnitOfSpeed /= obj->getMaxSpeed();

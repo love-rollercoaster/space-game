@@ -152,7 +152,7 @@ void MoveableGameObject::changeSpeedBy(float speedDelta)
 
 void MoveableGameObject::updateRotationSpeeds( float time )
 {
-    float timeInMilliseconds = static_cast<float>(time / 1000.0);
+    float timeInMilliseconds = time / 1000.0f;
 
     roll(rollRotationSpeed * timeInMilliseconds);
     pitch(pitchRotationSpeed * timeInMilliseconds);

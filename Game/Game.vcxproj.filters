@@ -78,6 +78,12 @@
     <Filter Include="Header Files\Engine\Input">
       <UniqueIdentifier>{81fe3f22-2d61-407a-b673-4c9ff9d687b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scenery">
+      <UniqueIdentifier>{6a10cd76-ea02-498e-a8fc-de27d65d118d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenery">
+      <UniqueIdentifier>{28791e2f-5f4b-4d97-84f8-4c5bc19c3f8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winmain.cpp">
@@ -158,13 +164,13 @@
     <ClCompile Include="FontSystem.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="EarthSceneryElement.cpp">
+    <ClCompile Include="TestGameWorld.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EarthSceneryElement.cpp">
+      <Filter>Source Files\Scenery</Filter>
     </ClCompile>
     <ClCompile Include="FlightSimulatorGameApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestGameWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -265,11 +271,11 @@
     <ClInclude Include="FontSystem.h">
       <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="SceneryElement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EarthSceneryElement.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scenery</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneryElement.h">
+      <Filter>Header Files\Scenery</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

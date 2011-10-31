@@ -51,6 +51,8 @@ public:
     void setBackgroundColor(DWORD backgroundColor);
     void enableFog(float fogStart, float fogEnd);
 
+    D3DXMATRIX getProjectionMatrix();
+
     void addSceneryElement(shared_ptr<SceneryElement> sceneryElement);
 
     HRESULT loadMesh(string fileName, LPD3DXMESH *meshP, D3DMATERIAL9** mats, LPDIRECT3DTEXTURE9 **texture, DWORD *numMats);

@@ -15,9 +15,6 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{5193fa48-bca9-4637-9098-1cb5ca0a86f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Example">
-      <UniqueIdentifier>{7ecb5fb6-1b0c-4a1d-b891-a3830bafe167}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine\Game">
       <UniqueIdentifier>{64f25954-6a02-45d0-ad74-1db5a6d1a932}</UniqueIdentifier>
     </Filter>
@@ -176,6 +173,9 @@
     <ClCompile Include="VolumetricLines.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SunSceneryElement.cpp">
+      <Filter>Source Files\Scenery</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -192,12 +192,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Engine\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="FlightSimulatorGameApp.h">
-      <Filter>Header Files\Example</Filter>
-    </ClInclude>
-    <ClInclude Include="TestGameWorld.h">
-      <Filter>Header Files\Example</Filter>
     </ClInclude>
     <ClInclude Include="GameComponent.h">
       <Filter>Header Files\Engine\Game\Components</Filter>
@@ -277,11 +271,20 @@
     <ClInclude Include="EarthSceneryElement.h">
       <Filter>Header Files\Scenery</Filter>
     </ClInclude>
-    <ClInclude Include="SceneryElement.h">
-      <Filter>Header Files\Scenery</Filter>
-    </ClInclude>
     <ClInclude Include="VolumetricLines.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SunSceneryElement.h">
+      <Filter>Header Files\Scenery</Filter>
+    </ClInclude>
+    <ClInclude Include="FlightSimulatorGameApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestGameWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneryElement.h">
+      <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

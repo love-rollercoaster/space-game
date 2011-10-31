@@ -55,6 +55,11 @@ private:
     void initAsteroids(GameEngine &gameEngine);
     void initLighting(GraphicsEngine &graphicsEngine);
     void initAmbientLighting(GraphicsEngine &graphicsEngine);
+    void initCamera(GraphicsEngine &graphicsEngine);
+    void initLaser(GraphicsEngine &graphicsEngine);
     int initDirectionalLighting(int lightIndex, GraphicsEngine &graphicsEngine);
     int initPointLighting(int lightIndex, GraphicsEngine &graphicsEngine);
+    void initSceneryElements(GraphicsEngine &graphicsEngine);
+
+    void drawShipPositionText();
 };

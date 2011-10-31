@@ -5,8 +5,10 @@
 #include "BuildingGraphicsComponent.h"
 #include "SpaceshipGraphicsComponent.h"
 #include "LaserGraphicsComponent.h"
-#include "VolumetricLines.h"
 #include "EarthSceneryElement.h"
+#include "SunSceneryElement.h"
+#include "FontSystem.h"
+#include <string>
 
 #define MESH_COLUMNS   100
 #define MESH_ROWS      100
@@ -15,6 +17,8 @@
 #define EARTH_POSITION D3DXVECTOR3(-0.3f, 0, -1) // fixme
 // temporary
 #define RANDOM(lowerBound, upperBound) (float)((double)rand() / (RAND_MAX+1) * (upperBound - lowerBound) + lowerBound)
+
+using std::string;
 
 TestGameWorld::TestGameWorld( void )
     : spaceshipGraphicsComponent(new SpaceshipGraphicsComponent())
@@ -36,23 +40,16 @@ void TestGameWorld::init( GameEngine &gameEngine )
     initSpaceship(gameEngine);
     initAsteroids(gameEngine);
 
-    shared_ptr<Laser> laser(new Laser(plane.getRotationQuat(), plane.getPosition() + plane.getDirection() * 5.0f, plane.getDirection()));
-    laser->init(NULL, NULL, laserGraphicsComponent);
-    lasers.push_back(laser);
-
     GraphicsEngine &graphicsEngine = gameEngine.getGraphicsEngine();
 
-    shared_ptr<EarthSceneryElement> earthSceneryElement(new EarthSceneryElement);
-    earthSceneryElement->init(graphicsEngine);
-    graphicsEngine.addSceneryElement(earthSceneryElement);
-
-    camera = new FollowCamera(&plane);
-    camera->setFarPlane(20000.0f);
-    graphicsEngine.setCamera(*camera);
-
-    initLighting(graphicsEngine);
     laserGraphicsComponent->init(graphicsEngine);
     spaceshipGraphicsComponent->init(graphicsEngine);
+
+    initLaser(graphicsEngine);
+    initCamera(graphicsEngine);
+    initSceneryElements(graphicsEngine);
+    initLighting(graphicsEngine);
+
     graphicsEngine.setBackgroundColor(D3DCOLOR_XRGB(0, 6, 8));
     graphicsEngine.enableFog(camera->getFarPlane() - 1000.0f, camera->getFarPlane());   
 }
@@ -93,6 +90,8 @@ void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
     for each(shared_ptr<Laser> laser in lasers) {
         laser->draw(graphicsEngine);
     }
+    
+    drawShipPositionText();
 }
 
 void TestGameWorld::shootLaser()
@@ -104,6 +103,20 @@ void TestGameWorld::shootLaser()
         lasers.push_back(laser);
         laserShootDelay = LASER_SHOOT_DELAY_MS;
     }
+}
+
+void TestGameWorld::initCamera( GraphicsEngine &graphicsEngine )
+{
+    camera = new FollowCamera(&plane);
+    camera->setFarPlane(20000.0f);
+    graphicsEngine.setCamera(*camera);
+}
+
+void TestGameWorld::initLaser( GraphicsEngine &graphicsEngine )
+{
+    shared_ptr<Laser> laser(new Laser(plane.getRotationQuat(), plane.getPosition() + plane.getDirection() * 5.0f, plane.getDirection()));
+    laser->init(NULL, NULL, laserGraphicsComponent);
+    lasers.push_back(laser);
 }
 
 void TestGameWorld::initSpaceship( GameEngine &gameEngine )
@@ -197,7 +210,7 @@ int TestGameWorld::initPointLighting(int lightIndex, GraphicsEngine &graphicsEng
     sunlight.Type = D3DLIGHT_POINT;
     sunlight.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
     sunlight.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-    sunlight.Position = D3DXVECTOR3(0.0f, 500000.0f, 500000.0f); //sun position
+    sunlight.Position = D3DXVECTOR3(0.0f, 500000.0f, 0.0f); //sun position
     sunlight.Range = 1000000.0f;
     sunlight.Attenuation0 = 1.0f;
     sunlight.Attenuation1 = 0.0f;
@@ -218,6 +231,17 @@ int TestGameWorld::initPointLighting(int lightIndex, GraphicsEngine &graphicsEng
     graphicsEngine.getDirect3DDevice()->SetLight(lightIndex, &earthLight);
     graphicsEngine.getDirect3DDevice()->LightEnable(lightIndex, true);
     return lightIndex +1;
+}
+
+void TestGameWorld::initSceneryElements( GraphicsEngine &graphicsEngine )
+{
+    shared_ptr<SceneryElement> earthSceneryElement(new EarthSceneryElement);
+    shared_ptr<SceneryElement> sunSceneryElement(new SunSceneryElement);
+
+    earthSceneryElement->init(graphicsEngine);
+    sunSceneryElement->init(graphicsEngine);
+    graphicsEngine.addSceneryElement(earthSceneryElement);
+    graphicsEngine.addSceneryElement(sunSceneryElement);
 }
 
 void TestGameWorld::followNextAsteroid()
@@ -297,4 +321,12 @@ void TestGameWorld::setThirdPersonCamera()
         return;
     }
     followCamera->setThirdPersonCamera();
+}
+
+void TestGameWorld::drawShipPositionText()
+{
+    static char buffer[256];
+    D3DXVECTOR3 position = plane.getPosition();
+    sprintf_s(buffer, "Position:\n%f\n%f\n%f)", position.x, position.y, position.z);
+    FontSystem::DrawText(buffer, 10, 10, D3DCOLOR_XRGB(255,255,255));
 }

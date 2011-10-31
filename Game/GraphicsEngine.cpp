@@ -267,3 +267,8 @@ void GraphicsEngine::drawScenery()
     direct3DDevice->SetRenderState(D3DRS_LIGHTING, previousLightingValue);
     //direct3DDevice->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE, previousAntialiazingValue);
 }
+
+D3DXMATRIX GraphicsEngine::getProjectionMatrix()
+{
+    return camera->getProjectionMatrix();
+}

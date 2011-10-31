@@ -22,8 +22,8 @@ sampler textureSampler = sampler_state
 
 struct TInputVertex
 {
-	float4 pos			: POSITION;		// Position of this vertex
-	float4 otherPos		: NORMAL;		// Position of the other vertex at the other end of the line.
+	float4 pos			: POSITION;	// Position of this vertex
+	float4 otherPos	: NORMAL;		// Position of the other vertex at the other end of the line.
 	float4 texOffset	: TEXCOORD0;	// Tex coord offset.
 	float3 thickness	: TEXCOORD1;	// Thickness info.
 };

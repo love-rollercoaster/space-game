@@ -22,7 +22,6 @@ void LaserGraphicsComponent::init(GraphicsEngine &graphicsEngine)
         LASER_RADIUS, LASER_RADIUS, LASER_LENGTH, 20, 20, &laserMesh, NULL))) {
             ERR("Could not load laser graphics mesh");
     }
-
 }
 
 void LaserGraphicsComponent::draw(GameObject &gameObject, GraphicsEngine &graphicsEngine)
@@ -34,13 +33,9 @@ void LaserGraphicsComponent::draw(GameObject &gameObject, GraphicsEngine &graphi
     }
 
     D3DXMATRIX worldMatrix;
-
     laser->generateTransformationMatrix(&worldMatrix);
-
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
-
     graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-
     graphicsEngine.getDirect3DDevice()->SetMaterial(&material);
     laserMesh->DrawSubset(0);
 }

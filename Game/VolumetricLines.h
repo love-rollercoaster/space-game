@@ -34,7 +34,6 @@ public:
     void draw(GameObject &gameObject, GraphicsEngine &graphicsEngine);
 
 private:
-    Vertex vertices[4];
     LPDIRECT3DTEXTURE9 texture;
     LPD3DXEFFECT effect;
 
@@ -43,10 +42,9 @@ private:
     void initEffect(GraphicsEngine &graphicsEngine);
     void initTextures(GraphicsEngine &graphicsEngine);
 
-    void drawLine(GraphicsEngine &graphicsEngine);
+    void drawLine(GraphicsEngine &graphicsEngine, D3DXVECTOR3 u, D3DXVECTOR3 v);
 
-
-
-
+    LPD3DXMESH laserMesh;
+    D3DMATERIAL9 material;
 };
 

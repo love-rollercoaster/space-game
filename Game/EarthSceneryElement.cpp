@@ -37,7 +37,6 @@ void EarthSceneryElement::draw( Camera &camera, GraphicsEngine &graphicsEngine )
 
     graphicsEngine.getDirect3DDevice()->SetTexture( 0, texture );
     graphicsEngine.getDirect3DDevice()->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2 );
-
     graphicsEngine.getDirect3DDevice()->SetTexture( 0, NULL );
 }
 
@@ -79,13 +78,6 @@ void EarthSceneryElement::performWorldTransformations( Camera &camera, GraphicsE
     D3DXMatrixIdentity(&worldMatrix);
 
     D3DXVECTOR3 cameraPosition = camera.getPosition();
-    
-    
     D3DXMatrixTranslation(&worldMatrix, cameraPosition.x, cameraPosition.y, cameraPosition.z*Z_CAMERA_POSITION_MULTIPLIER);
-
-
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
 }
-
-
-

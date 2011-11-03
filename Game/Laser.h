@@ -15,8 +15,10 @@ public:
 
     virtual void update(float time);
     virtual bool isExpired();
+    D3DXVECTOR3 getLastPosition();
 
 private:
+    D3DXVECTOR3 lastPosition;
     float lifetimeLeft;
 
 };

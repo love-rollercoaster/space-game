@@ -25,6 +25,8 @@ TestGameWorld::TestGameWorld( void )
     , asteroidBeingFollowed(0)
     , cameraFollowingShip(true)
     , cameraChangeDelay(0.0f)
+    , objectBeingFollowed(NULL)
+    , usingThirdPersonCamera(true)
 {
 }
 
@@ -120,7 +122,11 @@ void TestGameWorld::initPhysicsComponents() {
 
 void TestGameWorld::initCamera( GraphicsEngine &graphicsEngine )
 {
-    camera = new FollowCamera(&plane);
+    FollowCamera *fc = new FollowCamera(&plane);
+    objectBeingFollowed = &plane;
+    fc->setThirdPersonCamera();
+    usingThirdPersonCamera = true;
+    camera = fc;
     camera->setFarPlane(20000.0f);
     graphicsEngine.setCamera(*camera);
 }
@@ -306,7 +312,10 @@ void TestGameWorld::followNextAsteroid()
         }
     }
     cameraFollowingShip = false;
-    followCamera->setGameObject(asteroids[asteroidBeingFollowed].get());
+    objectBeingFollowed->setDrawn(true);
+    objectBeingFollowed = asteroids[asteroidBeingFollowed].get();
+    objectBeingFollowed->setDrawn(usingThirdPersonCamera);
+    followCamera->setGameObject(objectBeingFollowed);
     cameraChangeDelay = CAMERA_CHANGE_DELAY_MS;
 }
 
@@ -329,7 +338,10 @@ void TestGameWorld::followPreviousAsteroid()
         }
     }
     cameraFollowingShip = false;
-    followCamera->setGameObject(asteroids[asteroidBeingFollowed].get());
+    objectBeingFollowed->setDrawn(true);
+    objectBeingFollowed = asteroids[asteroidBeingFollowed].get();
+    objectBeingFollowed->setDrawn(usingThirdPersonCamera);
+    followCamera->setGameObject(objectBeingFollowed);
     cameraChangeDelay = CAMERA_CHANGE_DELAY_MS;
 }
 
@@ -344,7 +356,10 @@ void TestGameWorld::followShip()
             return;
         }
         cameraFollowingShip = true;
-        followCamera->setGameObject(&plane);
+        objectBeingFollowed->setDrawn(true);
+        objectBeingFollowed = &plane;
+        objectBeingFollowed->setDrawn(usingThirdPersonCamera);
+        followCamera->setGameObject(objectBeingFollowed);
         cameraChangeDelay = CAMERA_CHANGE_DELAY_MS;
     }
 }
@@ -355,6 +370,8 @@ void TestGameWorld::setFirstPersonCamera()
     if (followCamera == NULL) {
         return;
     }
+    usingThirdPersonCamera = false;
+    objectBeingFollowed->setDrawn(false);
     followCamera->setFirstPersonCamera();
 }
 
@@ -364,6 +381,8 @@ void TestGameWorld::setThirdPersonCamera()
     if (followCamera == NULL) {
         return;
     }
+    usingThirdPersonCamera = true;
+    objectBeingFollowed->setDrawn(true);
     followCamera->setThirdPersonCamera();
 }
 

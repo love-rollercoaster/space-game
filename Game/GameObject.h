@@ -20,6 +20,7 @@ public:
         : inputComponent(NULL)
         , physicsComponent(NULL)
         , graphicsComponent(NULL)
+        , drawn(true)
     {
     }
 
@@ -46,12 +47,17 @@ public:
 
     virtual void draw(GraphicsEngine &graphicsEngine)
     {
-        if (graphicsComponent) {
+        if (drawn && graphicsComponent) {
             graphicsComponent->draw(*this, graphicsEngine);
         }
     }
 
+    virtual void setDrawn(bool toBeDrawn) {
+        drawn = toBeDrawn;
+    }
+
 protected:
+    bool drawn;
     shared_ptr<InputComponent>    inputComponent;
     shared_ptr<PhysicsComponent>  physicsComponent;
     shared_ptr<GraphicsComponent> graphicsComponent;

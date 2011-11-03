@@ -39,12 +39,14 @@ public:
     void setThirdPersonCamera();
 
 private:
-    Camera* camera;
     Plane plane;
+    Camera* camera;
+    MoveableGameObject *objectBeingFollowed;
     float laserShootDelay;
     float cameraChangeDelay;
     unsigned int asteroidBeingFollowed;
     bool cameraFollowingShip;
+    bool usingThirdPersonCamera;
 
     shared_ptr<InputComponent> planeInputComponent;
     shared_ptr<GraphicsComponent> spaceshipGraphicsComponent;

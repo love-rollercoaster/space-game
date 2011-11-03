@@ -193,15 +193,56 @@ void TestGameWorld::initAmbientLighting(GraphicsEngine &graphicsEngine)
 
 int TestGameWorld::initDirectionalLighting(int lightIndex, GraphicsEngine &graphicsEngine)
 {
-    D3DLIGHT9 light;
+    D3DLIGHT9 light, light2, light3, light4;
     ZeroMemory(&light, sizeof(light));
     light.Type = D3DLIGHT_DIRECTIONAL;
     light.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-    D3DXVECTOR3 dir;
-    D3DXVec3Normalize(&dir, &SUN_POS);
+    D3DXVECTOR3 dir = SUN_POS;
+    dir.x += 5.0f;
+    dir.z += 5.0f;
+    D3DXVec3Normalize(&dir, &dir);
     light.Direction = -dir;
 
     graphicsEngine.getDirect3DDevice()->SetLight(lightIndex, &light);
+    graphicsEngine.getDirect3DDevice()->LightEnable(lightIndex, true);
+    lightIndex += 1;
+
+    ZeroMemory(&light2, sizeof(light2));
+    light2.Type = D3DLIGHT_DIRECTIONAL;
+    light2.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+    dir = SUN_POS;
+    dir.x -= 5.0f;
+    dir.z += 5.0f;
+    D3DXVec3Normalize(&dir, &dir);
+    light2.Direction = -dir;
+
+    graphicsEngine.getDirect3DDevice()->SetLight(lightIndex, &light2);
+    graphicsEngine.getDirect3DDevice()->LightEnable(lightIndex, true);
+    lightIndex += 1;
+
+    ZeroMemory(&light3, sizeof(light3));
+    light3.Type = D3DLIGHT_DIRECTIONAL;
+    light3.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+    dir = SUN_POS;
+    dir.x -= 5.0f;
+    dir.z -= 5.0f;
+    D3DXVec3Normalize(&dir, &dir);
+    light3.Direction = -dir;
+
+    graphicsEngine.getDirect3DDevice()->SetLight(lightIndex, &light3);
+    graphicsEngine.getDirect3DDevice()->LightEnable(lightIndex, true);
+    lightIndex += 1;
+
+    ZeroMemory(&light4, sizeof(light4));
+    light4.Type = D3DLIGHT_DIRECTIONAL;
+    light4.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+    dir = SUN_POS;
+    dir.x += 5.0f;
+    dir.z -= 5.0f;
+    D3DXVec3Normalize(&dir, &dir);
+    light4.Direction = -dir;
+
+    graphicsEngine.getDirect3DDevice()->SetLight(lightIndex, &light4);
     graphicsEngine.getDirect3DDevice()->LightEnable(lightIndex, true);
     return lightIndex +1;
 }

@@ -2,8 +2,8 @@
 
 #include "GameObject.h"
 
-#define DEFAULT_MIN_SPEED -500.0f
-#define DEFAULT_MAX_SPEED 5000.0f
+#define DEFAULT_MIN_SPEED -15.0f
+#define DEFAULT_MAX_SPEED 50.0f
 
 class MoveableGameObject
     : public GameObject
@@ -19,6 +19,9 @@ public:
     void yaw( float radians );
     void pitch( float radians );
     void roll( float radians );
+    float getYawRotationSpeed();
+    float getRollRotationSpeed();
+    float getPitchRotationSpeed();
     void setYawRotationSpeed(float radiansPerSecond);
     void setRollRotationSpeed(float radiansPerSecond);
     void setPitchRotationSpeed(float radiansPerSecond);
@@ -44,8 +47,6 @@ private:
     void changeOrientation(D3DXVECTOR3 rotVector, float angleRad);
     void computeDirectionVectors();
     void keepSpeedBounds();
-    void updateRotationSpeeds(float time);
-    void updatePosition(float time);
 
     static const D3DXVECTOR3 basisDirectionVector;
     static const D3DXVECTOR3 basisUpVector;

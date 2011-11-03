@@ -12,6 +12,8 @@
 #include "FollowCamera.h"
 #include "Asteroid.h"
 #include "Laser.h"
+#include "MoveableObjectPhysicsComponent.h"
+#include "LaserPhysicsComponent.h"
 
 #define LASER_SHOOT_DELAY_MS 300.0f
 #define CAMERA_CHANGE_DELAY_MS 100.0f
@@ -44,19 +46,24 @@ private:
     unsigned int asteroidBeingFollowed;
     bool cameraFollowingShip;
 
-    shared_ptr<PlaneInputComponent> planeInputComponent;
+    shared_ptr<InputComponent> planeInputComponent;
     shared_ptr<GraphicsComponent> spaceshipGraphicsComponent;
     shared_ptr<GraphicsComponent> laserGraphicsComponent;
+    shared_ptr<GraphicsComponent> asteroidGraphicsComponent;
+    shared_ptr<PhysicsComponent> spaceshipPhysicsComponent;
+    shared_ptr<PhysicsComponent> laserPhysicsComponent;
+    shared_ptr<PhysicsComponent> asteroidPhysicsComponent;
 
     vector<shared_ptr<Asteroid> > asteroids;
     vector<shared_ptr<Laser> > lasers;
 
+    void initGraphicsComponents(GraphicsEngine &graphicsEngine);
+    void initPhysicsComponents();
     void initSpaceship(GameEngine &gameEngine);
     void initAsteroids(GameEngine &gameEngine);
     void initLighting(GraphicsEngine &graphicsEngine);
     void initAmbientLighting(GraphicsEngine &graphicsEngine);
     void initCamera(GraphicsEngine &graphicsEngine);
-    void initLaser(GraphicsEngine &graphicsEngine);
     int initDirectionalLighting(int lightIndex, GraphicsEngine &graphicsEngine);
     int initPointLighting(int lightIndex, GraphicsEngine &graphicsEngine);
     void initSceneryElements(GraphicsEngine &graphicsEngine);

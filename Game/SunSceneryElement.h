@@ -2,6 +2,8 @@
 
 #include <d3dx9.h>
 #include "SceneryElement.h"
+#define SUN_POS D3DXVECTOR3(0.0f, 10.0f, 0.0f)
+#define SUN_RADIUS 10.0f
 
 class SunSceneryElement
     : public SceneryElement

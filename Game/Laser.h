@@ -3,8 +3,8 @@
 #include "MoveableGameObject.h"
 
 #define LASER_LIFETIME_MS 5000.0f
-#define LASER_SPEED 50.0f
-#define LASER_MAX_SPEED 500000.0f
+#define LASER_SPEED 80.0f
+#define LASER_MAX_SPEED 5000.0f
 
 class Laser :
     public MoveableGameObject

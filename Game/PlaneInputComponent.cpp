@@ -35,10 +35,10 @@ void PlaneInputComponent::arrowKeyHandler( unsigned char key )
         plane->pitch(D3DXToRadian(1.0f));
         break;
     case 'W':
-        plane->changeSpeedBy(50.0f);
+        plane->changeSpeedBy(0.5f);
         break;
     case 'S':
-        plane->changeSpeedBy(-50.0f);
+        plane->changeSpeedBy(-0.5f);
         break;
     case 'A':
         plane->roll(D3DXToRadian(2.0f));

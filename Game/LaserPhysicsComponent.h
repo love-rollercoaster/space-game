@@ -1,7 +1,7 @@
 #pragma once
-#include "physicscomponent.h"
+#include "moveableobjectphysicscomponent.h"
 class LaserPhysicsComponent :
-    public PhysicsComponent
+    public MoveableObjectPhysicsComponent
 {
 public:
     LaserPhysicsComponent(void);

@@ -97,6 +97,7 @@
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="MeshSurfaceGraphicsComponent.cpp" />
+    <ClCompile Include="MoveableObjectPhysicsComponent.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PlaneInputComponent.cpp" />
     <ClCompile Include="QuatCamera.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="MeshSurfaceGraphicsComponent.h" />
+    <ClInclude Include="MoveableObjectPhysicsComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PlaneInputComponent.h" />

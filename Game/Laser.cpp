@@ -19,7 +19,9 @@ Laser::~Laser(void)
 void Laser::update(float time)
 {
     lifetimeLeft -= time;
-    MoveableGameObject::update(time);
+    if (physicsComponent != NULL) {
+        physicsComponent->update(*this, time);
+    }
 }
 
 bool Laser::isExpired()

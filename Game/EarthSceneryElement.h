@@ -3,6 +3,9 @@
 #include <d3dx9.h>
 #include "SceneryElement.h"
 
+#define EARTH_POS D3DXVECTOR3(0.0f, 0.0f, -15000.0f)
+#define EARTH_RADIUS 10000.0f
+
 class EarthSceneryElement
     : public SceneryElement
 {

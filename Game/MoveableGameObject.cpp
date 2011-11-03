@@ -92,6 +92,21 @@ void MoveableGameObject::roll( float radians )
     changeOrientation(direction, radians);
 }
 
+float MoveableGameObject::getYawRotationSpeed() 
+{
+    return yawRotationSpeed;
+}
+
+float MoveableGameObject::getRollRotationSpeed() 
+{
+    return rollRotationSpeed;
+}
+
+float MoveableGameObject::getPitchRotationSpeed() 
+{
+    return pitchRotationSpeed;
+}
+
 void MoveableGameObject::setYawRotationSpeed(float radiansPerSecond) 
 {
     yawRotationSpeed = radiansPerSecond;
@@ -140,28 +155,15 @@ void MoveableGameObject::computeDirectionVectors()
 
 void MoveableGameObject::update(float time)
 {
-    updatePosition(time);
-    updateRotationSpeeds(time);
+    if (physicsComponent != NULL) {
+        physicsComponent->update(*this, time);
+    }
 }
 
 void MoveableGameObject::changeSpeedBy(float speedDelta)
 {
     this->speed += speedDelta;
     keepSpeedBounds();
-}
-
-void MoveableGameObject::updateRotationSpeeds( float time )
-{
-    float timeInMilliseconds = time / 1000.0f;
-
-    roll(rollRotationSpeed * timeInMilliseconds);
-    pitch(pitchRotationSpeed * timeInMilliseconds);
-    yaw(yawRotationSpeed * timeInMilliseconds);
-}
-
-void MoveableGameObject::updatePosition( float time )
-{
-    position += direction * (speed * time / 1000.0f);
 }
 
 float MoveableGameObject::getSpeed()

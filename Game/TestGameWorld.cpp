@@ -12,7 +12,7 @@
 
 #define MESH_COLUMNS   100
 #define MESH_ROWS      100
-#define MESH_CELL_SIZE 100
+#define MESH_CELL_SIZE 5
 
 #define EARTH_POSITION D3DXVECTOR3(-0.3f, 0, -1) // fixme
 // temporary
@@ -21,10 +21,7 @@
 using std::string;
 
 TestGameWorld::TestGameWorld( void )
-    : spaceshipGraphicsComponent(new SpaceshipGraphicsComponent())
-    , laserGraphicsComponent(new LaserGraphicsComponent())
-    , planeInputComponent(new PlaneInputComponent())
-    , laserShootDelay(0.0f)
+    : laserShootDelay(0.0f)
     , asteroidBeingFollowed(0)
     , cameraFollowingShip(true)
     , cameraChangeDelay(0.0f)
@@ -37,15 +34,16 @@ TestGameWorld::~TestGameWorld( void )
 
 void TestGameWorld::init( GameEngine &gameEngine )
 {
+    GraphicsEngine &graphicsEngine = gameEngine.getGraphicsEngine();
+    planeInputComponent = shared_ptr<InputComponent>(new PlaneInputComponent());
+    initGraphicsComponents(graphicsEngine);
+    initPhysicsComponents();
     initSpaceship(gameEngine);
     initAsteroids(gameEngine);
-
-    GraphicsEngine &graphicsEngine = gameEngine.getGraphicsEngine();
 
     laserGraphicsComponent->init(graphicsEngine);
     spaceshipGraphicsComponent->init(graphicsEngine);
 
-    initLaser(graphicsEngine);
     initCamera(graphicsEngine);
     initSceneryElements(graphicsEngine);
     initLighting(graphicsEngine);
@@ -99,10 +97,25 @@ void TestGameWorld::shootLaser()
     if (laserShootDelay <= 0.0f) {
         shared_ptr<Laser> laser = shared_ptr<Laser>(new Laser(plane.getRotationQuat(), plane.getPosition() + plane.getDirection() *0.5f, plane.getDirection()));
         laser->changeSpeedBy(plane.getSpeed());
-        laser->init(NULL, NULL, laserGraphicsComponent);
+        laser->init(NULL, laserPhysicsComponent, laserGraphicsComponent);
         lasers.push_back(laser);
         laserShootDelay = LASER_SHOOT_DELAY_MS;
     }
+}
+
+void TestGameWorld::initGraphicsComponents(GraphicsEngine &graphicsEngine) {
+    asteroidGraphicsComponent = shared_ptr<GraphicsComponent>(new AsteroidGraphicsComponent());
+    asteroidGraphicsComponent->init(graphicsEngine);
+    spaceshipGraphicsComponent = shared_ptr<GraphicsComponent>(new SpaceshipGraphicsComponent());
+    spaceshipGraphicsComponent->init(graphicsEngine);
+    laserGraphicsComponent = shared_ptr<GraphicsComponent>(new LaserGraphicsComponent());
+    laserGraphicsComponent->init(graphicsEngine);
+}
+
+void TestGameWorld::initPhysicsComponents() {
+    spaceshipPhysicsComponent = shared_ptr<PhysicsComponent>(new MoveableObjectPhysicsComponent());
+    asteroidPhysicsComponent = spaceshipPhysicsComponent;
+    laserPhysicsComponent = shared_ptr<PhysicsComponent>(new LaserPhysicsComponent());
 }
 
 void TestGameWorld::initCamera( GraphicsEngine &graphicsEngine )
@@ -112,26 +125,19 @@ void TestGameWorld::initCamera( GraphicsEngine &graphicsEngine )
     graphicsEngine.setCamera(*camera);
 }
 
-void TestGameWorld::initLaser( GraphicsEngine &graphicsEngine )
-{
-    shared_ptr<Laser> laser(new Laser(plane.getRotationQuat(), plane.getPosition() + plane.getDirection() * 5.0f, plane.getDirection()));
-    laser->init(NULL, NULL, laserGraphicsComponent);
-    lasers.push_back(laser);
-}
-
 void TestGameWorld::initSpaceship( GameEngine &gameEngine )
 {
     planeInputComponent->init(&plane);
     plane.setMinSpeed(0.0f);
-    plane.init(planeInputComponent, NULL, spaceshipGraphicsComponent);
+    plane.init(planeInputComponent, spaceshipPhysicsComponent, spaceshipGraphicsComponent);
 }
 
 void TestGameWorld::initAsteroids( GameEngine &gameEngine )
 {
-    float yMin = -1000.0f;
-    float yMax = 1000.0f;
-    float minAsteroidScale = 10.0f;
-    float maxAsteroidScale = 150.0f;
+    float yMin = -100.0f;
+    float yMax = 100.0f;
+    float minAsteroidScale = 1.0f;
+    float maxAsteroidScale = 6.0f;
     float asteroidCreationProbablility = 0.994f;
 
     for (int i = 0; i < MESH_ROWS; i++) {
@@ -148,27 +154,22 @@ void TestGameWorld::initAsteroids( GameEngine &gameEngine )
 
             float xAsteroidPosition = (float) i * MESH_CELL_SIZE;
             float zAsteroidPosition = (float) j * MESH_CELL_SIZE;
-
-            shared_ptr<Asteroid> asteroid(new Asteroid());
-
-            asteroid->init(gameEngine);
-                
-            shared_ptr<MoveableGameObject> asteroidRepresentation = asteroid->getGameObjectRepresentation();
-                
-            asteroidRepresentation->setScale(asteroidScale, asteroidScale, asteroidScale);
-                
             D3DXVECTOR3 asteroidPosition = D3DXVECTOR3(xAsteroidPosition, yAsteroidPosition, zAsteroidPosition);
+            D3DXVECTOR3 asteroidScaleVec = D3DXVECTOR3(asteroidScale, asteroidScale, asteroidScale);
 
-            asteroidRepresentation->yaw(D3DXToRadian(RANDOM(0, 360)));
-            asteroidRepresentation->pitch(D3DXToRadian(RANDOM(0, 360)));
-            asteroidRepresentation->roll(D3DXToRadian(RANDOM(0, 360)));
-            asteroidRepresentation->setPitchRotationSpeed(RANDOM(0, 0.5f));
-            asteroidRepresentation->setRollRotationSpeed(RANDOM(0, 0.5f));
-            asteroidRepresentation->setYawRotationSpeed(RANDOM(0, 0.5f));
-            asteroidRepresentation->setPosition(asteroidPosition);
-            asteroidRepresentation->setFixedDirection(true);
-            asteroidRepresentation->setDirection(EARTH_POSITION);
-            asteroidRepresentation->setSpeed(RANDOM(75, 400));
+            shared_ptr<Asteroid> asteroid(new Asteroid(asteroidPosition, asteroidScaleVec));
+
+            asteroid->init(NULL, asteroidPhysicsComponent, asteroidGraphicsComponent);
+                
+            asteroid->yaw(D3DXToRadian(RANDOM(0, 360)));
+            asteroid->pitch(D3DXToRadian(RANDOM(0, 360)));
+            asteroid->roll(D3DXToRadian(RANDOM(0, 360)));
+            asteroid->setPitchRotationSpeed(RANDOM(0, 0.5f));
+            asteroid->setRollRotationSpeed(RANDOM(0, 0.5f));
+            asteroid->setYawRotationSpeed(RANDOM(0, 0.5f));
+            asteroid->setFixedDirection(true);
+            asteroid->setDirection(EARTH_POSITION);
+            asteroid->setSpeed(RANDOM(5, 20));
 
             asteroids.push_back(asteroid);
         }
@@ -196,7 +197,9 @@ int TestGameWorld::initDirectionalLighting(int lightIndex, GraphicsEngine &graph
     ZeroMemory(&light, sizeof(light));
     light.Type = D3DLIGHT_DIRECTIONAL;
     light.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-    light.Direction = D3DXVECTOR3(0.0f, -1.0f, -1.0f);
+    D3DXVECTOR3 dir;
+    D3DXVec3Normalize(&dir, &SUN_POS);
+    light.Direction = -dir;
 
     graphicsEngine.getDirect3DDevice()->SetLight(lightIndex, &light);
     graphicsEngine.getDirect3DDevice()->LightEnable(lightIndex, true);
@@ -210,7 +213,7 @@ int TestGameWorld::initPointLighting(int lightIndex, GraphicsEngine &graphicsEng
     sunlight.Type = D3DLIGHT_POINT;
     sunlight.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
     sunlight.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-    sunlight.Position = D3DXVECTOR3(0.0f, 500000.0f, 0.0f); //sun position
+    sunlight.Position = SUN_POS * 50000.0f; //sun position
     sunlight.Range = 1000000.0f;
     sunlight.Attenuation0 = 1.0f;
     sunlight.Attenuation1 = 0.0f;
@@ -223,7 +226,7 @@ int TestGameWorld::initPointLighting(int lightIndex, GraphicsEngine &graphicsEng
     ZeroMemory(&earthLight, sizeof(earthLight));
     earthLight.Type = D3DLIGHT_POINT;
     earthLight.Diffuse = D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f);
-    earthLight.Position = D3DXVECTOR3(0.0f, 0.0f, -250000.0f); //earth position
+    earthLight.Position = EARTH_POS * 10.0f; //earth position
     earthLight.Range = 500000.0f;
     earthLight.Attenuation0 = 0.7f;
     earthLight.Attenuation1 = 0.05f;
@@ -235,8 +238,8 @@ int TestGameWorld::initPointLighting(int lightIndex, GraphicsEngine &graphicsEng
 
 void TestGameWorld::initSceneryElements( GraphicsEngine &graphicsEngine )
 {
-    shared_ptr<SceneryElement> earthSceneryElement(new EarthSceneryElement);
-    shared_ptr<SceneryElement> sunSceneryElement(new SunSceneryElement);
+    shared_ptr<SceneryElement> earthSceneryElement(new EarthSceneryElement());
+    shared_ptr<SceneryElement> sunSceneryElement(new SunSceneryElement());
 
     earthSceneryElement->init(graphicsEngine);
     sunSceneryElement->init(graphicsEngine);
@@ -262,7 +265,7 @@ void TestGameWorld::followNextAsteroid()
         }
     }
     cameraFollowingShip = false;
-    followCamera->setGameObject(asteroids[asteroidBeingFollowed]->getGameObjectRepresentation().get());
+    followCamera->setGameObject(asteroids[asteroidBeingFollowed].get());
     cameraChangeDelay = CAMERA_CHANGE_DELAY_MS;
 }
 
@@ -285,7 +288,7 @@ void TestGameWorld::followPreviousAsteroid()
         }
     }
     cameraFollowingShip = false;
-    followCamera->setGameObject(asteroids[asteroidBeingFollowed]->getGameObjectRepresentation().get());
+    followCamera->setGameObject(asteroids[asteroidBeingFollowed].get());
     cameraChangeDelay = CAMERA_CHANGE_DELAY_MS;
 }
 

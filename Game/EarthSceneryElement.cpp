@@ -42,11 +42,12 @@ void EarthSceneryElement::draw( Camera &camera, GraphicsEngine &graphicsEngine )
 
 void EarthSceneryElement::initVertexBuffer(GraphicsEngine &graphicsEngine)
 {
+    D3DXVECTOR3 pos = EARTH_POS;
     TexturedVertex vertices[] = {
-        {D3DXVECTOR3( 10000.0f, -10000.0f, -15000.0f),  D3DXVECTOR2(0.0f, 1.0f) },
-        {D3DXVECTOR3( 10000.0f,  10000.0f, -15000.0f),  D3DXVECTOR2(0.0f, 0.0f) },
-        {D3DXVECTOR3(-10000.0f, -10000.0f, -15000.0f),  D3DXVECTOR2(1.0f, 1.0f) },
-        {D3DXVECTOR3(-10000.0f,  10000.0f, -15000.0f),  D3DXVECTOR2(1.0f, 0.0f) },
+        {D3DXVECTOR3( pos.x + EARTH_RADIUS, pos.y - EARTH_RADIUS, pos.z),  D3DXVECTOR2(0.0f, 1.0f) },
+        {D3DXVECTOR3( pos.x + EARTH_RADIUS, pos.y + EARTH_RADIUS, pos.z),  D3DXVECTOR2(0.0f, 0.0f) },
+        {D3DXVECTOR3( pos.x - EARTH_RADIUS, pos.y - EARTH_RADIUS, pos.z),  D3DXVECTOR2(1.0f, 1.0f) },
+        {D3DXVECTOR3( pos.x - EARTH_RADIUS,  pos.y + EARTH_RADIUS, pos.z),  D3DXVECTOR2(1.0f, 0.0f) },
     };
 
     // create a vertex buffer interface called v_buffer

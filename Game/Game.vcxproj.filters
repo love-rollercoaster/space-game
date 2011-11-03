@@ -176,6 +176,9 @@
     <ClCompile Include="SunSceneryElement.cpp">
       <Filter>Source Files\Scenery</Filter>
     </ClCompile>
+    <ClCompile Include="MoveableObjectPhysicsComponent.cpp">
+      <Filter>Source Files\GameObjects\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -285,6 +288,9 @@
     </ClInclude>
     <ClInclude Include="SceneryElement.h">
       <Filter>Header Files\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveableObjectPhysicsComponent.h">
+      <Filter>Header Files\GameObjects\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

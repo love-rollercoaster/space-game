@@ -44,11 +44,12 @@ void SunSceneryElement::draw( Camera &camera, GraphicsEngine &graphicsEngine )
 
 void SunSceneryElement::initVertexBuffer(GraphicsEngine &graphicsEngine)
 {
+    D3DXVECTOR3 pos = SUN_POS;
     TexturedVertex vertices[] = {
-        {D3DXVECTOR3(-10.0f,  10.0f,  10.0f),  D3DXVECTOR2(0.0f, 1.0f) },
-        {D3DXVECTOR3(-10.0f,  10.0f, -10.0f),  D3DXVECTOR2(0.0f, 0.0f) },
-        {D3DXVECTOR3( 10.0f,  10.0f,  10.0f),  D3DXVECTOR2(1.0f, 1.0f) },
-        {D3DXVECTOR3( 10.0f,  10.0f, -10.0f),  D3DXVECTOR2(1.0f, 0.0f) },
+        {D3DXVECTOR3( pos.x - SUN_RADIUS,  pos.y, pos.z + SUN_RADIUS),  D3DXVECTOR2(0.0f, 1.0f) },
+        {D3DXVECTOR3( pos.x - SUN_RADIUS,  pos.y, pos.z - SUN_RADIUS),  D3DXVECTOR2(0.0f, 0.0f) },
+        {D3DXVECTOR3( pos.x + SUN_RADIUS,  pos.y, pos.z + SUN_RADIUS),  D3DXVECTOR2(1.0f, 1.0f) },
+        {D3DXVECTOR3( pos.x + SUN_RADIUS,  pos.y, pos.z - SUN_RADIUS),  D3DXVECTOR2(1.0f, 0.0f) },
     };
 
     // create a vertex buffer interface called v_buffer

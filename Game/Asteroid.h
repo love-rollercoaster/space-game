@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include "AsteroidGraphicsComponent.h"
 
 class MoveableGameObject;
@@ -8,22 +7,12 @@ class GraphicsComponent;
 class GraphicsEngine;
 class GameEngine;
 
-using std::tr1::shared_ptr;
-
-class Asteroid
+class Asteroid : public MoveableGameObject
 {
 public:
-    Asteroid(void);
+    Asteroid(D3DXVECTOR3 position, D3DXVECTOR3 scale);
     ~Asteroid(void);
 
-    void init(GameEngine &gameEngine);
-    void draw(GraphicsEngine &graphicsEngine);
-    void update(float time);
-
-    shared_ptr<MoveableGameObject> getGameObjectRepresentation();
-
 private:
-    shared_ptr<MoveableGameObject> representation;
-    static shared_ptr<GraphicsComponent> graphicsComponent;
 };
 

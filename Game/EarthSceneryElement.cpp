@@ -3,7 +3,13 @@
 #include "Camera.h"
 #include "Log.h"
 
-float EarthSceneryElement::Z_CAMERA_POSITION_MULTIPLIER = 0.95f;
+// TODO:
+// Since the earth does have a position in the world space (unlike the sun or the skybox),
+// it should be refactored to a game object. For now however, this is fine.
+
+float EarthSceneryElement::Z_CAMERA_POSITION_MULTIPLIER = 0.2f;
+float EarthSceneryElement::EARTH_RADIUS = 1000.0f;
+D3DXVECTOR3 EarthSceneryElement::EARTH_POSITION = D3DXVECTOR3(0.0f, 0.0f, -1500.0f);
 
 EarthSceneryElement::EarthSceneryElement(void)
     : texture(nullptr)
@@ -42,7 +48,8 @@ void EarthSceneryElement::draw( Camera &camera, GraphicsEngine &graphicsEngine )
 
 void EarthSceneryElement::initVertexBuffer(GraphicsEngine &graphicsEngine)
 {
-    D3DXVECTOR3 pos = EARTH_POS;
+    D3DXVECTOR3 pos = EARTH_POSITION;
+
     TexturedVertex vertices[] = {
         {D3DXVECTOR3( pos.x + EARTH_RADIUS, pos.y - EARTH_RADIUS, pos.z),  D3DXVECTOR2(0.0f, 1.0f) },
         {D3DXVECTOR3( pos.x + EARTH_RADIUS, pos.y + EARTH_RADIUS, pos.z),  D3DXVECTOR2(0.0f, 0.0f) },
@@ -50,7 +57,6 @@ void EarthSceneryElement::initVertexBuffer(GraphicsEngine &graphicsEngine)
         {D3DXVECTOR3( pos.x - EARTH_RADIUS,  pos.y + EARTH_RADIUS, pos.z),  D3DXVECTOR2(1.0f, 0.0f) },
     };
 
-    // create a vertex buffer interface called v_buffer
     graphicsEngine.getDirect3DDevice()->CreateVertexBuffer(
         sizeof(vertices),
         0,
@@ -81,4 +87,8 @@ void EarthSceneryElement::performWorldTransformations( Camera &camera, GraphicsE
     D3DXVECTOR3 cameraPosition = camera.getPosition();
     D3DXMatrixTranslation(&worldMatrix, cameraPosition.x, cameraPosition.y, cameraPosition.z*Z_CAMERA_POSITION_MULTIPLIER);
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
+}
+
+D3DXVECTOR3 EarthSceneryElement::GetPosition() {
+    return EARTH_POSITION;
 }

@@ -25,40 +25,40 @@ void Skybox::initVertexBuffer( GraphicsEngine &graphicsEngine )
     TexturedVertex vertices[] =
     {
         // Front quad, NOTE: All quads face inward
-        {D3DXVECTOR3(-10.0f, -10.0f,  10.0f),  D3DXVECTOR2(0.0f, 1.0f) },
-        {D3DXVECTOR3(-10.0f,  10.0f,  10.0f),  D3DXVECTOR2(0.0f, 0.0f) },
-        {D3DXVECTOR3( 10.0f, -10.0f,  10.0f),  D3DXVECTOR2(1.0f, 1.0f) },
-        {D3DXVECTOR3( 10.0f,  10.0f,  10.0f),  D3DXVECTOR2(1.0f, 0.0f) },
+        {D3DXVECTOR3(-1000.0f, -1000.0f,  1000.0f),  D3DXVECTOR2(0.0f, 1.0f) },
+        {D3DXVECTOR3(-1000.0f,  1000.0f,  1000.0f),  D3DXVECTOR2(0.0f, 0.0f) },
+        {D3DXVECTOR3( 1000.0f, -1000.0f,  1000.0f),  D3DXVECTOR2(1.0f, 1.0f) },
+        {D3DXVECTOR3( 1000.0f,  1000.0f,  1000.0f),  D3DXVECTOR2(1.0f, 0.0f) },
 
         // Back quad
-        {D3DXVECTOR3( 10.0f, -10.0f, -10.0f),  D3DXVECTOR2(0.0f, 1.0f) },
-        {D3DXVECTOR3( 10.0f,  10.0f, -10.0f),  D3DXVECTOR2(0.0f, 0.0f) },
-        {D3DXVECTOR3(-10.0f, -10.0f, -10.0f),  D3DXVECTOR2(1.0f, 1.0f) },
-        {D3DXVECTOR3(-10.0f,  10.0f, -10.0f),  D3DXVECTOR2(1.0f, 0.0f) },
+        {D3DXVECTOR3( 1000.0f, -1000.0f, -1000.0f),  D3DXVECTOR2(0.0f, 1.0f) },
+        {D3DXVECTOR3( 1000.0f,  1000.0f, -1000.0f),  D3DXVECTOR2(0.0f, 0.0f) },
+        {D3DXVECTOR3(-1000.0f, -1000.0f, -1000.0f),  D3DXVECTOR2(1.0f, 1.0f) },
+        {D3DXVECTOR3(-1000.0f,  1000.0f, -1000.0f),  D3DXVECTOR2(1.0f, 0.0f) },
 
         // Left quad
-        {D3DXVECTOR3(-10.0f, -10.0f, -10.0f),  D3DXVECTOR2(0.0f, 1.0f) },
-        {D3DXVECTOR3(-10.0f,  10.0f, -10.0f),  D3DXVECTOR2(0.0f, 0.0f) },
-        {D3DXVECTOR3(-10.0f, -10.0f,  10.0f),  D3DXVECTOR2(1.0f, 1.0f) },
-        {D3DXVECTOR3(-10.0f,  10.0f,  10.0f),  D3DXVECTOR2(1.0f, 0.0f) },
+        {D3DXVECTOR3(-1000.0f, -1000.0f, -1000.0f),  D3DXVECTOR2(0.0f, 1.0f) },
+        {D3DXVECTOR3(-1000.0f,  1000.0f, -1000.0f),  D3DXVECTOR2(0.0f, 0.0f) },
+        {D3DXVECTOR3(-1000.0f, -1000.0f,  1000.0f),  D3DXVECTOR2(1.0f, 1.0f) },
+        {D3DXVECTOR3(-1000.0f,  1000.0f,  1000.0f),  D3DXVECTOR2(1.0f, 0.0f) },
 
         // Right quad
-        {D3DXVECTOR3( 10.0f, -10.0f,  10.0f),  D3DXVECTOR2(0.0f, 1.0f) },
-        {D3DXVECTOR3( 10.0f,  10.0f,  10.0f),  D3DXVECTOR2(0.0f, 0.0f) },
-        {D3DXVECTOR3( 10.0f, -10.0f, -10.0f),  D3DXVECTOR2(1.0f, 1.0f) },
-        {D3DXVECTOR3( 10.0f,  10.0f, -10.0f),  D3DXVECTOR2(1.0f, 0.0f) },
+        {D3DXVECTOR3( 1000.0f, -1000.0f,  1000.0f),  D3DXVECTOR2(0.0f, 1.0f) },
+        {D3DXVECTOR3( 1000.0f,  1000.0f,  1000.0f),  D3DXVECTOR2(0.0f, 0.0f) },
+        {D3DXVECTOR3( 1000.0f, -1000.0f, -1000.0f),  D3DXVECTOR2(1.0f, 1.0f) },
+        {D3DXVECTOR3( 1000.0f,  1000.0f, -1000.0f),  D3DXVECTOR2(1.0f, 0.0f) },
 
         // Top quad
-        {D3DXVECTOR3(-10.0f,  10.0f,  10.0f),  D3DXVECTOR2(0.0f, 1.0f) },
-        {D3DXVECTOR3(-10.0f,  10.0f, -10.0f),  D3DXVECTOR2(0.0f, 0.0f) },
-        {D3DXVECTOR3( 10.0f,  10.0f,  10.0f),  D3DXVECTOR2(1.0f, 1.0f) },
-        {D3DXVECTOR3( 10.0f,  10.0f, -10.0f),  D3DXVECTOR2(1.0f, 0.0f) },
+        {D3DXVECTOR3(-1000.0f,  1000.0f,  1000.0f),  D3DXVECTOR2(0.0f, 1.0f) },
+        {D3DXVECTOR3(-1000.0f,  1000.0f, -1000.0f),  D3DXVECTOR2(0.0f, 0.0f) },
+        {D3DXVECTOR3( 1000.0f,  1000.0f,  1000.0f),  D3DXVECTOR2(1.0f, 1.0f) },
+        {D3DXVECTOR3( 1000.0f,  1000.0f, -1000.0f),  D3DXVECTOR2(1.0f, 0.0f) },
 
         // Bottom quad
-        {D3DXVECTOR3(-10.0f, -10.0f, -10.0f),  D3DXVECTOR2(0.0f, 1.0f) },
-        {D3DXVECTOR3(-10.0f, -10.0f,  10.0f),  D3DXVECTOR2(0.0f, 0.0f) },
-        {D3DXVECTOR3( 10.0f, -10.0f, -10.0f),  D3DXVECTOR2(1.0f, 1.0f) },
-        {D3DXVECTOR3( 10.0f, -10.0f,  10.0f),  D3DXVECTOR2(1.0f, 0.0f) }
+        {D3DXVECTOR3(-1000.0f, -1000.0f, -1000.0f),  D3DXVECTOR2(0.0f, 1.0f) },
+        {D3DXVECTOR3(-1000.0f, -1000.0f,  1000.0f),  D3DXVECTOR2(0.0f, 0.0f) },
+        {D3DXVECTOR3( 1000.0f, -1000.0f, -1000.0f),  D3DXVECTOR2(1.0f, 1.0f) },
+        {D3DXVECTOR3( 1000.0f, -1000.0f,  1000.0f),  D3DXVECTOR2(1.0f, 0.0f) }
     };
 
     // create a vertex buffer interface called v_buffer

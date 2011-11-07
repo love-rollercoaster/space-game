@@ -273,7 +273,7 @@ int TestGameWorld::initPointLighting(int lightIndex, GraphicsEngine &graphicsEng
     ZeroMemory(&earthLight, sizeof(earthLight));
     earthLight.Type = D3DLIGHT_POINT;
     earthLight.Diffuse = D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f);
-    earthLight.Position = EARTH_POS * 10.0f; //earth position
+    earthLight.Position = EarthSceneryElement::GetPosition() * 10.0f; //earth position
     earthLight.Range = 500000.0f;
     earthLight.Attenuation0 = 0.7f;
     earthLight.Attenuation1 = 0.05f;

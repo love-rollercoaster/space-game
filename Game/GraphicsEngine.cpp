@@ -54,7 +54,7 @@ void GraphicsEngine::initDirect3DInterface()
     if (direct3DInterface == NULL) {
         // TODO: Change this throw to send an instance of some exception class,
         //       D3DInterfaceCreationException for example
-        throw "Direct3d9 interface could not be created";
+        ERR("Direct3d9 interface could not be created");
     }
 }
 

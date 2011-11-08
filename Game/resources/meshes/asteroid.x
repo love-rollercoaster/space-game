@@ -5,7 +5,7 @@ xof 0303txt 0032
 // Converted by the PolyTrans geometry converter from Okino Computer Graphics, Inc.
 // Date/time of export: 06/28/2006 16:48:37
 //
-// Bounding box of geometry = (-959.375,-1494.79,-693.766) to (959.375,1494.79,693.766).
+// Bounding box of geometry = (-0.959375,-1.49479,-0.693766) to (0.959375,1.49479,0.693766).
 
 
 template Header {

@@ -46,3 +46,8 @@ void AsteroidGraphicsComponent::draw( GameObject &gameObject, GraphicsEngine &gr
 
     graphicsEngine.getDirect3DDevice()->SetTexture(0, NULL);
 }
+
+LPD3DXMESH AsteroidGraphicsComponent::getMesh()
+{
+    return asteroidMesh;
+}

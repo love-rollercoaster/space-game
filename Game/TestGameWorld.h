@@ -53,7 +53,7 @@ private:
     shared_ptr<GraphicsComponent> laserGraphicsComponent;
     shared_ptr<GraphicsComponent> asteroidGraphicsComponent;
     shared_ptr<PhysicsComponent> spaceshipPhysicsComponent;
-    shared_ptr<PhysicsComponent> laserPhysicsComponent;
+    shared_ptr<LaserPhysicsComponent> laserPhysicsComponent;
     shared_ptr<PhysicsComponent> asteroidPhysicsComponent;
 
     vector<shared_ptr<Asteroid> > asteroids;
@@ -63,12 +63,14 @@ private:
     void initPhysicsComponents();
     void initSpaceship(GameEngine &gameEngine);
     void initAsteroids(GameEngine &gameEngine);
+    void makeOneAsteroid(GameEngine &gameEngine);
     void initLighting(GraphicsEngine &graphicsEngine);
     void initAmbientLighting(GraphicsEngine &graphicsEngine);
     void initCamera(GraphicsEngine &graphicsEngine);
     int initDirectionalLighting(int lightIndex, GraphicsEngine &graphicsEngine);
     int initPointLighting(int lightIndex, GraphicsEngine &graphicsEngine);
     void initSceneryElements(GraphicsEngine &graphicsEngine);
+    bool testCollisionOfLaserWithAllAsteroids(shared_ptr<Laser> laser);
 
     void drawShipPositionText();
 };

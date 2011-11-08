@@ -56,6 +56,10 @@ public:
         drawn = toBeDrawn;
     }
 
+    shared_ptr<GraphicsComponent> getGraphicsComponent() {
+        return graphicsComponent;
+    }
+
 protected:
     bool drawn;
     shared_ptr<InputComponent>    inputComponent;

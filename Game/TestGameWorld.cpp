@@ -8,6 +8,7 @@
 #include "EarthSceneryElement.h"
 #include "SunSceneryElement.h"
 #include "FontSystem.h"
+#include "Log.h"
 #include <string>
 
 #define MESH_COLUMNS   100
@@ -42,6 +43,7 @@ void TestGameWorld::init( GameEngine &gameEngine )
     initPhysicsComponents();
     initSpaceship(gameEngine);
     initAsteroids(gameEngine);
+    //makeOneAsteroid(gameEngine);
 
     laserGraphicsComponent->init(graphicsEngine);
     spaceshipGraphicsComponent->init(graphicsEngine);
@@ -69,7 +71,10 @@ void TestGameWorld::update( float time )
     for (it = lasers.begin(); it != lasers.end();) {
         (*it)->update(time);
 
-        // TODO collision detection here
+        if (testCollisionOfLaserWithAllAsteroids(*it)) {
+            it = lasers.erase(it);
+            continue;
+        }
 
         if ((*it)->isExpired()) {
             it = lasers.erase(it);
@@ -77,6 +82,20 @@ void TestGameWorld::update( float time )
             it++;
         }
     }
+}
+
+bool TestGameWorld::testCollisionOfLaserWithAllAsteroids(shared_ptr<Laser> laser) {
+    vector<shared_ptr<Asteroid> >::iterator it;
+    for (it = asteroids.begin(); it != asteroids.end();) {
+        if (laserPhysicsComponent->testIntersectionWithAsteroid(*laser.get(), *(*it).get())) {
+            POUT("Laser collided with an asteroid");
+            it = asteroids.erase(it);
+            return true;
+        } else {
+            it++;
+        }
+    }
+    return false;
 }
 
 void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
@@ -117,7 +136,7 @@ void TestGameWorld::initGraphicsComponents(GraphicsEngine &graphicsEngine) {
 void TestGameWorld::initPhysicsComponents() {
     spaceshipPhysicsComponent = shared_ptr<PhysicsComponent>(new MoveableObjectPhysicsComponent());
     asteroidPhysicsComponent = spaceshipPhysicsComponent;
-    laserPhysicsComponent = shared_ptr<PhysicsComponent>(new LaserPhysicsComponent());
+    laserPhysicsComponent = shared_ptr<LaserPhysicsComponent>(new LaserPhysicsComponent());
 }
 
 void TestGameWorld::initCamera( GraphicsEngine &graphicsEngine )
@@ -136,6 +155,25 @@ void TestGameWorld::initSpaceship( GameEngine &gameEngine )
     planeInputComponent->init(&plane);
     plane.setMinSpeed(0.0f);
     plane.init(planeInputComponent, spaceshipPhysicsComponent, spaceshipGraphicsComponent);
+}
+
+void TestGameWorld::makeOneAsteroid(GameEngine &gameEngine) 
+{
+    D3DXVECTOR3 asteroidPosition = D3DXVECTOR3(0.0f, 3.0f, 10.0f);
+    D3DXVECTOR3 asteroidScaleVec = D3DXVECTOR3(3.0f, 3.0f, 3.0f);
+
+    shared_ptr<Asteroid> asteroid(new Asteroid(asteroidPosition, asteroidScaleVec));
+
+    asteroid->init(NULL, asteroidPhysicsComponent, asteroidGraphicsComponent);
+
+    asteroid->yaw(D3DXToRadian(RANDOM(0, 360)));
+    asteroid->pitch(D3DXToRadian(RANDOM(0, 360)));
+    asteroid->roll(D3DXToRadian(RANDOM(0, 360)));
+    asteroid->setPitchRotationSpeed(RANDOM(0, 0.5f));
+    asteroid->setRollRotationSpeed(RANDOM(0, 0.5f));
+    asteroid->setYawRotationSpeed(RANDOM(0, 0.5f));
+    asteroid->setFixedDirection(true);
+    asteroids.push_back(asteroid);
 }
 
 void TestGameWorld::initAsteroids( GameEngine &gameEngine )
@@ -199,6 +237,7 @@ void TestGameWorld::initAmbientLighting(GraphicsEngine &graphicsEngine)
 
 int TestGameWorld::initDirectionalLighting(int lightIndex, GraphicsEngine &graphicsEngine)
 {
+    //this light represents light coming from the general direction of the sun.
     D3DLIGHT9 light, light2, light3, light4;
     ZeroMemory(&light, sizeof(light));
     light.Type = D3DLIGHT_DIRECTIONAL;
@@ -255,6 +294,8 @@ int TestGameWorld::initDirectionalLighting(int lightIndex, GraphicsEngine &graph
 
 int TestGameWorld::initPointLighting(int lightIndex, GraphicsEngine &graphicsEngine)
 {
+    //this creates a strong sun light from a distant point, and a weaker light emitted (reflected)
+    //from the earth much closer.
     D3DLIGHT9 earthLight, sunlight;
     ZeroMemory(&sunlight, sizeof(sunlight));
     sunlight.Type = D3DLIGHT_POINT;

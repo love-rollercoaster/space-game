@@ -28,7 +28,7 @@ void FlightSimulatorGameApp::draw( GraphicsEngine &graphicsEngine )
 
 void FlightSimulatorGameApp::registerKeyboardInputCallbacks()
 {
-    GameApp::registerKeyboardInputCallbacks();
+    GameApp::registerKeyboardInputCallbacks(); // fixme
     registerCallback(VK_SPACE,  MAKE_KEYBOARD_INPUT_HANDLER(FlightSimulatorGameApp::handleSpacePress));
     registerCallback(VK_OEM_COMMA,  MAKE_KEYBOARD_INPUT_HANDLER(FlightSimulatorGameApp::handleCommaPress));
     registerCallback(VK_OEM_PERIOD,  MAKE_KEYBOARD_INPUT_HANDLER(FlightSimulatorGameApp::handlePeriodPress));

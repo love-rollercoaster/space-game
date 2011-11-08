@@ -12,6 +12,7 @@ public:
 
     virtual void init(GraphicsEngine &graphicsEngine);
     virtual void draw(GameObject &gameObject, GraphicsEngine &graphicsEngine);
+    virtual LPD3DXMESH getMesh();
 
 protected:
     LPD3DXMESH asteroidMesh;

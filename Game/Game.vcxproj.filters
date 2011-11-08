@@ -283,14 +283,14 @@
     <ClInclude Include="FlightSimulatorGameApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TestGameWorld.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SceneryElement.h">
       <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="MoveableObjectPhysicsComponent.h">
       <Filter>Header Files\GameObjects\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="TestGameWorld.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

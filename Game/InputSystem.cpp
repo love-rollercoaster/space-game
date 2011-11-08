@@ -95,7 +95,8 @@ void InputSystem::DispatchMessageToRegisteredHandlers(unsigned char key)
     {
         KeyboardInputHandler *keyboardInputHandler = keyboardInputHandlerPair.first;
         KeyboardInputHandler::KeyboardInputCallback &callback = keyboardInputHandlerPair.second;
-        (keyboardInputHandler->*callback)(key);    }
+        (keyboardInputHandler->*callback)(key);
+    }
 }
 
 

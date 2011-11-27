@@ -63,10 +63,11 @@ private:
     void initPhysicsComponents();
     void initSpaceship(GameEngine &gameEngine);
     void initAsteroids(GameEngine &gameEngine);
-    void makeOneAsteroid(GameEngine &gameEngine);
+    shared_ptr<Asteroid> makeOneAsteroid();
     void initLighting(GraphicsEngine &graphicsEngine);
     void initAmbientLighting(GraphicsEngine &graphicsEngine);
     void initCamera(GraphicsEngine &graphicsEngine);
+    vector<shared_ptr<Asteroid> >::iterator &fragmentAsteroid(vector<shared_ptr<Asteroid> >::iterator &it, shared_ptr<Asteroid> asteroid);
     int initDirectionalLighting(int lightIndex, GraphicsEngine &graphicsEngine);
     int initPointLighting(int lightIndex, GraphicsEngine &graphicsEngine);
     void initSceneryElements(GraphicsEngine &graphicsEngine);

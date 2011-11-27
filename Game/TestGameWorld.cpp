@@ -89,13 +89,36 @@ bool TestGameWorld::testCollisionOfLaserWithAllAsteroids(shared_ptr<Laser> laser
     for (it = asteroids.begin(); it != asteroids.end();) {
         if (laserPhysicsComponent->testIntersectionWithAsteroid(*laser.get(), *(*it).get())) {
             POUT("Laser collided with an asteroid");
+            shared_ptr<Asteroid> a = *it;
             it = asteroids.erase(it);
+            it = fragmentAsteroid(it, a);
             return true;
         } else {
             it++;
         }
     }
     return false;
+}
+
+vector<shared_ptr<Asteroid> >::iterator &TestGameWorld::fragmentAsteroid(vector<shared_ptr<Asteroid> >::iterator &it, shared_ptr<Asteroid> asteroid)
+{
+    D3DXVECTOR3 scale = asteroid->getScale() / 2.0f;
+    if (scale.x < 0.5f || scale.y < 0.5f || scale.z < 0.5f) {
+        return it;
+    }
+    D3DXVECTOR3 dir = D3DXVECTOR3(RANDOM(0.0f, 1.0f), RANDOM(0.0f, 1.0f), RANDOM(0.0f, 1.0f));
+    D3DXVec3Normalize(&dir, &dir);
+
+    for (int i = 0; i < 2; i++) {
+        shared_ptr<Asteroid> newAst = makeOneAsteroid();
+        newAst->setScale(scale * RANDOM(0.8f, 1.2f));
+        newAst->setDirection(dir);
+        newAst->setPosition(asteroid->getPosition() + 2.0f * dir);
+        newAst->setSpeed(asteroid->getSpeed() * RANDOM(0.8f, 1.2f));
+        it = asteroids.insert(it, newAst);
+        dir *= -1.0f;
+    }
+    return it;
 }
 
 void TestGameWorld::draw( GraphicsEngine &graphicsEngine )
@@ -157,7 +180,7 @@ void TestGameWorld::initSpaceship( GameEngine &gameEngine )
     plane.init(planeInputComponent, spaceshipPhysicsComponent, spaceshipGraphicsComponent);
 }
 
-void TestGameWorld::makeOneAsteroid(GameEngine &gameEngine) 
+shared_ptr<Asteroid> TestGameWorld::makeOneAsteroid() 
 {
     D3DXVECTOR3 asteroidPosition = D3DXVECTOR3(0.0f, 3.0f, 10.0f);
     D3DXVECTOR3 asteroidScaleVec = D3DXVECTOR3(3.0f, 3.0f, 3.0f);
@@ -173,7 +196,7 @@ void TestGameWorld::makeOneAsteroid(GameEngine &gameEngine)
     asteroid->setRollRotationSpeed(RANDOM(0, 0.5f));
     asteroid->setYawRotationSpeed(RANDOM(0, 0.5f));
     asteroid->setFixedDirection(true);
-    asteroids.push_back(asteroid);
+    return asteroid;
 }
 
 void TestGameWorld::initAsteroids( GameEngine &gameEngine )

@@ -115,6 +115,9 @@ vector<shared_ptr<Asteroid> >::iterator &TestGameWorld::fragmentAsteroid(vector<
         newAst->setDirection(dir);
         newAst->setPosition(asteroid->getPosition() + 2.0f * dir);
         newAst->setSpeed(asteroid->getSpeed() * RANDOM(0.8f, 1.2f));
+        newAst->setRollRotationSpeed(asteroid->getRollRotationSpeed() * RANDOM(1.6f, 2.4f));
+        newAst->setPitchRotationSpeed(asteroid->getPitchRotationSpeed() * RANDOM(1.6f, 2.4f));
+        newAst->setYawRotationSpeed(asteroid->getYawRotationSpeed() * RANDOM(1.6f, 2.4f));
         it = asteroids.insert(it, newAst);
         dir *= -1.0f;
     }
@@ -205,14 +208,14 @@ void TestGameWorld::initAsteroids( GameEngine &gameEngine )
     float yMax = 100.0f;
     float minAsteroidScale = 1.0f;
     float maxAsteroidScale = 6.0f;
-    float asteroidCreationProbablility = 0.994f;
+    float asteroidCreationProbablility = 0.002f;
 
     for (int i = 0; i < MESH_ROWS; i++) {
         for (int j = 0; j < MESH_COLUMNS; j++) {
 
             float asteroidCreationDice = RANDOM(0,1);
 
-            if (asteroidCreationDice < asteroidCreationProbablility) {
+            if (asteroidCreationProbablility < asteroidCreationDice) {
                 continue;
             }
             

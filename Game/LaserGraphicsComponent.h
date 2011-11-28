@@ -3,7 +3,7 @@
 #include "Log.h"
 #include "Laser.h"
 
-#define LASER_RADIUS 0.03f
+#define LASER_RADIUS 0.08f
 #define LASER_LENGTH 1.0f
 
 #define LASER_AMBIENT_COLOR D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.4f)

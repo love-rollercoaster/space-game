@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameApp.h"
-#include "TestGameWorld.h"
+#include "AsteroidsGameWorld.h"
 
 class FlightSimulatorGameApp : public GameApp
 {
@@ -21,6 +21,6 @@ public:
     virtual void handle3KeyPress(unsigned char key);
 
 private:
-    TestGameWorld gameWorld;
+    AsteroidsGameWorld gameWorld;
     GameObject gameObject;
 };

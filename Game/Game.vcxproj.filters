@@ -98,22 +98,13 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Engine\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="QuatCamera.cpp">
-      <Filter>Source Files\Engine\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="GameApp.cpp">
       <Filter>Source Files\Engine\Game</Filter>
     </ClCompile>
     <ClCompile Include="InputComponent.cpp">
       <Filter>Source Files\Engine\Game\Components</Filter>
     </ClCompile>
-    <ClCompile Include="BuildingGraphicsComponent.cpp">
-      <Filter>Source Files\GameObjects\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="MeshSurfaceGraphicsComponent.cpp">
-      <Filter>Source Files\GameObjects\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeGraphicsComponent.cpp">
       <Filter>Source Files\GameObjects\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsEngine.cpp">
@@ -161,9 +152,6 @@
     <ClCompile Include="FontSystem.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="TestGameWorld.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EarthSceneryElement.cpp">
       <Filter>Source Files\Scenery</Filter>
     </ClCompile>
@@ -179,6 +167,9 @@
     <ClCompile Include="MoveableObjectPhysicsComponent.cpp">
       <Filter>Source Files\GameObjects\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="AsteroidsGameWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -189,9 +180,6 @@
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Header Files\Engine\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="QuatCamera.h">
-      <Filter>Header Files\Engine\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Engine\Camera</Filter>
@@ -227,12 +215,6 @@
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="MeshSurfaceGraphicsComponent.h">
-      <Filter>Header Files\GameObjects\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="BuildingGraphicsComponent.h">
-      <Filter>Header Files\GameObjects\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeGraphicsComponent.h">
       <Filter>Header Files\GameObjects\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="AsteroidGraphicsComponent.h">
@@ -289,7 +271,7 @@
     <ClInclude Include="MoveableObjectPhysicsComponent.h">
       <Filter>Header Files\GameObjects\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="TestGameWorld.h">
+    <ClInclude Include="AsteroidsGameWorld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,6 +8,9 @@
 #include "PhysicsComponent.h"
 #include "InputComponent.h"
 
+// Reference:
+// http://gameprogrammingpatterns.com/component.html
+
 class GraphicsEngine;
 
 using std::tr1::shared_ptr;

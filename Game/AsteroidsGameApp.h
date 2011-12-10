@@ -3,11 +3,11 @@
 #include "GameApp.h"
 #include "AsteroidsGameWorld.h"
 
-class FlightSimulatorGameApp : public GameApp
+class AsteroidsGameApp : public GameApp
 {
 public:
-    FlightSimulatorGameApp(void);
-    ~FlightSimulatorGameApp(void);
+    AsteroidsGameApp(void);
+    ~AsteroidsGameApp(void);
 
     void init(GameEngine &gameEngine);
     void update(float time);

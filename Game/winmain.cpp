@@ -3,7 +3,7 @@
 #include <windows.h>
 
 #include "Win32Console.h"
-#include "FlightSimulatorGameApp.h"
+#include "AsteroidsGameApp.h"
 
 // #define _CRTDBG_MAP_ALLOC
 // #include <stdlib.h>
@@ -17,7 +17,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     seedRandom();
     enableConsole();
 
-    GameApp *gameApp = new FlightSimulatorGameApp();
+    GameApp *gameApp = new AsteroidsGameApp();
     gameApp->init(hInstance, nCmdShow);
     gameApp->start();
 

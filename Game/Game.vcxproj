@@ -87,7 +87,7 @@
     <ClCompile Include="FollowCamera.cpp" />
     <ClCompile Include="KeyboardInputHandler.cpp" />
     <ClCompile Include="MoveableGameObject.cpp" />
-    <ClCompile Include="FlightSimulatorGameApp.cpp" />
+    <ClCompile Include="AsteroidsGameApp.cpp" />
     <ClCompile Include="FontSystem.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameEngine.cpp" />
@@ -102,7 +102,6 @@
     <ClCompile Include="SpaceshipGraphicsComponent.cpp" />
     <ClCompile Include="SunSceneryElement.cpp" />
     <ClCompile Include="AsteroidsGameWorld.cpp" />
-    <ClCompile Include="VolumetricLines.cpp" />
     <ClCompile Include="Win32Console.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="winmain.cpp" />
@@ -118,7 +117,7 @@
     <ClInclude Include="FollowCamera.h" />
     <ClInclude Include="KeyboardInputHandler.h" />
     <ClInclude Include="MoveableGameObject.h" />
-    <ClInclude Include="FlightSimulatorGameApp.h" />
+    <ClInclude Include="AsteroidsGameApp.h" />
     <ClInclude Include="FontSystem.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameComponent.h" />
@@ -139,7 +138,6 @@
     <ClInclude Include="SpaceshipGraphicsComponent.h" />
     <ClInclude Include="SunSceneryElement.h" />
     <ClInclude Include="AsteroidsGameWorld.h" />
-    <ClInclude Include="VolumetricLines.h" />
     <ClInclude Include="Win32Console.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

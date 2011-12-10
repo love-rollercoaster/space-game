@@ -155,12 +155,6 @@
     <ClCompile Include="EarthSceneryElement.cpp">
       <Filter>Source Files\Scenery</Filter>
     </ClCompile>
-    <ClCompile Include="FlightSimulatorGameApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VolumetricLines.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SunSceneryElement.cpp">
       <Filter>Source Files\Scenery</Filter>
     </ClCompile>
@@ -170,11 +164,11 @@
     <ClCompile Include="AsteroidsGameWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AsteroidsGameApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameEngine.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Win32Console.h">
       <Filter>Header Files\Engine\Win32</Filter>
     </ClInclude>
@@ -256,14 +250,8 @@
     <ClInclude Include="EarthSceneryElement.h">
       <Filter>Header Files\Scenery</Filter>
     </ClInclude>
-    <ClInclude Include="VolumetricLines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SunSceneryElement.h">
       <Filter>Header Files\Scenery</Filter>
-    </ClInclude>
-    <ClInclude Include="FlightSimulatorGameApp.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneryElement.h">
       <Filter>Header Files\Engine\Graphics</Filter>
@@ -272,6 +260,12 @@
       <Filter>Header Files\GameObjects\Physics</Filter>
     </ClInclude>
     <ClInclude Include="AsteroidsGameWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="AsteroidsGameApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

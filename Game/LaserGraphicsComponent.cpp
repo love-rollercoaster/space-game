@@ -1,13 +1,21 @@
 #include "LaserGraphicsComponent.h"
 
+const float LaserGraphicsComponent::LASER_RADIUS = 0.08f;
+const float LaserGraphicsComponent::LASER_LENGTH = 1.0f;
 
 LaserGraphicsComponent::LaserGraphicsComponent(void)
 {
-    material.Ambient = LASER_AMBIENT_COLOR;
-    material.Diffuse = LASER_DIFFUSE_COLOR;
-    material.Emissive = LASER_EMISSIVE_COLOR;
-    material.Specular = LASER_SPECULAR_COLOR;
-    material.Power = LASER_SPECULAR_POWER;
+    outerLaserMaterial.Ambient  = D3DXCOLOR(255, 0.0f, 0.0f, 0.4f);
+    outerLaserMaterial.Diffuse  = D3DXCOLOR(69, 0.0f, 0.0f, 0.4f);
+    outerLaserMaterial.Emissive = D3DXCOLOR(69, 0.0f, 0.0f, 0.5f);
+    outerLaserMaterial.Specular = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);
+    outerLaserMaterial.Power    = 0.0f;
+
+    innerLaserMaterial.Ambient  = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.6f);
+    innerLaserMaterial.Diffuse  = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.6f);
+    innerLaserMaterial.Emissive = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.7f);
+    innerLaserMaterial.Specular = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);
+    innerLaserMaterial.Power    = 0.0f;
 }
 
 
@@ -17,9 +25,28 @@ LaserGraphicsComponent::~LaserGraphicsComponent(void)
 
 
 void LaserGraphicsComponent::init(GraphicsEngine &graphicsEngine)
-{
-    if (FAILED(D3DXCreateCylinder(graphicsEngine.getDirect3DDevice(),
-        LASER_RADIUS, LASER_RADIUS, LASER_LENGTH, 20, 20, &laserMesh, NULL))) {
+{   
+    HRESULT result = D3DXCreateCylinder(
+        graphicsEngine.getDirect3DDevice(),
+        LASER_RADIUS,
+        LASER_RADIUS,
+        LASER_LENGTH,
+        20,
+        20,
+        &outerLaserMesh,
+        nullptr);
+
+    result |= D3DXCreateCylinder(
+        graphicsEngine.getDirect3DDevice(),
+        LASER_RADIUS * 0.75f,
+        LASER_RADIUS,
+        LASER_LENGTH * 1.01f,
+        20,
+        20,
+        &innerLaserMesh,
+        nullptr);
+
+    if (FAILED(result)) {
             ERR("Could not load laser graphics mesh");
     }
 }
@@ -27,8 +54,8 @@ void LaserGraphicsComponent::init(GraphicsEngine &graphicsEngine)
 void LaserGraphicsComponent::draw(GameObject &gameObject, GraphicsEngine &graphicsEngine)
 {
     Laser *laser = dynamic_cast<Laser*>(&gameObject);
-    
-    if (laser == NULL) {
+
+    if (laser == nullptr) {
         throw "This component only works with lasers!";
     }
 
@@ -36,6 +63,9 @@ void LaserGraphicsComponent::draw(GameObject &gameObject, GraphicsEngine &graphi
     laser->generateTransformationMatrix(&worldMatrix);
     graphicsEngine.getDirect3DDevice()->SetTransform(D3DTS_WORLD, &worldMatrix);
     graphicsEngine.getDirect3DDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-    graphicsEngine.getDirect3DDevice()->SetMaterial(&material);
-    laserMesh->DrawSubset(0);
+    graphicsEngine.getDirect3DDevice()->SetMaterial(&outerLaserMaterial);
+    outerLaserMesh->DrawSubset(0);
+
+    graphicsEngine.getDirect3DDevice()->SetMaterial(&innerLaserMaterial);
+    innerLaserMesh->DrawSubset(0);
 }

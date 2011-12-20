@@ -3,15 +3,6 @@
 #include "Log.h"
 #include "Laser.h"
 
-#define LASER_RADIUS 0.08f
-#define LASER_LENGTH 1.0f
-
-#define LASER_AMBIENT_COLOR D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.4f)
-#define LASER_DIFFUSE_COLOR D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.4f)
-#define LASER_EMISSIVE_COLOR D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f)
-#define LASER_SPECULAR_COLOR D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f)
-#define LASER_SPECULAR_POWER 0.0f
-
 class LaserGraphicsComponent :
     public GraphicsComponent
 {
@@ -23,7 +14,15 @@ public:
     virtual void draw(GameObject &gameObject, GraphicsEngine &graphicsEngine);
 
 protected:
-    LPD3DXMESH laserMesh;
-    D3DMATERIAL9 material;
+    LPD3DXMESH outerLaserMesh;
+    LPD3DXMESH innerLaserMesh;
+    D3DMATERIAL9 outerLaserMaterial;
+    D3DMATERIAL9 innerLaserMaterial;
+    static const float LASER_RADIUS;
+    static const float LASER_LENGTH;
+
+private:
+
+
 };
 

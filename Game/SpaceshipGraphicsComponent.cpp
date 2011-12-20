@@ -23,8 +23,7 @@ void SpaceshipGraphicsComponent::initEffect( GraphicsEngine &graphicsEngine )
     ID3DXBuffer *errors = nullptr;
     D3DXCreateEffectFromFile(
         graphicsEngine.getDirect3DDevice(),
-        // "resources/shaders/spaceshipShader.fx",
-        "spaceshipShader.fx",
+        "resources/effects/spaceshipShader.fx",
         0,0, D3DXSHADER_DEBUG | D3DXSHADER_SKIPOPTIMIZATION, 0,
         &meshEffect,
         &errors);

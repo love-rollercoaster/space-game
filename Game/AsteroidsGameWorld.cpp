@@ -31,7 +31,7 @@ AsteroidsGameWorld::AsteroidsGameWorld( void )
     , spaceshipGraphicsComponent(new SpaceshipGraphicsComponent())
     , asteroidGraphicsComponent(new AsteroidGraphicsComponent())
     , laserGraphicsComponent(new LaserGraphicsComponent())
-    , planeInputComponent(new PlaneInputComponent())
+    , spaceshipInputComponent(new PlaneInputComponent())
 {
 }
 
@@ -58,7 +58,7 @@ void AsteroidsGameWorld::update( float time )
 {
     laserShootDelay -= time;
     cameraChangeDelay -= time;
-    plane.update(time);
+    spaceship.update(time);
     camera->update(time);
 
     for each (shared_ptr<Asteroid> asteroid in asteroids) {
@@ -124,7 +124,7 @@ vector<shared_ptr<Asteroid> >::iterator &AsteroidsGameWorld::fragmentAsteroid(ve
 
 void AsteroidsGameWorld::draw( GraphicsEngine &graphicsEngine )
 {
-    plane.draw(graphicsEngine);
+    spaceship.draw(graphicsEngine);
 
     for each (shared_ptr<Asteroid> asteroid in asteroids) {
         asteroid->draw(graphicsEngine);
@@ -140,8 +140,8 @@ void AsteroidsGameWorld::draw( GraphicsEngine &graphicsEngine )
 void AsteroidsGameWorld::shootLaser()
 {
     if (laserShootDelay <= 0.0f) {
-        shared_ptr<Laser> laser = shared_ptr<Laser>(new Laser(plane.getRotationQuat(), plane.getPosition() + plane.getDirection() *0.5f, plane.getDirection()));
-        laser->changeSpeedBy(plane.getSpeed());
+        shared_ptr<Laser> laser = shared_ptr<Laser>(new Laser(spaceship.getRotationQuat(), spaceship.getPosition() + spaceship.getDirection() *0.5f, spaceship.getDirection()));
+        laser->changeSpeedBy(spaceship.getSpeed());
         laser->init(NULL, laserPhysicsComponent, laserGraphicsComponent);
         lasers.push_back(laser);
         laserShootDelay = LASER_SHOOT_DELAY_MS;
@@ -162,8 +162,8 @@ void AsteroidsGameWorld::initPhysicsComponents() {
 
 void AsteroidsGameWorld::initCamera( GraphicsEngine &graphicsEngine )
 {
-    FollowCamera *fc = new FollowCamera(&plane);
-    objectBeingFollowed = &plane;
+    FollowCamera *fc = new FollowCamera(&spaceship);
+    objectBeingFollowed = &spaceship;
     fc->setThirdPersonCamera();
     usingThirdPersonCamera = true;
     camera = fc;
@@ -173,9 +173,9 @@ void AsteroidsGameWorld::initCamera( GraphicsEngine &graphicsEngine )
 
 void AsteroidsGameWorld::initSpaceship( GameEngine &gameEngine )
 {
-    planeInputComponent->init(&plane);
-    plane.setMinSpeed(0.0f);
-    plane.init(planeInputComponent, spaceshipPhysicsComponent, spaceshipGraphicsComponent);
+    spaceshipInputComponent->init(&spaceship);
+    spaceship.setMinSpeed(0.0f);
+    spaceship.init(spaceshipInputComponent, spaceshipPhysicsComponent, spaceshipGraphicsComponent);
 }
 
 shared_ptr<Asteroid> AsteroidsGameWorld::makeOneAsteroid() 
@@ -419,7 +419,7 @@ void AsteroidsGameWorld::followShip()
         }
         cameraFollowingShip = true;
         objectBeingFollowed->setDrawn(true);
-        objectBeingFollowed = &plane;
+        objectBeingFollowed = &spaceship;
         objectBeingFollowed->setDrawn(usingThirdPersonCamera);
         followCamera->setGameObject(objectBeingFollowed);
         cameraChangeDelay = CAMERA_CHANGE_DELAY_MS;
@@ -451,7 +451,7 @@ void AsteroidsGameWorld::setThirdPersonCamera()
 void AsteroidsGameWorld::drawShipPositionText()
 {
     static char buffer[256];
-    D3DXVECTOR3 position = plane.getPosition();
+    D3DXVECTOR3 position = spaceship.getPosition();
     sprintf_s(buffer, "Position:\n%f\n%f\n%f)", position.x, position.y, position.z);
     FontSystem::DrawText(buffer, 10, 10, D3DCOLOR_XRGB(255,255,255));
 }

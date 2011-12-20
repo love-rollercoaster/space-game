@@ -272,3 +272,8 @@ D3DXMATRIX GraphicsEngine::getProjectionMatrix()
 {
     return camera->getProjectionMatrix();
 }
+
+D3DXMATRIX GraphicsEngine::getViewMatrix()
+{
+    return camera->getViewMatrix();
+}

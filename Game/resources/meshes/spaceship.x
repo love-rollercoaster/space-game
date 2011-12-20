@@ -8453,7 +8453,10 @@ Frame Root {
            96.078431;
            0.000000; 0.000000; 0.000000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"resources\\textures\\spaceship.jpg";}
+          TextureFilename {
+		    "resources\\textures\\spaceship_stopped.jpg",
+			"resources\\textures\\spaceship.jpg";
+		  }
         }
       } //End of ship_001 Material List
       MeshTextureCoords { //ship_001 UV Coordinates

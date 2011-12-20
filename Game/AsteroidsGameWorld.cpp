@@ -29,6 +29,9 @@ AsteroidsGameWorld::AsteroidsGameWorld( void )
     , usingThirdPersonCamera(true)
     , usingAsteroidGraphic(true)
     , spaceshipGraphicsComponent(new SpaceshipGraphicsComponent())
+    , asteroidGraphicsComponent(new AsteroidGraphicsComponent())
+    , laserGraphicsComponent(new LaserGraphicsComponent())
+    , planeInputComponent(new PlaneInputComponent())
 {
 }
 
@@ -39,16 +42,10 @@ AsteroidsGameWorld::~AsteroidsGameWorld( void )
 void AsteroidsGameWorld::init( GameEngine &gameEngine )
 {
     GraphicsEngine &graphicsEngine = gameEngine.getGraphicsEngine();
-    planeInputComponent = shared_ptr<InputComponent>(new PlaneInputComponent());
     initGraphicsComponents(graphicsEngine);
     initPhysicsComponents();
     initSpaceship(gameEngine);
     initAsteroids(gameEngine);
-    //makeOneAsteroid(gameEngine);
-
-    laserGraphicsComponent->init(graphicsEngine);
-    spaceshipGraphicsComponent->init(graphicsEngine);
-
     initCamera(graphicsEngine);
     initSceneryElements(graphicsEngine);
     initLighting(graphicsEngine);
@@ -152,11 +149,8 @@ void AsteroidsGameWorld::shootLaser()
 }
 
 void AsteroidsGameWorld::initGraphicsComponents(GraphicsEngine &graphicsEngine) {
-    asteroidGraphicsComponent = shared_ptr<GraphicsComponent>(new AsteroidGraphicsComponent());
     asteroidGraphicsComponent->init(graphicsEngine);
-    
     spaceshipGraphicsComponent->init(graphicsEngine);
-    laserGraphicsComponent = shared_ptr<GraphicsComponent>(new LaserGraphicsComponent());
     laserGraphicsComponent->init(graphicsEngine);
 }
 

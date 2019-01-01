@@ -1,6 +1,7 @@
 # Ignored
 doc/* linguist-vendored
 assets/* linguist-vendored
+Game/resources/* linguist-vendored
 
 # Sources
 *.c text diff=cpp
